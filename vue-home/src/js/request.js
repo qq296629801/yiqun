@@ -4,7 +4,7 @@ import qs from 'qs' // 序列化时候用到
 // get方式
 const get = async (url, params) => {
   try {
-    let { data: { success, data, errorHint } } = await axios.get(url, { params: params })
+    let { data: { success, data } } = await axios.get(url, { params: params })
     if (success) {
       return data
     } else {
@@ -16,7 +16,7 @@ const get = async (url, params) => {
 // put方式 + 序列化格式
 const put = async (url, params) => {
   try {
-    let { data: { success, errorHint } } = await axios.put(url, qs.stringify(params))
+    let { data: { success } } = await axios.put(url, qs.stringify(params))
     if (success) {
       return success
     } else {
@@ -28,7 +28,7 @@ const put = async (url, params) => {
 // delete 方式
 const deleteData = async (url, params) => {
   try {
-    let { data: { success, errorHint } } = await axios.delete(`${url}/${params}`)
+    let { data: { success } } = await axios.delete(`${url}/${params}`)
     if (success) {
       return success
     } else {
@@ -40,7 +40,7 @@ const deleteData = async (url, params) => {
 // post方式 + 序列化格式
 const formData = async (url, params) => {
   try {
-    let { data: { success, data, errorHint } } = await axios.post(url, qs.stringify(params))
+    let { data: { success, data } } = await axios.post(url, qs.stringify(params))
     if (success) {
       return data
     } else {
@@ -52,7 +52,7 @@ const formData = async (url, params) => {
 // post方式 + 序列化格式, 无data
 const formDataType2 = async (url, params) => {
   try {
-    let { data: { success, errorHint } } = await axios.post(url, qs.stringify(params))
+    let { data: { success } } = await axios.post(url, qs.stringify(params))
     if (success) {
       return success
     } else {
@@ -64,7 +64,7 @@ const formDataType2 = async (url, params) => {
 // post方式
 const post = async (url, params) => {
   try {
-    let { data: { success, data, errorHint } } = await axios.post(url, params)
+    let { data: { success, data } } = await axios.post(url, params)
     if (success) {
       return data
     } else {
