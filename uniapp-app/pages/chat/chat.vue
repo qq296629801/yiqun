@@ -977,8 +977,6 @@
 			//领取详情
 			toDetails(){
 				// 获取最新红包情况
-				this.sendMsg(8, msg.id);
-				this.packet = this.redenvelopeProcess(msg.msgContext)
 				this.$u.vuex('_redenvelope',this.packet)
 				uni.navigateTo({
 					url:'./detail'
