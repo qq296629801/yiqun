@@ -34,17 +34,13 @@
                     </div>
                     <div class="layout-nav">
                         <Menu-item name="1" to="/">
-                          <Icon type="md-home"></Icon>
-                          首页
-                        </Menu-item>
-                        <Menu-item name="2" to="/product">
-                          <Icon type="md-albums" />
-                          产品
+                          <Icon type="md-aperture" />
+                          296629801
                         </Menu-item>
                     </div>
                 </Menu>
             </Header>
-            <Content :style="{background: '#fff', minHeight: '500px'}">
+            <Content :style="{background: '#fff', minHeight: '600px'}">
                  <router-view/>
             </Content>
             <Footer class="layout-footer-center">2011-2016 &copy; <a href="https://beian.miit.gov.cn">湘ICP备20010164号-1</a>

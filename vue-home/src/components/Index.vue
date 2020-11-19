@@ -22,7 +22,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .layout .banner{
-  height: 600px;
+  height: 800px;
   border: 0;
   margin: 0;
   padding: 0;
