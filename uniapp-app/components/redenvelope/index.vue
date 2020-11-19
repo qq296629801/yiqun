@@ -19,7 +19,7 @@
 						总金额
 					</view>
 					<view class="input">
-						<input type="number" v-model="redPacket.amount" placeholder="输入金额" /> 元
+						<input type="number" v-model="redPacket.money" placeholder="输入金额" /> 元
 					</view>
 				</view>
 				<view class="tis">
@@ -46,7 +46,7 @@
 						单个金额
 					</view>
 					<view class="input">
-						<input type="number" v-model="redPacket.amount" placeholder="输入金额" /> 元
+						<input type="number" v-model="redPacket.money" placeholder="输入金额" /> 元
 					</view>
 				</view>
 				<view class="tis">
@@ -70,7 +70,7 @@
 				typeClass:'luck',//normal
 				redPacket: {
 					title: '恭喜发财,大吉大利',
-					amount: 0.00,
+					money: 0.00,
 					number: 0,
 					status: 0
 				}
@@ -82,7 +82,7 @@
 			},
 			hand(type){
 				//判断数据有效性
-				if((!this.redPacket.amount)||this.redPacket.amount<=0)
+				if((!this.redPacket.money)||this.redPacket.money<=0)
 				{
 					return uni.showToast({title:"金额不能为空",icon:'none'});
 				}

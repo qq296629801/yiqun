@@ -7,17 +7,15 @@
 			 
 				<view class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
 					<!-- 系统消息 -->
-					<view v-if="row.msgType==100" class="system">
-						<!-- 文字消息 -->
-						<view v-if="row.msgType=='text'" class="text">
+					<!-- <view class="system">
+						<view class="text">
 							{{row.msgContext}}
 						</view>
-						<!-- 领取红包消息 -->
-						<view v-if="row.msgType=='redEnvelope'" class="red-envelope">
+						<view class="red-envelope">
 							<image src="/static/img/red-envelope-chat.png"></image>
 							{{row.msgContext}}
 						</view>
-					</view>
+					</view> -->
 					
 					
 					<!-- 用户消息 -->
@@ -50,14 +48,14 @@
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
 								<div class="message-red-packet-right" style="background:orange">
 									<div class="text">
-									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
-									  <span class="packet">公司发财</span>
+									  <i slot="icon" class="iconfont hongbao" ></i>
+									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
+									  <span class="packet">恭喜发财</span>
 									</div>
 									<div class="footer">红包</div>
 									<div class="arrow-org" style="background:orange"></div>
 								  </div>
 							</view>
-
 						</view>
 						<!-- 右-头像 -->
 						<view :class="row.msgType==0?'right text':'right'" @tap="linkToCard(row.sendUid)">
@@ -105,7 +103,8 @@
 								<div class="message-red-packet-left" style="background:orange">
 									<div class="text">
 									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
-									  <span class="packet">公司发财</span>
+									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
+									  <span class="packet">恭喜发财</span>
 									</div>
 									<div class="footer">红包</div>
 									<div class="arrow-org" style="background:orange"></div>
@@ -222,9 +221,9 @@
 						</view>
 						<image :src="$url + packet.userAvatar"></image>
 					</view>
-					<view class="from">来自 {{packet.userName}} 的红包</view>
+					<view class="from">{{packet.userName}}的红包</view>
 					<view class="blessing">{{packet.description}}</view>
-					<view class="money">{{packet.money}}</view>
+					<view class="money">{{packet.money}}$</view>
 					<view class="showDetails" @tap="toDetails">
 						查看领取详情 
 						<view class="icon to"></view>
@@ -468,12 +467,14 @@
 			//处理红包数据
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
+				console.log(packets)
 				let msg = {
 						description:'红包异常',
 						money:0,
-						number:0
+						number:0,
+						userAvatar:'defalut.jpg'
 					}
-				if(packets==undefined)
+				if(packets===undefined)
 					return msg;
 				return packets[0];
 			},
