@@ -86,6 +86,7 @@
 			"style": {
 				"app-plus": {
 					"softinputNavBar": "none",
+					"scrollIndicator":"none",
 					"softinputMode": "adjustPan",
 					"titleNView": {
 						"autoBackButton": false,
@@ -332,7 +333,7 @@
 		"color": "#7B8AA0",
 		"selectedColor": "#171717",
 		"border": "none",
-		"backgroundColor": "#FFFFFF",
+		"backgroundColor": "#F6F7F8",
 		"list": [{
 			"pagePath": "pages/home/home",
 			"iconPath": "static/menu/chat.png",
