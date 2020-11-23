@@ -191,8 +191,8 @@
 				<view class="icon add"></view>
 			</view>
 			<!-- #endif -->
-			<view class="send" :class="isVoice?'hidden':''" @tap="sendMsg(0,textMsg)">
-				<view class="btn">发送</view>
+			<view class="send" :class="isVoice?'hidden':''">
+				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/send.png" mode=""></image>
 			</view>
 		</view>
 		

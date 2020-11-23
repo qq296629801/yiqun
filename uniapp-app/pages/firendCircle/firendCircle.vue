@@ -108,7 +108,7 @@
 						@confirm="sendMsg"
 					/>
 				</view>
-				<button class="btn" type="primary" size="mini" @touchend.prevent="sendMsg">发送</button>
+				<u-button class="btn" type="primary" size="mini" @click="sendMsg">发送</u-button>
 			</view>
 		</view>
 		<u-action-sheet :list="list" v-model="show" border-radius="25" safe-area-inset-bottom @click="clickAction"></u-action-sheet>
