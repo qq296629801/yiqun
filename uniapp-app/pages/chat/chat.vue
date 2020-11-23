@@ -306,7 +306,12 @@
 				emojiPath:'',
 				//红包相关参数
 				windowsState:'',
-				packet: {},
+				packet: {
+					description:'红包异常',
+					money:0,
+					number:0,
+					userAvatar:'defalut.jpg'
+				},
 				message:{},
 				sel: '' ,
 				inputOffsetBottom: 0, //键盘的高度
@@ -467,7 +472,6 @@
 			//处理红包数据
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
-				console.log(packets)
 				let msg = {
 						description:'红包异常',
 						money:0,
@@ -826,35 +830,27 @@
 			},
 			//发送消息
 			sendMsg (msgType, text) {
-			 let type = this.chatObj.chatType
-			 let chatId = this.chatObj.chatId
-			 let flag = type === 1
-			 if (flag && this.disabledSay == 1) {
+			 if (this.disabledSay == 1) {
+				 uni.showToast({
+				 	title:'你已经被管理员禁言'
+				 })
 				 return;
 			 }
 			  let arr = ['send2Friend','send2Group']
-			  this.$socket[arr[type]](chatId, this._user_info.id, text || '', msgType, res => {
+			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this._user_info.id, text, msgType, res => {
 				if (res.success) {
 					if (res.response!==undefined) {
 						const msg = res.response.data
-						if(type===1){
-							if (msg!==undefined&&msg.groupId === chatId) {
-								if(text!==''){
-									this.addMsg(msg, res);
-								}	
-							}
-						}else {
-							if(text!==''){
-								this.addMsg(msg, res);
-							}
+						if (msg.groupId!==undefined&&msg.groupId === this.chatObj.chatId) {
+							this.addMsg(msg, res);
 						}
 					}
-					this.textMsg = ''
-				}
-				if (text !== '') {
-					this.$socket.createChatList(this._user_info.id, this.chatObj.chatId, text, msgType, res => {})
 				}
 			  });
+			  if (text !== '') {
+			  	this.$socket.createChatList(this._user_info.id, this.chatObj.chatId, text, msgType, res => {})
+			  }
+			  this.textMsg = ''
 			},
 			// 接受消息(筛选处理)
 			addMsg(msg,res){
