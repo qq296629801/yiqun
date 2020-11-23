@@ -1079,16 +1079,20 @@ export default {
                     });
             }
         },
-        select2(msgType, chatId) {
-            let self = this
+        select2(msgType, text) {
+            let _this = this
             let arr = ['send2Friend','send2Friend']
-            this.$socket[arr[self.chatType]](chatId, self.user.id, this.messageContent, msgType, res => {
+            this.$socket[arr[this.chatType]](this.chat.chatId, _this.user.id, text, msgType, res => {
                 if (res.success) {
                     if (res.response != undefined) {
-                        const data = res.response.data
-                        if (data.groupId!==undefined && data.groupId === self.chat.chatId) {
-                            this.screenMsg(data, res);
-                        }
+                        let data = res.response.data
+                        if(_this.chatType===1){
+							if (data.groupId === _this.chat.chatId) {
+								_this.screenMsg(data, res);
+							}
+						}else if(this.chatType===0){
+					      _this.screenMsg(data, res);
+						}
                     }
                 }
             })
@@ -1098,7 +1102,8 @@ export default {
                 alert('你已经被禁言')
                 return false
             }
-            this.select2(msgType, this.chat.chatId)
+            console.log(1)
+            this.select2(msgType, text)
             if (this.messageContent !== '' && this.chatType === 1) {
                 this.$socket.createChatList(this.user.id, this.chat.chatId, text, msgType, res => {})
             }
@@ -1106,17 +1111,12 @@ export default {
         },
         handleRollback(item) {
             let self = this
-            let t = ((new Date()).getTime() - item.operTime) / 60000
-            if (t <= 2) {
-                let del = self.chatType === 0 ? 'deleteFriendMsg' : 'deleteGroupMsg'
-                self.$socket[del](this.user.id, item.id, self.groupInfo.group.id, res => {
-                    if (res.success) {
-                        self.send2(6, item.id)
-                    }
-                })
-            } else {
-                self.$Message.error('该消息已超过时间限制，无法撤销');
-            }
+            let del = self.chatType === 0 ? 'deleteFriendMsg' : 'deleteGroupMsg'
+            self.$socket[del](this.user.id, item.id, self.groupInfo.group.id, res => {
+                if (res.success) {
+                    self.send2(6, item.id)
+                }
+            })
         },
         changeStatusRob(m) {
             const {

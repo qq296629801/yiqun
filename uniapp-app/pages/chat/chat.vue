@@ -837,12 +837,17 @@
 				 return;
 			 }
 			  let arr = ['send2Friend','send2Group']
+			  let _this = this
 			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this._user_info.id, text, msgType, res => {
 				if (res.success) {
 					if (res.response!==undefined) {
-						const msg = res.response.data
-						if (msg.groupId!==undefined&&msg.groupId === this.chatObj.chatId) {
-							this.addMsg(msg, res);
+						const data = res.response.data
+						if(_this.chatObj.chatType===1){
+							if (data.groupId === this.chatObj.chatId) {
+								this.addMsg(data, res);
+							}
+						}else {
+							this.addMsg(data, res);
 						}
 					}
 				}
