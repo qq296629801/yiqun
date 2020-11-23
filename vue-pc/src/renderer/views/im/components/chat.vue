@@ -10,7 +10,7 @@
         <div class="im-chat-main-left">
             <div class="im-chat-main-box messages" id="message-box">
                 <ul>
-                    <li v-for="(item, index) in msgList" :class="{'im-chat-mine': item.userName == user.userName}">
+                    <li v-for="(item, index) in msgList" :class="{'im-chat-mine': item.userName == user.userName}" :key="index">
                         <div class="im-chat-user">
                             <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.userName?user.avatar:item.avatar}`" alt="">
                             <cite v-if="item.userName == user.userName">
@@ -129,7 +129,7 @@
 
         <div v-if="chatType == 1" class="im-chat-users">
             <ul class="chat-user-list">
-                <li v-for="member in members" @click="showUser(member)">
+                <li v-for="(member,i) in members" @click="showUser(member)" :key="i">
                     <span class="im-chat-avatar">
                         <img :src="`${$url}/${member.avatar}`" alt />
                     </span>
@@ -206,14 +206,7 @@
             </div>
         </div>
         <CheckboxGroup v-model="transmits" size="large">
-            <Checkbox :label="index" :value="index" v-for="(transmit, index) in transmitList" style="width: 100%; line-height: 45px;">
-                <!-- <img :src="`${$url}/${transmit.avatar || transmit.imgUrl}`" style="width: 50px;"/>
-          <div class="transmit">
-            <span>{{transmit.chatName}}</span>
-            <span>{{transmit.lastOperTime || transmit.lastOpenTime | dateFormat}}</span>
-            <span>{{transmit.msgType==0?transmit.content:message[transmit.msgType]}}</span>
-          </div> -->
-
+            <Checkbox :label="index" :value="index" v-for="(transmit, index) in transmitList" :key="index" style="width: 100%; line-height: 45px;">
                 <div class="group-box">
                     <ul class="user-list">
                         <li class="user">
@@ -247,7 +240,7 @@
         <div class="im-chat-main">
             <div class="messages" id="his-chat-message">
                 <ul>
-                    <li v-for="item in hisMessageList" :class="{'im-chat-mine': item.userName == user.userName}">
+                    <li v-for="(item,i) in hisMessageList" :key="i" :class="{'im-chat-mine': item.userName == user.userName}">
                         <div class="im-chat-user" id="historyMessageBox">
                             <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.userName?user.avatar:item.avatar}`" alt="">
                             <cite v-if="item.userName == user.userName">
@@ -623,7 +616,7 @@ export default {
                 })
             }
         },
-        open() {
+        openChat() {
             this.$socket.openChat(this.chat.chatId, this.user.id, this.chatType, res => {
                 if (res.success) {
                     if (this.chatType === 1) {
@@ -794,9 +787,9 @@ export default {
             if (this.chatType === 1) {
                 this.queryNotice()
             }
-            this.open()
+            this.openChat()
             this.getGroupInfo()
-            this.send2(0, '', true)
+            this.send2(0, '')
         },
         queryMembers() {
             this.$socket.queryMembers(this.chat.chatId, this.user.id, (res) => {
@@ -1004,7 +997,7 @@ export default {
             if (msg.sendUid != this.user.id) {
                 this.vibrateLong()
             } else {
-                this.open();
+                this.openChat();
             }
             this.$nextTick(function () {
                 // this.scrollToView = 'msg'+msg.id
@@ -1062,34 +1055,6 @@ export default {
         addSystemRedEnvelopeMsg(msg) {
             this.msgList.push(msg);
         },
-
-        select2(flag, msgType, content, stop, chatId) {
-            let self = this
-            this.$store.commit('setListLength', 0);
-            let str = flag ? 'send2Group' : 'send2Friend'
-            this.$socket[str](chatId, self.user.id, content || '', msgType, res => {
-                if (res.success) {
-                    if (res.response != undefined) {
-                        const msg = res.response.data
-                        switch (self.chatType) {
-                            case 0:
-                                if(content!==''){
-                                    this.screenMsg(msg, res);
-                                }
-                                break;
-                            case 1:
-                                if (msg.groupId == self.chat.chatId) {
-                                     if(content!==''){
-                                        this.screenMsg(msg, res);
-                                     }
-                                }
-                                break;
-                            default:
-                        }
-                    }
-                }
-            })
-        },
         vibrateLong() {
             this.audio = new Audio();
             this.audio.src = '../../../../../static/assets/mp3/msg.mp3';
@@ -1114,14 +1079,27 @@ export default {
                     });
             }
         },
-        send2(msgType, text, stop) {
-            let flag = this.chatType === 1
-            if (flag && this.disabledSay === 1) {
+        select2(msgType, chatId) {
+            let self = this
+            let arr = ['send2Friend','send2Friend']
+            this.$socket[arr[self.chatType]](chatId, self.user.id, this.messageContent, msgType, res => {
+                if (res.success) {
+                    if (res.response != undefined) {
+                        const data = res.response.data
+                        if (data.groupId!==undefined && data.groupId === self.chat.chatId) {
+                            this.screenMsg(data, res);
+                        }
+                    }
+                }
+            })
+        },
+        send2(msgType, text) {
+            if (this.disabledSay === 1&&this.chatType===1) {
                 alert('你已经被禁言')
                 return false
             }
-            this.select2(flag, msgType, text, stop, this.chat.chatId)
-            if (this.chatType === 1 && text !== '') {
+            this.select2(msgType, this.chat.chatId)
+            if (this.messageContent !== '' && this.chatType === 1) {
                 this.$socket.createChatList(this.user.id, this.chat.chatId, text, msgType, res => {})
             }
             this.messageContent = ''
