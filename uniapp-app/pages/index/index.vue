@@ -129,6 +129,7 @@ export default {
 	}
 	.read {
 		text-align: center;
+		margin-top: 40rpx;
 	}
 	.agreement {
 		color: red;
