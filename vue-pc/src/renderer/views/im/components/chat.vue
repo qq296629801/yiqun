@@ -18,7 +18,6 @@
                                 <i v-if="isShowNickName">{{item.groupNickName || item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}}</i>
                             </cite>
                             <cite v-else>
-                                <!-- {{item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}} -->
                                 <i v-if="isShowNickName">{{item.groupNickName || item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}}</i>
                                 <i>{{ item.operTime | dateFormat}}</i>
                             </cite>
@@ -75,12 +74,16 @@
                                     </div>
                                 </div>
                                 <!-- 红包 -->
-                                <div v-if="item.msgType==28" style="width:200px;height:80px;border-radius:8px">
-                                    <div class="hongbao">
-                                        <img src="../../../../../static/assets/ic_chat_hongbao.png" alt />
-                                        <span>{{item.content}}</span>
-                                    </div>
-                                    <p class="hongbaoP">红包</p>
+                                <div v-if="item.msgType==7" style="width:200px;height:80px;border-radius:8px">
+                                    <div class="message-red-packet-left" style="background:orange">
+									<div class="text">
+									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
+									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
+									  <span class="packet">恭喜发财</span>
+									</div>
+									<div class="footer">红包</div>
+									<div class="arrow-org" style="background:orange"></div>
+								  </div>
                                 </div>
                                 <!-- 戳一戳 -->
                                 <div v-if="item.msgType==84">[不支持请在手机端查看]</div>
@@ -1081,8 +1084,9 @@ export default {
         },
         select2(msgType, text) {
             let _this = this
-            let arr = ['send2Friend','send2Friend']
+            let arr = ['send2Friend','send2Group']
             this.$socket[arr[this.chatType]](this.chat.chatId, _this.user.id, text, msgType, res => {
+                console.log(res)
                 if (res.success) {
                     if (res.response != undefined) {
                         let data = res.response.data
@@ -1102,7 +1106,6 @@ export default {
                 alert('你已经被禁言')
                 return false
             }
-            console.log(1)
             this.select2(msgType, text)
             if (this.messageContent !== '' && this.chatType === 1) {
                 this.$socket.createChatList(this.user.id, this.chat.chatId, text, msgType, res => {})
@@ -1177,7 +1180,149 @@ export default {
 
 <style lang="scss">
 @import '../../../../../static/styles/theme';
+.open-redenvelope{
+	width: 100%;
+	height: 70vh;
+	background-color: #cf3c35; 
+	position: relative;
+	.top{
+		width: 100%;
+		background-color: #fe5454;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		border-radius: 0 0 100% 100%;
+		box-shadow: inset 0 -5upx 0 #9c1712;
+		.close-btn{
+			width: 100%;
+			height: 80upx;
+			display: flex;
+			justify-content: flex-end;
+			margin-bottom: 30upx;
+			.icon{
+				color: #9c1712;
+				margin-top: 10upx;
+				margin-right: 10upx;
+			}
+		}
+		image{
+			width: 130upx;
+			height: 130upx;
+			border: solid 4upx #cf3c35;
+			border-radius: 100%;
+			margin-bottom: -65upx;
+		}
+		margin-bottom: 65upx;
+	}
+	.from,.blessing,.money,.showDetails{
+		width: 90%;
+		padding: 5upx 5%;
+		display: flex;
+		justify-content: center;
+		font-size: 32upx;
+		color: #fff;
+	}
+	.money{
+		font-size: 100upx;
+		color: #f8d757;
+		display: flex;
+		padding-top: 20upx;
+	}
+	.showDetails{
+		position: absolute;
+		bottom: 20upx;
+		align-items: center;
+		font-size: 28upx;
+		color: #f8d757;
+		.icon{
+			font-size: 26upx;
+			color: #f8d757;
+		}
+	}
+}
 
+ .message-red-packet-left {
+	position: relative;
+	border-radius: 0.106667rem;
+	background: orange;
+	font-size: 0.4rem;
+	color: #fff;
+	text-align: right;
+	display: inline-table;
+	max-width: 300px;
+	min-width: 200px;
+	height: 70px;
+	box-shadow: 1px 1px 1px 1px #efefef;
+	.packet {
+	  padding-right: 12px;
+	}
+	.text {
+	  height: 40px;
+	  color: #fff;
+	  padding: 10px;
+	  i {
+		color: red;
+		font-size: 25px;
+		float: right;
+	  }
+	}
+	.footer {
+	  margin-top: 8px;
+	  height: 25px;
+	  background: white;
+	  padding-right: 5px;
+	  color: #797979;
+	}
+	.arrow-org {
+	  width: 10px;
+	  height: 10px;
+	  background: orange;
+	  position: absolute;
+	  left: -2px;
+	  top: 10px;
+	  transform: rotate(45deg);
+	}
+	}
+	.message-red-packet-right {
+	position: relative;
+	border-radius: 0.106667rem;
+	background: orange;
+	font-size: 0.4rem;
+	color: #fff;
+	text-align: left;
+	display: inline-table;
+	max-width: 300px;
+	min-width: 200px;
+	height: 70px;
+	box-shadow: 1px 1px 1px 1px #efefef;
+	.packet {
+	  padding-left: 12px;
+	}
+	.text {
+	  height: 40px;
+	  color: #fff;
+	  padding: 10px;
+	  i {
+		color: red;
+		font-size: 25px;
+	  }
+	}
+	.footer {
+	  margin-top: 8px;
+	  height: 25px;
+	  background: white;
+	  padding-left: 5px;
+	  color: #797979;
+	}
+	.arrow-org {
+	  width: 10px;
+	  height: 10px;
+	  background: orange;
+	  position: absolute;
+	  right: -2px;
+	  top: 10px;
+	  transform: rotate(45deg);
+	}
 #his-chat-message {
     padding: 1rem;
 }
