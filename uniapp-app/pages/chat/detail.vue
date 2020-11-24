@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<view class="info">
-			已领取{{_redenvelope.number-_redenvelope.surplusNumber}}/{{_redenvelope.number}}个，共{{_redenvelope.money-_redenvelope.surplusMoney}}/{{_redenvelope.money}}元
+			已领{{_redenvelope.number-_redenvelope.surplusNumber}}个，共{{_redenvelope.number}}个
 		</view>
 		<view class="list">
 			<view class="row" v-for="(row,index) in _redenvelope.Records" :key="index">

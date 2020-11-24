@@ -63,9 +63,6 @@
 						</view>
 					</view>
 					
-					
-					
-					
 					<!-- 别人发出的消息 -->
 					<view class="other" v-if="row.sendUid!=_user_info.id">
 						<view class="left-click" v-show="row.id==leftClickSelectId">
@@ -117,9 +114,6 @@
 			</scroll-view>
 		</view>
 		
-		
-		
-		
 		<!-- 抽屉栏 -->
 		<view class="popup-layer" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- 表情 -->
@@ -157,10 +151,6 @@
 			</view>
 		</view>
 		
-		
-		
-		
-		
 		<!-- 底部输入栏 -->
 		<view :style="{ bottom: inputOffsetBottom > 0 ?  '15px' : '0' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- H5下不能录音，输入栏布局改动一下 -->
@@ -196,18 +186,12 @@
 			</view>
 		</view>
 		
-		
-		
-		
 		<!-- 录音UI效果 -->
 		<view class="record" :class="recording?'':'hidden'">
 			<view class="ing" :class="willStop?'hidden':''"><view class="icon luyin2" ></view></view>
 			<view class="cancel" :class="willStop?'':'hidden'"><view class="icon chehui" ></view></view>
 			<view class="tis" :class="willStop?'change':''">{{recordTis}}</view>
 		</view>
-		
-		
-		
 		
 		<!-- 红包弹窗 -->
 		<view class="windows" :class="windowsState">
@@ -221,12 +205,10 @@
 						</view>
 						<image :src="$url + packet.userAvatar"></image>
 					</view>
-					<view class="from">{{packet.userName}}的红包</view>
+					<view class="from"> {{packet.userName}} 的红包</view>
 					<view class="blessing">{{packet.description}}</view>
-					<view class="money">{{packet.money}}$</view>
 					<view class="showDetails" @tap="toDetails">
 						查看领取详情 
-						<view class="icon to"></view>
 					</view>
 				</view>
 			</view>
@@ -828,12 +810,14 @@
 			},
 			//发送消息
 			sendMsg (msgType, text) {
+				
 			 if (this.disabledSay == 1) {
 				 uni.showToast({
 				 	title:'你已经被管理员禁言'
 				 })
 				 return;
 			 }
+			 
 			  let arr = ['send2Friend','send2Group']
 			  let _this = this
 			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this._user_info.id, text, msgType, res => {
@@ -841,8 +825,10 @@
 					if (res.response!==undefined) {
 						const data = res.response.data
 						if(_this.chatObj.chatType===1){
-							if (data.groupId === this.chatObj.chatId) {
-								this.addMsg(data, res);
+							if(data!==undefined){
+								if (data.groupId === this.chatObj.chatId) {
+									this.addMsg(data, res);
+								}
 							}
 						}else {
 							this.addMsg(data, res);
@@ -901,6 +887,7 @@
 				}
 			},
 			addRobEnvelope(res){
+				console.log(res,'roll')
 				if (res.msgId != undefined && res.message != undefined) {
 				 this.packet = this.redenvelopeProcess(res.message)
 				}
@@ -955,7 +942,6 @@
                 this.msgList.push(msg);
             },
             addRedEnvelopeMsg(msg){
-                console.log(msg)
                 this.msgList.push(msg);
             },
             // 添加系统文字消息到列表
