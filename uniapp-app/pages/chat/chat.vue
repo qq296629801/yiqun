@@ -192,7 +192,7 @@
 			</view>
 			<!-- #endif -->
 			<view class="send" :class="isVoice?'hidden':''">
-				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/send.png" mode=""></image>
+				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/bt2.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -291,7 +291,6 @@
 				recordTimer:null,
 				recordLength:0,
                 groupInfo:{},
-                disabledSay:0,
 				//播放语音相关参数
 				AUDIO:uni.createInnerAudioContext(),
 				playMsgid:null,
@@ -401,11 +400,10 @@
 			this.hideDrawer();
 		},
 		onReady() {
-			//自定义返回按钮 因为原生的返回按钮不可阻止默认事件
-			// #ifdef H5
-			const icon = document.getElementsByClassName('uni-page-head-btn')[0];
-			icon.style.display = 'none';
-			// #endif
+            // #ifdef H5
+            const icon = document.getElementsByClassName('uni-page-head-btn')[0];
+            icon.style.display = 'none';
+            // #endif
 			
 			uni.setNavigationBarTitle({
 				title: this.chatObj.chatName
