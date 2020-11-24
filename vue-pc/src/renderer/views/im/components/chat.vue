@@ -1180,149 +1180,6 @@ export default {
 
 <style lang="scss">
 @import '../../../../../static/styles/theme';
-.open-redenvelope{
-	width: 100%;
-	height: 70vh;
-	background-color: #cf3c35; 
-	position: relative;
-	.top{
-		width: 100%;
-		background-color: #fe5454;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		border-radius: 0 0 100% 100%;
-		box-shadow: inset 0 -5upx 0 #9c1712;
-		.close-btn{
-			width: 100%;
-			height: 80upx;
-			display: flex;
-			justify-content: flex-end;
-			margin-bottom: 30upx;
-			.icon{
-				color: #9c1712;
-				margin-top: 10upx;
-				margin-right: 10upx;
-			}
-		}
-		image{
-			width: 130upx;
-			height: 130upx;
-			border: solid 4upx #cf3c35;
-			border-radius: 100%;
-			margin-bottom: -65upx;
-		}
-		margin-bottom: 65upx;
-	}
-	.from,.blessing,.money,.showDetails{
-		width: 90%;
-		padding: 5upx 5%;
-		display: flex;
-		justify-content: center;
-		font-size: 32upx;
-		color: #fff;
-	}
-	.money{
-		font-size: 100upx;
-		color: #f8d757;
-		display: flex;
-		padding-top: 20upx;
-	}
-	.showDetails{
-		position: absolute;
-		bottom: 20upx;
-		align-items: center;
-		font-size: 28upx;
-		color: #f8d757;
-		.icon{
-			font-size: 26upx;
-			color: #f8d757;
-		}
-	}
-}
-
- .message-red-packet-left {
-	position: relative;
-	border-radius: 0.106667rem;
-	background: orange;
-	font-size: 0.4rem;
-	color: #fff;
-	text-align: right;
-	display: inline-table;
-	max-width: 300px;
-	min-width: 200px;
-	height: 70px;
-	box-shadow: 1px 1px 1px 1px #efefef;
-	.packet {
-	  padding-right: 12px;
-	}
-	.text {
-	  height: 40px;
-	  color: #fff;
-	  padding: 10px;
-	  i {
-		color: red;
-		font-size: 25px;
-		float: right;
-	  }
-	}
-	.footer {
-	  margin-top: 8px;
-	  height: 25px;
-	  background: white;
-	  padding-right: 5px;
-	  color: #797979;
-	}
-	.arrow-org {
-	  width: 10px;
-	  height: 10px;
-	  background: orange;
-	  position: absolute;
-	  left: -2px;
-	  top: 10px;
-	  transform: rotate(45deg);
-	}
-	}
-	.message-red-packet-right {
-	position: relative;
-	border-radius: 0.106667rem;
-	background: orange;
-	font-size: 0.4rem;
-	color: #fff;
-	text-align: left;
-	display: inline-table;
-	max-width: 300px;
-	min-width: 200px;
-	height: 70px;
-	box-shadow: 1px 1px 1px 1px #efefef;
-	.packet {
-	  padding-left: 12px;
-	}
-	.text {
-	  height: 40px;
-	  color: #fff;
-	  padding: 10px;
-	  i {
-		color: red;
-		font-size: 25px;
-	  }
-	}
-	.footer {
-	  margin-top: 8px;
-	  height: 25px;
-	  background: white;
-	  padding-left: 5px;
-	  color: #797979;
-	}
-	.arrow-org {
-	  width: 10px;
-	  height: 10px;
-	  background: orange;
-	  position: absolute;
-	  right: -2px;
-	  top: 10px;
-	  transform: rotate(45deg);
-	}
 #his-chat-message {
     padding: 1rem;
 }
@@ -1771,4 +1628,47 @@ export default {
         }
     }
 }
+
+ .message-red-packet-left {
+	position: relative;
+	border-radius: 0.106667rem;
+	background: orange;
+	font-size: 0.4rem;
+	color: #fff;
+	text-align: right;
+	display: inline-table;
+	max-width: 300px;
+	min-width: 200px;
+	height: 70px;
+	box-shadow: 1px 1px 1px 1px #efefef;
+	.packet {
+	  padding-right: 12px;
+	}
+	.text {
+	  height: 40px;
+	  color: #fff;
+	  padding: 10px;
+	  i {
+		color: red;
+		font-size: 25px;
+		float: right;
+	  }
+	}
+	.footer {
+	  margin-top: 8px;
+	  height: 25px;
+	  background: white;
+	  padding-right: 5px;
+	  color: #797979;
+	}
+	.arrow-org {
+	  width: 10px;
+	  height: 10px;
+	  background: orange;
+	  position: absolute;
+	  left: -2px;
+	  top: 10px;
+	  transform: rotate(45deg);
+	}
+	}
 </style>
