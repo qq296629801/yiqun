@@ -46,14 +46,14 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-right" style="background:orange">
+								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
 									<div class="text">
 									  <i slot="icon" class="iconfont hongbao" ></i>
-									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
-									  <span class="packet">恭喜发财</span>
+									  <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon>
+									  <span class="packet" style="font-size: 28rpx;">恭喜发财，大吉大利</span>
 									</div>
-									<div class="footer">红包</div>
-									<div class="arrow-org" style="background:orange"></div>
+									<div class="footer" style="font-size: 28rpx;">红包</div>
+									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'"></div>
 								  </div>
 							</view>
 						</view>
@@ -97,14 +97,13 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-left" style="background:orange">
+								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
 									<div class="text">
-									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
-									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
-									  <span class="packet">恭喜发财</span>
+									   <span class="packet" style="font-size: 28rpx;">恭喜发财,大吉大利</span>
+									  <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon>
 									</div>
-									<div class="footer">红包</div>
-									<div class="arrow-org" style="background:orange"></div>
+									<div class="footer" style="font-size: 28rpx;">红包</div>
+									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'"></div>
 								  </div>
 							</view>
 						</view>
@@ -206,7 +205,7 @@
 						<image :src="$url + packet.userAvatar"></image>
 					</view>
 					<view class="from"> {{packet.userName}} 的红包</view>
-					<view class="blessing">{{packet.description}}</view>
+					<view class="blessing">恭喜发财，大吉大利</view>
 					<view class="showDetails" @tap="toDetails">
 						查看领取详情 
 					</view>
@@ -445,8 +444,11 @@
 			// 打开红包
 			openRedEnvelopeFunc(msg,index){
 				this.windowsState = 'show'
+				//获取最新的message
 				this.message = msg
+				// 从服务器获取最新包
 				this.sendMsg(8, msg.id);
+				// 解析红包数据
 				this.packet = this.redenvelopeProcess(msg.msgContext)
 			},
 			//处理红包数据
@@ -824,14 +826,20 @@
 				if (res.success) {
 					if (res.response!==undefined) {
 						const data = res.response.data
-						if(_this.chatObj.chatType===1){
-							if(data!==undefined){
-								if (data.groupId === this.chatObj.chatId) {
-									this.addMsg(data, res);
-								}
-							}
+						if(res.msgType===8){
+							_this.addRobEnvelope(res);
+						}else if(res.msgType===6){
+							_this.addRevoke(res);
 						}else {
-							this.addMsg(data, res);
+							if(_this.chatObj.chatType===1){
+								if(data!==undefined){
+									if (data.groupId === this.chatObj.chatId) {
+										_this.addMsg(data);
+									}
+								}
+							}else {
+								_this.addMsg(data);
+							}
 						}
 					}
 				}
@@ -842,7 +850,7 @@
 			  this.textMsg = ''
 			},
 			// 接受消息(筛选处理)
-			addMsg(msg,res){
+			addMsg(msg){
 				// 用户消息
 				switch (msg.msgType){
 					case 0:
@@ -854,14 +862,8 @@
 					case 3:
 						this.addVoiceMsg(msg);
 						break;
-					case 6:
-						this.addRevoke(res);
-						break;
 					case 7:
 						this.addRedEnvelopeMsg(msg);
-						break;
-					case 8:
-						this.addRobEnvelope(res);
 						break;
 					default:
 				}
@@ -887,7 +889,6 @@
 				}
 			},
 			addRobEnvelope(res){
-				console.log(res,'roll')
 				if (res.msgId != undefined && res.message != undefined) {
 				 this.packet = this.redenvelopeProcess(res.message)
 				}
@@ -962,6 +963,8 @@
 			//领取详情
 			toDetails(){
 				// 获取最新红包情况
+				//TODO 从服务器上获取红包列表
+				//let packet = this.redenvelopeProcess(this.message.msgContext)
 				this.$u.vuex('_redenvelope',this.packet)
 				uni.navigateTo({
 					url:'./detail'
