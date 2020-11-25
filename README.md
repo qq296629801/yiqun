@@ -12,7 +12,7 @@
 - `https://gitee.com/xiaowang0482/wechat.git`
 
 #### 联系方式 
-QQ群1025293030
+QQ群 1025293030
 
 #### 演示
 
@@ -21,9 +21,9 @@ QQ群1025293030
 账号：admin
 密码：123456
 
-PC : [apk 下载](http://39.100.14.171/yiqun2.exe)
+PC : [EXE 下载](http://39.100.14.171/yiqun2.exe)
 
-APP: [exe 下载](http://39.100.14.171/yiqun2.apk)
+APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
 
 ![pc1](doc/img/微信截图_20201114220441.png)
 ![pc2](doc/img/微信截图_20201114221956.png)
