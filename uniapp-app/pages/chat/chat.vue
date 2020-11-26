@@ -181,7 +181,7 @@
 			</view>
 			<!-- #endif -->
 			<view class="send" :class="isVoice?'hidden':''">
-				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/bt2.png" mode=""></image>
+				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/send.png" mode=""></image>
 			</view>
 		</view>
 		
