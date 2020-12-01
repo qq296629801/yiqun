@@ -35,7 +35,7 @@
 						<view class="time">
 							{{row.lastUpdateTime}}
 						</view>
-						<view class="lucky" v-if="row.islucky">
+						<view class="lucky" v-if="row.isLucky">
 							手气王
 						</view>
 					</view>
