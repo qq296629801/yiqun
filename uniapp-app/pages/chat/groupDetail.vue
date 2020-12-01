@@ -10,7 +10,7 @@
 		></u-navbar>
 		<view style="background-color: #FFFFFF;padding-left: 30rpx;">
 			<u-grid :col="6" :border="false">
-				<u-grid-item v-for="(item, index) in members" :index="index" :key="item.id" v-if="index<=20" @tap="linkToCard(item.id)">
+				<u-grid-item v-for="(item, index) in members" :index="index" :key="item.id" v-if="index<=10" @tap="linkToCard(item.id)">
 					<u-avatar :src="$url + item.avatar" mode="square"></u-avatar>
 					<view class="grid-text">{{ item.groupNickName||item.nickName }}</view>
 				</u-grid-item>
@@ -20,7 +20,7 @@
 					</view>
 				</u-grid-item>
 			</u-grid>
-			<view @tap="linkToMore" v-if="members.length>20" style="text-align: center;color: #404133;padding-bottom: 10rpx;">查看更多成员</view>
+			<view @tap="linkToMore" v-if="members.length>10" style="text-align: center;color: #404133;padding-bottom: 10rpx;">查看更多成员</view>
 		</view>
 		<view style="height: 10rpx;"></view>
 		<u-cell-group>

@@ -18,7 +18,6 @@
                                 <i v-if="isShowNickName">{{item.groupNickName || item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}}</i>
                             </cite>
                             <cite v-else>
-                                <!-- {{item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}} -->
                                 <i v-if="isShowNickName">{{item.groupNickName || item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}}</i>
                                 <i>{{ item.operTime | dateFormat}}</i>
                             </cite>
@@ -75,12 +74,16 @@
                                     </div>
                                 </div>
                                 <!-- 红包 -->
-                                <div v-if="item.msgType==28" style="width:200px;height:80px;border-radius:8px">
-                                    <div class="hongbao">
-                                        <img src="../../../../../static/assets/ic_chat_hongbao.png" alt />
-                                        <span>{{item.content}}</span>
-                                    </div>
-                                    <p class="hongbaoP">红包</p>
+                                <div v-if="item.msgType==7" style="width:200px;height:80px;border-radius:8px">
+                                    <div class="message-red-packet-left" style="background:orange">
+									<div class="text">
+									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
+									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
+									  <span class="packet">恭喜发财</span>
+									</div>
+									<div class="footer">红包</div>
+									<div class="arrow-org" style="background:orange"></div>
+								  </div>
                                 </div>
                                 <!-- 戳一戳 -->
                                 <div v-if="item.msgType==84">[不支持请在手机端查看]</div>
@@ -1079,16 +1082,21 @@ export default {
                     });
             }
         },
-        select2(msgType, chatId) {
-            let self = this
-            let arr = ['send2Friend','send2Friend']
-            this.$socket[arr[self.chatType]](chatId, self.user.id, this.messageContent, msgType, res => {
+        select2(msgType, text) {
+            let _this = this
+            let arr = ['send2Friend','send2Group']
+            this.$socket[arr[this.chatType]](this.chat.chatId, _this.user.id, text, msgType, res => {
+                console.log(res)
                 if (res.success) {
                     if (res.response != undefined) {
-                        const data = res.response.data
-                        if (data.groupId!==undefined && data.groupId === self.chat.chatId) {
-                            this.screenMsg(data, res);
-                        }
+                        let data = res.response.data
+                        if(_this.chatType===1){
+							if (data.groupId === _this.chat.chatId) {
+								_this.screenMsg(data, res);
+							}
+						}else if(this.chatType===0){
+					      _this.screenMsg(data, res);
+						}
                     }
                 }
             })
@@ -1098,7 +1106,7 @@ export default {
                 alert('你已经被禁言')
                 return false
             }
-            this.select2(msgType, this.chat.chatId)
+            this.select2(msgType, text)
             if (this.messageContent !== '' && this.chatType === 1) {
                 this.$socket.createChatList(this.user.id, this.chat.chatId, text, msgType, res => {})
             }
@@ -1106,17 +1114,12 @@ export default {
         },
         handleRollback(item) {
             let self = this
-            let t = ((new Date()).getTime() - item.operTime) / 60000
-            if (t <= 2) {
-                let del = self.chatType === 0 ? 'deleteFriendMsg' : 'deleteGroupMsg'
-                self.$socket[del](this.user.id, item.id, self.groupInfo.group.id, res => {
-                    if (res.success) {
-                        self.send2(6, item.id)
-                    }
-                })
-            } else {
-                self.$Message.error('该消息已超过时间限制，无法撤销');
-            }
+            let del = self.chatType === 0 ? 'deleteFriendMsg' : 'deleteGroupMsg'
+            self.$socket[del](this.user.id, item.id, self.groupInfo.group.id, res => {
+                if (res.success) {
+                    self.send2(6, item.id)
+                }
+            })
         },
         changeStatusRob(m) {
             const {
@@ -1177,7 +1180,6 @@ export default {
 
 <style lang="scss">
 @import '../../../../../static/styles/theme';
-
 #his-chat-message {
     padding: 1rem;
 }
@@ -1626,4 +1628,47 @@ export default {
         }
     }
 }
+
+ .message-red-packet-left {
+	position: relative;
+	border-radius: 0.106667rem;
+	background: orange;
+	font-size: 0.4rem;
+	color: #fff;
+	text-align: right;
+	display: inline-table;
+	max-width: 300px;
+	min-width: 200px;
+	height: 70px;
+	box-shadow: 1px 1px 1px 1px #efefef;
+	.packet {
+	  padding-right: 12px;
+	}
+	.text {
+	  height: 40px;
+	  color: #fff;
+	  padding: 10px;
+	  i {
+		color: red;
+		font-size: 25px;
+		float: right;
+	  }
+	}
+	.footer {
+	  margin-top: 8px;
+	  height: 25px;
+	  background: white;
+	  padding-right: 5px;
+	  color: #797979;
+	}
+	.arrow-org {
+	  width: 10px;
+	  height: 10px;
+	  background: orange;
+	  position: absolute;
+	  left: -2px;
+	  top: 10px;
+	  transform: rotate(45deg);
+	}
+	}
 </style>
