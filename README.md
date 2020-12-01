@@ -7,16 +7,25 @@
 
 >个人也能玩得转的IM
 
-#### 来源
+
+
+
+#### 目录
+
+- uni-app   手机版支持 h5 ios android
+- vue-pc    电脑版支持 window linux mac 
+- vue-admin 后台管理系统
+- vue-home  作用未知
+
+
+#### 感谢
 - `https://gitee.com/lele-666/V-IM.git` 
 - `https://gitee.com/xiaowang0482/wechat.git`
 
-#### 联系方式 
-QQ群 1025293030
-
+#### 联系
+QQ群  1025293030
+微信  wandoufilm
 #### 演示
-
-后台:暂未上传
 
 账号：admin
 密码：123456
@@ -28,6 +37,8 @@ APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
 ![pc1](doc/img/微信截图_20201114220441.png)
 ![pc2](doc/img/微信截图_20201114221956.png)
 ![pc3](doc/img/微信截图_20201114223334.png)
+![app0](doc/img/微信截图_20201201170431.png)
+![app11](doc/img/微信截图_20201201170845.png)
 ![app1](doc/img/微信截图_20201117184615.png)
 ![app2](doc/img/微信截图_20201117184810.png)
 ![app3](doc/img/微信截图_20201117184821.png)
