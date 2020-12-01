@@ -49,14 +49,20 @@ QQ群  1025293030
 
 #### 地址
 
->账号：admin
->密码：123456
+> 账号：admin
 
-后台: [WEB 地址](http://120.27.95.106/index.html) 
+> 密码：123456
+
+
+
+后台: [后台 地址](http://120.27.95.106/index.html) 
 
 PC : [EXE 下载](http://39.100.14.171/yiqun2.exe)
 
 APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
+
+MAC H5 Linux: 暂未发布 
+
 
 
 #### pc演示
