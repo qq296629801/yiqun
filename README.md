@@ -1,4 +1,4 @@
-# 易群
+# 易群1.0
 
 #### 官网
 [https://bzghost.com](https://bzghost.com) 
@@ -59,13 +59,13 @@ PC : [EXE 下载](http://39.100.14.171/yiqun2.exe)
 APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
 
 
-# pc图片演示
+#### pc演示
 
 ![pc1](doc/img/微信截图_20201114220441.png)
 ![pc2](doc/img/微信截图_20201114221956.png)
 ![pc3](doc/img/微信截图_20201114223334.png)
 
-# app图片演示
+#### app演示
  
 ![app0](doc/img/微信截图_20201201201326.png)
 ![app11](doc/img/微信截图_20201201170845.png)
@@ -75,7 +75,7 @@ APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
 ![app4](doc/img/微信截图_20201117184838.png)
 ![app5](doc/img/微信截图_20201117184845.png)
 
-# 后台图片演示
+#### 后台演示
 ![logo](doc/img/微信截图_20201201211920.png)
 ![群组](doc/img/微信截图_20201201211950.png)
 ![用户](doc/img/微信截图_20201201212023.png)
