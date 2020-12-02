@@ -81,10 +81,15 @@ const WEBIM = {
 		send(requestPacket)
 		eventDispatcher.addListener('2', func)
 	},
-	register: (packet, func) => {
-		packet.version = 1
-		packet.command = 49
-		send(packet)
+	register: (phone, password, nickname, func) => {
+		let p = {
+			phone,
+			password,
+			nickname,
+			version:1,
+			command:49
+		}
+		send(p)
 		eventDispatcher.addListener('50', func)
 	},
 
