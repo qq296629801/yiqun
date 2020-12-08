@@ -90,7 +90,7 @@
 					"softinputMode": "adjustPan",
 					"titleNView": {
 						"autoBackButton": false,
-						"backgroundColor": "#F6F7F8",
+						"backgroundColor": "#fff",
 						"buttons": [{
 								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"float": "right",

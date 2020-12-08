@@ -48,11 +48,11 @@
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
 								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
 									<div class="text">
-									  <i slot="icon" class="iconfont hongbao" ></i>
-									  <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon>
+									  <view class="iconfont iconhongbao"></view>
+									  <!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
 									  <span class="packet" style="font-size: 28rpx;">恭喜发财，大吉大利</span>
 									</div>
-									<div class="footer" style="font-size: 28rpx;">红包</div>
+									<div class="footer" style="font-size: 20rpx;">红包</div>
 									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'"></div>
 								  </div>
 							</view>
@@ -97,13 +97,14 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
+								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:orange'">
 									<div class="text">
-									   <span class="packet" style="font-size: 28rpx;">恭喜发财,大吉大利</span>
-									  <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon>
+									   <span class="packet" style="font-size: 20px;">恭喜发财,大吉大利</span>
+										<view class="iconfont iconhongbao1"></view>
+										<!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
 									</div>
-									<div class="footer" style="font-size: 28rpx;">红包</div>
-									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'"></div>
+									<div class="footer" style="font-size: 12px;">红包</div>
+									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:orange'"></div>
 								  </div>
 							</view>
 						</view>
@@ -155,12 +156,12 @@
 			<!-- H5下不能录音，输入栏布局改动一下 -->
 			<!-- #ifndef H5 -->
 			<view class="voice">
-				<view class="icon" :class="isVoice?'jianpan':'yuyin'" @tap="switchVoice"></view>
+				<view class="iconfont iconyuyin1" :class="isVoice?'jianpan':'yuyin'" @tap="switchVoice"></view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
 			<view class="more" @tap="showMore">
-				<view class="icon add"></view>
+				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
 			<view class="textbox">
@@ -171,17 +172,17 @@
 						<textarea auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" />
 						</view>
 					<view class="em" @tap="chooseEmoji">
-						<view class="icon biaoqing"></view>
+						<view class="iconfont iconbiaoqing"></view>
 					</view>
 				</view>
 			</view>
 			<!-- #ifndef H5 -->
 			<view class="more" @tap="showMore">
-				<view class="icon add"></view>
+				<view class="confont icontianjia"></view>
 			</view>
 			<!-- #endif -->
 			<view class="send" :class="isVoice?'hidden':''">
-				<image @tap="sendMsg(0,textMsg)" src="../../static/menu/send.png" mode=""></image>
+				<u-button type="success" size="mini" @tap="sendMsg(0,textMsg)">发送</u-button>
 			</view>
 		</view>
 		
@@ -1090,4 +1091,5 @@
 </script>
 <style lang="scss">
 	@import "./style.scss";
+	@import "./iconfont.css"
 </style>
