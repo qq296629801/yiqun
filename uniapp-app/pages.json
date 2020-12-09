@@ -340,7 +340,7 @@
 		"color": "#7B8AA0",
 		"selectedColor": "#171717",
 		"border": "none",
-		"backgroundColor": "#F6F7F8",
+		"backgroundColor": "#fff",
 		"list": [{
 			"pagePath": "pages/home/home",
 			"iconPath": "static/menu/chat.png",
@@ -367,7 +367,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "聊天",
 		"navigationBarBackgroundColor": "#F6F7F8",
-		"backgroundColor": "#F6F7F8",
+		"backgroundColor": "#fff",
 		"backgroundTextStyle": "light",
 		"pageOrientation": "portrait",
 		"app-plus": {
