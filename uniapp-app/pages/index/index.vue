@@ -66,23 +66,26 @@ export default {
 		doLogin() {
 			this.$socket.login(this._login.userName, this._login.passWord, null,res=>{
 				if (res.success) {
-				    //this.$u.vuex('_user_info', res.response.data)
 					// 缓存用户
 					this.$u.vuex('_user_info', res.response.data)
 					this.$u.vuex('_login',this._login)
-					// 缓存通讯录
+					// 	缓存通讯录
 					this.$socket.listGuests(this._user_info.id, res => {
 						this.$u.vuex('firendList', res.response.data)
 					})
-					//缓存链接
+					//	缓存链接
 					this.$socket.getLinks(this._user_info.id, res=>{
 						this.$u.vuex('links',res.response.data)
 					});
-					// 跳转到消息列表
-					this.$u.route({
-						url: 'pages/home/home',
-						type: 'switchTab'
+					// 批量进入房间
+					this.$socket.getGroups('', this._user_info.id, res => {
+						let list = res.response.data;
+						let groupIds = [];
+						list.forEach(g=>groupIds.push(g.chatId));
+						console.log(groupIds);
+						this.$socket.joinRoom(groupIds,res=>{})
 					});
+					// 跳转到消息列表
 					this.$u.route({
 						url: 'pages/home/home',
 						type: 'switchTab'
