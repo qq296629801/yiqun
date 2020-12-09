@@ -48,7 +48,7 @@
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
 								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
 									<div class="text">
-									  <view class="iconfont iconhongbao"></view>
+									  <view class="iconfont iconhongbao" style="color: #EB4B29;"></view>
 									  <!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
 									  <span class="packet" style="font-size: 28rpx;">恭喜发财，大吉大利</span>
 									</div>
@@ -97,10 +97,10 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:orange'">
+								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:##F7DFC3'">
 									<div class="text">
 									   <span class="packet" style="font-size: 20px;">恭喜发财,大吉大利</span>
-										<view class="iconfont iconhongbao1"></view>
+										<view class="iconfont iconhongbao1" style="color: #EB4B29;"></view>
 										<!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
 									</div>
 									<div class="footer" style="font-size: 12px;">红包</div>
@@ -178,7 +178,7 @@
 			</view>
 			<!-- #ifndef H5 -->
 			<view class="more" @tap="showMore">
-				<view class="confont icontianjia"></view>
+				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
 			<view class="send" :class="isVoice?'hidden':''">
