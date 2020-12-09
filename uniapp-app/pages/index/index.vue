@@ -5,9 +5,11 @@
 			<u-avatar src="/static/icon-40@3x.png" mode="square"></u-avatar>
 			<view class="content_body_pswd">
 				<u-cell-group>
+					
 					<u-field v-model="_login.userName" clearable type="text" label="用户名" placeholder="请填写用户名"></u-field>
 					<u-field v-model="_login.passWord" clearable type="text" password label="密码" placeholder="请填写密码"></u-field>
 				</u-cell-group>
+				
 			</view>
 			<view class="read">
 				<u-checkbox name="isRead" v-model="isRead">

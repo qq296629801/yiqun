@@ -328,7 +328,14 @@
 				"navigationBarTitleText": "所有成员"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/my/index",
+            "style": {
+            	"navigationBarTitleText": "wxCenter 仿微信个人中心",
+            	"navigationStyle": "custom"
+            }
+        }
+    ],
 	"tabBar": {
 		"color": "#7B8AA0",
 		"selectedColor": "#171717",
