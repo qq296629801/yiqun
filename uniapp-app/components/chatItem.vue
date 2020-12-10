@@ -111,7 +111,7 @@
 				justify-content: space-between;
 				&_name {
 					font-size: 28rpx;
-					font-weight: 600;
+					font-weight: 800;
 					color: $u-main-color;
 					flex: 0 0 450rpx;
 					overflow: hidden;

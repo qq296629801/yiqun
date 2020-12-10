@@ -56,4 +56,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+	.content{
+		background-color: #fff;
+	}
+</style>

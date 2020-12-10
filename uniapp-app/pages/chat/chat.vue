@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="content" id="content" @touchstart="hideDrawer">
-			<scroll-view class="msg-list" :class="{'chat-h':popupLayerClass === 'showLayer'}" scroll-y="true"
+			<scroll-view id="scrollview" class="msg-list" :class="{'chat-h':popupLayerClass === 'showLayer'}" scroll-y="true"
 			 :scroll-with-animation="scrollAnimation" :scroll-top="scrollTop" :scroll-into-view="scrollToView" @scrolltoupper="loadHistory"
 			 upper-threshold="50">
 			 
-				<view class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
+				<view id="msglistview" class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
 					<!-- 系统消息 -->
 					<!-- <view class="system">
 						<view class="text">
@@ -182,7 +182,7 @@
 			</view>
 			<!-- #endif -->
 			<view class="send" :class="isVoice?'hidden':''">
-				<u-button type="success" size="mini" @tap="sendMsg(0,textMsg)">发送</u-button>
+				<view @tap="sendMsg(0,textMsg)" class="iconfont icontuiguang-weixuan"></view>
 			</view>
 		</view>
 		
@@ -419,6 +419,17 @@
 			}
 		},
 		methods:{
+			scrollToBottom(t) {
+					let that = this
+					let query = uni.createSelectorQuery()
+					query.select('#scrollview').boundingClientRect()
+					query.select('#msglistview').boundingClientRect()
+					query.exec((res) => {
+						if(res[1].height > res[0].height){
+							that.scrollTop = res[1].height - res[0].height
+						}
+					})
+			},
 			weizhi(){
 				uni.getLocation({
 					type: 'wgs84 ',
@@ -1091,5 +1102,4 @@
 </script>
 <style lang="scss">
 	@import "./style.scss";
-	@import "./iconfont.css"
 </style>

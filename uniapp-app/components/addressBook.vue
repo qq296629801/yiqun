@@ -108,6 +108,7 @@
 	overflow: hidden;
 	color: #323233;
 	font-size: 28rpx;
+	font-weight: 800;
 	line-height: 48rpx;
 	background-color: #fff;
 	border-bottom: solid 2rpx #f3f3f3;

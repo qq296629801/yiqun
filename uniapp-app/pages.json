@@ -357,7 +357,7 @@
 			"selectedIconPath": "static/menu/see_s.png",
 			"text": "发现"
 		}, {
-			"pagePath": "pages/my/my",
+			"pagePath": "pages/my/index",
 			"iconPath": "static/menu/my.png",
 			"selectedIconPath": "static/menu/my_s.png",
 			"text": "我"

@@ -11,7 +11,6 @@
             }
 		},
 		onHide: function() {
-			
 		}
 	}
 </script>
@@ -36,4 +35,5 @@
 	.u-action-sheet-itemz{
 		font-size: 28rpx !important;
 	}
+	@import "/components/font_2257399_jn7zszj9izf/iconfont.css";
 </style>

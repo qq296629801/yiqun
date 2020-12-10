@@ -81,8 +81,7 @@ export default {
 					this.$socket.getGroups('', this._user_info.id, res => {
 						let list = res.response.data;
 						let groupIds = [];
-						list.forEach(g=>groupIds.push(g.chatId));
-						console.log(groupIds);
+						list.forEach(group=>groupIds.push(group.chatId));
 						this.$socket.joinRoom(groupIds,res=>{})
 					});
 					// 跳转到消息列表
