@@ -4,13 +4,10 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/login/login",
 			"style": {
-				//"navigationBarTitleText": "登录",
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleView": false
-				}
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#F6F7F8"
 			}
 		},
 		{
@@ -331,10 +328,30 @@
 	    ,{
             "path" : "pages/my/index",
             "style": {
-            	"navigationBarTitleText": "wxCenter 仿微信个人中心",
+            	"navigationBarTitleText": "我的",
             	"navigationStyle": "custom"
             }
-        }
+        },
+		{
+			"path": "pages/login/reg",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#F6F7F8"
+			}
+		},
+		{
+			"path": "pages/login/forget",
+			"style": {
+				"navigationBarTitleText": "忘记密码",
+		    "navigationBarBackgroundColor":"#F6F7F8"
+			}
+		},
+		{
+			"path": "pages/login/agreement",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7B8AA0",

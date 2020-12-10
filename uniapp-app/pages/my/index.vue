@@ -56,7 +56,7 @@
 					{
 						title: '表情',
 						color: '#ff9900',
-						icon: 'heart'
+						icon: 'star'
 					}
 				],
 			}

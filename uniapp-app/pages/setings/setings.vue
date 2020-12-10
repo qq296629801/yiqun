@@ -61,7 +61,7 @@
 			logout(){
 				uni.clearStorageSync();
 				this.$u.route({
-					url: 'pages/index/index'
+					url: 'pages/login/login'
 				});
 			},
 			upApp(){

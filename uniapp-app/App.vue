@@ -6,7 +6,7 @@
 		onShow: function() {
 		    if(this._user_info.id==''){
                 this.$u.route({
-                    url: 'pages/index/index'
+                    url: 'pages/login/login'
                 });
             }
 		},
@@ -35,5 +35,5 @@
 	.u-action-sheet-itemz{
 		font-size: 28rpx !important;
 	}
-	@import "/components/font_2257399_jn7zszj9izf/iconfont.css";
+	@import "/components/font/iconfont.css";
 </style>
