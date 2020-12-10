@@ -643,10 +643,10 @@
 			    },
 			//触发滑动到顶部(加载历史信息记录)
 			loadHistory(e){
-			if(this.isHistoryLoading){
-				return ;
-			}
-			this.isHistoryLoading = true;
+			uni.showLoading({
+				title:"加载中..."
+			})
+
 			//参数作为进入请求标识，防止重复请求
 			this.scrollAnimation = false;
 			//关闭滑动动画
@@ -667,8 +667,8 @@
 						this.pageNum++
 					});
 				  }
+				  uni.hideLoading();
 				  this.scrollAnimation = true;
-				  this.isHistoryLoading = false;
 				});
 			},
 			//处理图片尺寸，如果不处理宽高，新进入页面加载图片时候会闪
