@@ -185,6 +185,15 @@ export default {
                     this.$store.commit('setHost', self.host);
                     // 后台改版返回
                     this.$store.commit('setUser', res.response.data);
+                    this.$socket.getGroups('', this.user.id, (result) => {
+                        if (result.response.success){
+                            let list = result.response.data;
+                            let groupIds = [];
+                            list.forEach(group=>groupIds.push(group.chatId));
+                            this.$socket.joinRoom(groupIds,res=>{})
+                        }
+                    })
+
                     self.$router.push({
                         path: '/index/chatBox',
                         params: {}

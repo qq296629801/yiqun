@@ -725,6 +725,24 @@ const WEBIM = {
         }
         send(req)
         eventDispatcher.addListener('115', func)
+    },
+    joinRoom:(groupIds, func) =>{
+        let p={
+            groupIds,
+            version: 1,
+            command: -1
+        }
+        send(p)
+        eventDispatcher.addListener('-2', func)
+    },
+    quitRoom:(groupIds, func) =>{
+        let p={
+            groupIds,
+            version: 1,
+            command: -3
+        }
+        send(p)
+        eventDispatcher.addListener('-4', func)
     }
 }
 
