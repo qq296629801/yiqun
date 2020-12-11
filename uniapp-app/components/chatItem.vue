@@ -11,7 +11,7 @@
 			<view class="right_btm ">
 				<view class="u-line-1">{{value.msgType==0?value.content:message[value.msgType]}}</view>
 				<view class="" v-show="voiceIcon">
-					<u-icon color="#c4c7cf" v-if="index%2==0" name="volume-off" size="22"></u-icon>
+					<u-icon color="#c4c7cf" v-if="index%2==0" name="bell" size="22"></u-icon>
 				</view>
 			</view>
 		</view>
@@ -105,7 +105,7 @@
 		.right {
 			overflow: hidden;
 			flex: 1 0;
-			padding: 20rpx 20rpx 20rpx 0;
+			padding: 20rpx 20rpx 40rpx 0;
 			&_top {
 				display: flex;
 				justify-content: space-between;
