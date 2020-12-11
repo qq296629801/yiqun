@@ -156,7 +156,7 @@
 			<!-- H5下不能录音，输入栏布局改动一下 -->
 			<!-- #ifndef H5 -->
 			<view class="voice">
-				<view class="iconfont iconyuyin1" :class="isVoice?'jianpan':'yuyin'" @tap="switchVoice"></view>
+				<view class="iconfont iconyuyin1" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
