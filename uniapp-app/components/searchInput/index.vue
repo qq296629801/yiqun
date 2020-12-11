@@ -1,7 +1,7 @@
 <template>
 	<view class="content_search  u-border-bottom">
 		<view @tap="clickInput">
-			<u-search  placeholder="搜索" shape="square" :show-action="false" :bg-color="'#ffffff'" :disabled="true"></u-search>
+			<u-search placeholder="搜索" shape="square" :show-action="false" :bg-color="'#ffffff'" :disabled="true"></u-search>
 		</view>
 	</view>
 </template>
