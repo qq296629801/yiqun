@@ -16,7 +16,7 @@
       </view>
       <view class="list-call">
        <view class="iconfont iconyanzhengyanzhengma" style="font-size: 17px;color: #333;"></view>
-        <input class="sl-input" v-model="code" type="number" maxlength="4" placeholder="验证码" />
+        <input class="sl-input" v-model="code" type="number" maxlength="6" placeholder="验证码" />
         <view class="yzm" :class="{ yzms: second>0 }" @tap="getcode">{{yanzhengma}}</view>
       </view>
     </view>
@@ -24,7 +24,9 @@
     <view class="button-login" hover-class="button-hover" @tap="bindLogin">
       <text>注册</text>
     </view>
-
+	
+	<u-toast ref="uToast" />
+	
     <view class="agreement">
       <image @tap="agreementSuccess" :src="agreement==true?'/static/shilu-login/ty1.png':'/static/shilu-login/ty0.png'"></image>
       <text @tap="agreementSuccess"> 同意</text>
@@ -101,37 +103,16 @@
           if (_this.second == 0) {
             _this.clear()
           }
-        }, 1000)
-        // uni.request({
-        //   url: 'http://***/getcode.html', //仅为示例，并非真实接口地址。
-        //   data: {
-        //     phone: this.phone,
-        //     type: 'reg'
-        //   },
-        //   method: 'POST',
-        //   dataType: 'json',
-        //   success: (res) => {
-        //     if (res.data.code != 200) {
-        //       uni.showToast({
-        //         title: res.data.msg,
-        //         icon: 'none'
-        //       });
-        //     } else {
-        //       uni.showToast({
-        //         title: res.data.msg
-        //       });
-        //       js = setInterval(function() {
-        //         _this.second--;
-        //         if (_this.second == 0) {
-        //           _this.clear()
-        //         }
-        //       }, 1000)
-        //     }
-        //   },
-        //   fail() {
-        //     this.second == 0
-        //   }
-        // });
+        }, 1000);
+		
+		uni.request({
+			url:this.$registerUrl+'/register/sendSms', 
+			data: {phone:this.phone},
+			success: (res) => {
+				console.log(res.data);
+			}
+		});
+		
       },
       bindLogin() {
         if (this.agreement == false) {
@@ -155,39 +136,73 @@
           });
           return;
         }
-        if (this.code.length != 4) {
+        if (this.code.length != 6) {
           uni.showToast({
             icon: 'none',
             title: '验证码不正确'
           });
           return;
         }
-        uni.request({
-          url: 'http://***/reg.html',
-          data: {
-            phone: this.phone,
-            password: this.password,
-            code: this.code,
-            invitation: this.invitation
-          },
-          method: 'POST',
-          dataType: 'json',
-          success: (res) => {
-            if (res.data.code != 200) {
-              uni.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              });
-            } else {
-              uni.showToast({
-                title: res.data.msg
-              });
-              setTimeout(function() {
-                uni.navigateBack();
-              }, 1500)
-            }
-          }
-        });
+		
+		uni.request({
+			url:this.$registerUrl+'/register/register', 
+			data: {
+				phone:this.phone,
+				pwd:this.password,
+				code:this.code
+			},
+			success: (res) => {
+				if(res.data.data === '注册失败') {
+					return this.$u.toast(res.data.data);
+				} else {
+					this.$refs.uToast.show({
+						title: '注册成功',
+						type: 'success', 
+						icon: true,
+						url:'pages/login/login'
+					})
+				}	
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        // uni.request({
+        //   url: 'http://***/reg.html',
+        //   data: {
+        //     phone: this.phone,
+        //     password: this.password,
+        //     code: this.code,
+        //     invitation: this.invitation
+        //   },
+        //   method: 'POST',
+        //   dataType: 'json',
+        //   success: (res) => {
+        //     if (res.data.code != 200) {
+        //       uni.showToast({
+        //         title: res.data.msg,
+        //         icon: 'none'
+        //       });
+        //     } else {
+        //       uni.showToast({
+        //         title: res.data.msg
+        //       });
+        //       setTimeout(function() {
+        //         uni.navigateBack();
+        //       }, 1500)
+        //     }
+        //   }
+        // });
 
       }
     }
