@@ -5,19 +5,18 @@
     </view>
     <view class="list">
       <view class="list-call">
-        <view class="iconfont iconshoujihao" style="font-size: 20px;"></view>
+        <view class="iconfont iconshoujihao" style="font-size: 20px;color: #E4E6F3;"></view>
         <input class="sl-input" v-model="phone" type="text" maxlength="11" placeholder="输入手机号" />
       </view>
       <view class="list-call">
-        <view class="iconfont iconmima1" style="font-size: 20px;"></view>
+        <view class="iconfont iconmima1" style="font-size: 20px;color: #E4E6F3;"></view>
         <input class="sl-input" v-model="password" type="text" maxlength="32" placeholder="输入密码" password="true" />
+		 <image class="img" :src="showPassword?'/static/shilu-login/op.png':'/static/shilu-login/cl.png'" @tap="display"></image>
       </view>
     </view>
-
     <view class="button-login" hover-class="button-hover" @tap="doLogin()">
       <text>登录</text>
     </view>
-
     <view class="agreenment">
       <navigator url="forget" open-type="navigate">忘记密码</navigator>
       <text>|</text>
@@ -31,10 +30,14 @@
     data() {
       return {
         phone: '',
-        password: ''
+        password: '',
+		showPassword: false
       };
     },
     methods: {
+		display() {
+		  this.showPassword = !this.showPassword
+		},
 		doLogin() {
 			this.$socket.login(this.phone, this.password, null,res=>{
 				if (res.success) {
@@ -149,7 +152,10 @@
     align-items: center;
     height: 100rpx;
     color: #333333;
-    border-bottom: 0.5px solid #e2e2e2;
+    border: 0.5px solid #E4E6F3;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 100px;
   }
 
   .list-call .img {

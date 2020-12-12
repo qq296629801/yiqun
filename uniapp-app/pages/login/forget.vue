@@ -3,17 +3,17 @@
     <view class="list">
       <view class="tishi">若您忘记了密码，可在此重新设置新密码。</view>
       <view class="list-call">
-        <image class="img" src="/static/shilu-login/1.png"></image>
+        <view class="iconfont iconphone" style="font-size: 20px;color: #E4E6F3;"></view>
         <input class="sl-input" type="number" v-model="phone" maxlength="11" placeholder="请输入手机号" />
       </view>
       <view class="list-call">
-        <image class="img" src="/static/shilu-login/2.png"></image>
+       <view class="iconfont iconmima1" style="font-size: 20px;color: #E4E6F3;"></view>
         <input class="sl-input" type="text" v-model="password" maxlength="32" placeholder="请输入新密码" :password="!showPassword" />
         <image class="img" :src="showPassword?'/static/shilu-login/op.png':'/static/shilu-login/cl.png'" @tap="display"></image>
       </view>
       <view class="list-call">
-        <image class="img" src="/static/shilu-login/3.png"></image>
-        <input class="sl-input" type="number" v-model="code" maxlength="6" placeholder="验证码" />
+        <view class="iconfont iconyanzhengyanzhengma" style="font-size: 17px;color: #E4E6F3;"></view>
+        <input class="sl-input" type="number" v-model="code" maxlength="4" placeholder="验证码" />
         <view class="yzm" :class="{ yzms: second>0 }" @tap="getcode">{{yanzhengma}}</view>
       </view>
     </view>
@@ -21,7 +21,6 @@
       <text>修改密码</text>
     </view>
 
-	<u-toast ref="uToast" />
   </view>
 </template>
 
@@ -83,16 +82,37 @@
             _this.clear()
           }
         }, 1000)
-		// 获取验证码
-		uni.request({
-			url:this.$registerUrl+'/register/sendSms', 
-			data: {phone:this.phone},
-			success: (res) => {
-				console.log(res.data);
-			},fail() {
-			  this.clear()
-			}
-		});
+        uni.request({
+          url: 'http://***/getcode.html', //仅为示例，并非真实接口地址。
+          data: {
+            phone: this.phone,
+            type: 'forget'
+          },
+          method: 'POST',
+          dataType: 'json',
+          success: (res) => {
+            if (res.data.code != 200) {
+              uni.showToast({
+                title: res.data.msg,
+                icon: 'none'
+              });
+              _this.second = 0;
+            } else {
+              uni.showToast({
+                title: res.data.msg
+              });
+              _this.second = 60;
+              js = setInterval(function() {
+                _this.second--;
+                if (_this.second == 0) {
+                  _this.clear()
+                }
+              }, 1000)
+            }
+          },fail() {
+            this.clear()
+          }
+        });
       },
       bindLogin() {
         if (this.phone.length != 11) {
@@ -109,62 +129,38 @@
           });
           return;
         }
-        if (this.code.length != 6) {
+        if (this.code.length != 4) {
           uni.showToast({
             icon: 'none',
             title: '验证码不正确'
           });
           return;
         }
-		
-		uni.request({
-			url:this.$registerUrl+'/register/updatePwd', 
-			data: {
-				phone:this.phone,
-				updatePwd:this.password,
-				code:this.code
-			},
-			success: (res) => {
-				if(res.data.data === '修改失败') {
-					return this.$u.toast(res.data.data);
-				} else {
-					this.$refs.uToast.show({
-						title: '修改成功',
-						type: 'success', 
-						icon: true,
-						url:'pages/login/login'
-					})
-				}	
-			}
-		});
-		
-		
-		
-        // uni.request({
-        //   url: 'http://***/forget.html',
-        //   data: {
-        //     phone: this.phone,
-        //     password: this.password,
-        //     code: this.code
-        //   },
-        //   method: 'POST',
-        //   dataType: 'json',
-        //   success: (res) => {
-        //     if (res.data.code != 200) {
-        //       uni.showToast({
-        //         title: res.data.msg,
-        //         icon: 'none'
-        //       });
-        //     } else {
-        //       uni.showToast({
-        //         title: res.data.msg
-        //       });
-        //       setTimeout(function() {
-        //         uni.navigateBack();
-        //       }, 1500)
-        //     }
-        //   }
-        // });
+        uni.request({
+          url: 'http://***/forget.html',
+          data: {
+            phone: this.phone,
+            password: this.password,
+            code: this.code
+          },
+          method: 'POST',
+          dataType: 'json',
+          success: (res) => {
+            if (res.data.code != 200) {
+              uni.showToast({
+                title: res.data.msg,
+                icon: 'none'
+              });
+            } else {
+              uni.showToast({
+                title: res.data.msg
+              });
+              setTimeout(function() {
+                uni.navigateBack();
+              }, 1500)
+            }
+          }
+        });
 
       }
     }
@@ -218,9 +214,9 @@
   .button-login {
     color: #FFFFFF;
     font-size: 34rpx;
-    width: 470rpx;
+    width: 630rpx;
     height: 100rpx;
-    background: linear-gradient(-90deg, rgba(63, 205, 235, 1), rgba(188, 226, 158, 1));
+    background: linear-gradient(-90deg, #79B1FF, #8C9CFF);
     box-shadow: 0rpx 0rpx 13rpx 0rpx rgba(164, 217, 228, 0.2);
     border-radius: 50rpx;
     line-height: 100rpx;
