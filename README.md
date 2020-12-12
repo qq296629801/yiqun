@@ -67,23 +67,13 @@ MAC H5 Linux: 暂未发布
 
 #### 图片展示
 
-![1](doc/img/1-2登录-输入后 副本.png)
-![2](doc/img/1消息 副本 副本.png)
-![3](doc/img/1登录页面 副本.png)
-![4](doc/img/2-1注册-输入前 副本.png)
-![5](doc/img/3-1红包-未领取 副本.png)
-![6](doc/img/3-1聊天页面 副本.png)
-![7](doc/img/3-2红包-领取后 副本.png)
+![1](doc/img/1.png) ![2](doc/img/2.png) ![3](doc/img/3.png)
+![4](doc/img/4.png) ![5](doc/img/5.png) ![6](doc/img/6.png)
+![7](doc/img/7.png)
 
-![9](doc/img/3-3聊天页面-聊天记录 副本.png)
-![9](doc/img/5聊天界面3 副本 副本.png)
-![9](doc/img/5通讯录 副本.png)
-![9](doc/img/6-1红包-点开未领取 副本.png)
-![9](doc/img/6-2红包-点开领取 副本.png)
-![9](doc/img/6聊天详情 副本 副本.png)
-![9](doc/img/7-2设置-快捷按键 副本.png)
-![9](doc/img/7通讯录 副本 副本.png)
-![9](doc/img/10个人信息 副本 副本.png)
+![9](doc/img/8.png) ![11](doc/img/9.png) ![12](doc/img/10.png)
+![14](doc/img/11.png) ![13](doc/img/12.png) ![15](doc/img/13.png)
+![16](doc/img/14.png) ![18](doc/img/15.png) ![17](doc/img/16.png)
 
 
 
