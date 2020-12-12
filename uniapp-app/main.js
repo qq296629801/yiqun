@@ -18,7 +18,7 @@ Vue.prototype.$socket = webim;
 Vue.prototype.$url = 'https://bzghost.com/upload/'
 Vue.prototype.$uploadUrl = 'http://120.27.95.106:9998/file/upload'
 Vue.prototype.$ws = 'ws://120.27.95.106:9999/chat'
-Vue.prototype.$registerUrl = 'http://127.0.0.1:9998'
+Vue.prototype.$registerUrl = 'http://120.27.95.106:9998'
 App.mpType = 'app'
 
 Promise.prototype.finally = function(callback) {
