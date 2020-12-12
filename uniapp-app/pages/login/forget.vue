@@ -13,7 +13,7 @@
       </view>
       <view class="list-call">
         <view class="iconfont iconyanzhengyanzhengma" style="font-size: 17px;color: #E4E6F3;"></view>
-        <input class="sl-input" type="number" v-model="code" maxlength="4" placeholder="验证码" />
+        <input class="sl-input" type="number" v-model="code" maxlength="6" placeholder="验证码" />
         <view class="yzm" :class="{ yzms: second>0 }" @tap="getcode">{{yanzhengma}}</view>
       </view>
     </view>
@@ -21,6 +21,7 @@
       <text>修改密码</text>
     </view>
 
+	<u-toast ref="uToast" />
   </view>
 </template>
 
@@ -82,37 +83,18 @@
             _this.clear()
           }
         }, 1000)
-        uni.request({
-          url: 'http://***/getcode.html', //仅为示例，并非真实接口地址。
-          data: {
-            phone: this.phone,
-            type: 'forget'
-          },
-          method: 'POST',
-          dataType: 'json',
-          success: (res) => {
-            if (res.data.code != 200) {
-              uni.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              });
-              _this.second = 0;
-            } else {
-              uni.showToast({
-                title: res.data.msg
-              });
-              _this.second = 60;
-              js = setInterval(function() {
-                _this.second--;
-                if (_this.second == 0) {
-                  _this.clear()
-                }
-              }, 1000)
-            }
-          },fail() {
-            this.clear()
-          }
-        });
+        
+		// 获取验证码
+		uni.request({
+			url:this.$registerUrl+'/register/sendSms', 
+			data: {phone:this.phone},
+			success: (res) => {
+				console.log(res.data);
+			},fail() {
+			  this.clear()
+			}
+		});
+		
       },
       bindLogin() {
         if (this.phone.length != 11) {
@@ -129,38 +111,60 @@
           });
           return;
         }
-        if (this.code.length != 4) {
+        if (this.code.length != 6) {
           uni.showToast({
             icon: 'none',
             title: '验证码不正确'
           });
           return;
         }
-        uni.request({
-          url: 'http://***/forget.html',
-          data: {
-            phone: this.phone,
-            password: this.password,
-            code: this.code
-          },
-          method: 'POST',
-          dataType: 'json',
-          success: (res) => {
-            if (res.data.code != 200) {
-              uni.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              });
-            } else {
-              uni.showToast({
-                title: res.data.msg
-              });
-              setTimeout(function() {
-                uni.navigateBack();
-              }, 1500)
-            }
-          }
-        });
+		
+		uni.request({
+			url:this.$registerUrl+'/register/updatePwd', 
+			data: {
+				phone:this.phone,
+				updatePwd:this.password,
+				code:this.code
+			},
+			success: (res) => {
+				if(res.data.data === '修改失败') {
+					return this.$u.toast(res.data.data);
+				} else {
+					this.$refs.uToast.show({
+						title: '修改成功',
+						type: 'success', 
+						icon: true,
+						url:'pages/login/login'
+					})
+				}	
+			}
+		});
+		
+        // uni.request({
+        //   url: 'http://***/forget.html',
+        //   data: {
+        //     phone: this.phone,
+        //     password: this.password,
+        //     code: this.code
+        //   },
+        //   method: 'POST',
+        //   dataType: 'json',
+        //   success: (res) => {
+        //     if (res.data.code != 200) {
+        //       uni.showToast({
+        //         title: res.data.msg,
+        //         icon: 'none'
+        //       });
+        //     } else {
+        //       uni.showToast({
+        //         title: res.data.msg
+        //       });
+        //       setTimeout(function() {
+        //         uni.navigateBack();
+        //       }, 1500)
+        //     }
+        //   }
+        // });
 
       }
     }
