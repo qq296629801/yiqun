@@ -156,7 +156,7 @@
 			<!-- H5下不能录音，输入栏布局改动一下 -->
 			<!-- #ifndef H5 -->
 			<view class="voice">
-				<view class="iconfont iconyuyin1" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
+				<view class="iconfont iconshuru" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
@@ -170,7 +170,7 @@
 				<view class="text-mode" :class="isVoice?'hidden':''">
 					<view class="box">
 						<textarea auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" />
-						</view>
+					</view>
 					<view class="em" @tap="chooseEmoji">
 						<view class="iconfont iconbiaoqing"></view>
 					</view>
@@ -181,8 +181,8 @@
 				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
-			<view class="send" :class="isVoice?'hidden':''">
-				<view @tap="sendMsg(0,textMsg)" class="iconfont icontuiguang-weixuan"></view>
+			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
+				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
 		</view>
 		
