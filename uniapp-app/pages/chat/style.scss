@@ -137,8 +137,7 @@ src:url(
 	}
 	
 	.send{
-		margin: 0 22upx;
-		width: 60upx;
+		width: 150upx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -155,13 +154,13 @@ src:url(
 			width: calc(100% - 2upx);
 			height: 68upx;
 			border-radius: 10upx;
-			border:solid 1upx #cdcdcd;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			font-size: 28upx;
-			background-color: #fff;
+			background-color: #F5F6F8;
 			color: #555;
+			font-weight: 600;
 			&.recording{
 				background-color: #e5e5e5;
 			}
