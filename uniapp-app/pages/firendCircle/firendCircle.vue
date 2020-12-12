@@ -256,7 +256,6 @@ export default {
 					}
 			    },
 			    fail: function (res) {
-			        console.log(res.errMsg);
 			    }
 			});
 			
@@ -270,10 +269,8 @@ export default {
 			const {id, nickName} = this._user_info
 			this.$socket.toCommentReqPacket('',id, post.id, this.content, res => {
 				if (res.response.success) {
-					console.log(res.response,'res')
 					const commentId = res.response.data;
 					if(res.response.data){
-						console.log(post,'post')
 						post.commentList.push({
 							id: commentId,
 							nickName: nickName,
@@ -285,8 +282,7 @@ export default {
 				}
 			});
 		},
-		//将视图滚动到键盘的上方 微信小程序有些许bug 会把输入框的焦点和placeholder顶起... 、
-		//暂时不适配微信小程序，正在解决此bug
+		//滑块
 		bindScroll(sel, duration = 0) {
 			uni.createSelectorQuery()
 				.select('#content')
@@ -315,7 +311,6 @@ export default {
 		},
 		//查看大图
 		previewImg(current, imgList) {
-			// console.log(imgList,'+++++')
 			for(let index in imgList){
 				if(!imgList[index]){
 					imgList.splice(index, 1)
@@ -346,12 +341,10 @@ export default {
 			this.closeInputModel();
 		},
 		keyboardheightchange(res) {
-			console.log(res);
 		},
 		//模拟数据 可通过接口获取
 		getData() {
 			this.$socket.queryPostsReq(this._user_info.id, this.pageNum, res => {
-				console.log(res)
 				if (res.response.success) {
 					const circleData3 = this.circleData;
 					const circleData2 = res.response.data;
