@@ -50,6 +50,12 @@ export default {
 	},
 	onLoad(){
 	},
+	onPullDownRefresh() {
+	        console.log('refresh');
+	        setTimeout(function () {
+	            uni.stopPullDownRefresh();
+	        }, 100);
+	    },
 	methods: {
 		linkTo(item){
 			this.$u.vuex('chatObj', item)

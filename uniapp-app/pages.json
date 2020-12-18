@@ -14,6 +14,7 @@
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh": true ,
 				// #ifdef MP-WEIXIN
 				"navigationStyle": "custom",
 				// #endif
@@ -32,6 +33,7 @@
 		{
 			"path": "pages/addressBook/addressBook",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "通讯录"/* ,
 				"app-plus": {
 					"titleNView": {
@@ -46,21 +48,25 @@
 		}, {
 			"path": "pages/find/find",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "发现"
 			}
 		},{
 			"path": "pages/register/register",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "注册"
 			}
 		},{
 			"path": "pages/agreement/agreement",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "协议"
 			}
 		}, {
 			"path": "pages/my/my",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": " ",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -70,6 +76,7 @@
 		}, {
 			"path": "pages/search/search",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -81,6 +88,7 @@
 		}, {
 			"path": "pages/chat/chat",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"app-plus": {
 					"softinputNavBar": "none",
 					"scrollIndicator":"none",
@@ -148,6 +156,7 @@
 		}, {
 			"path": "pages/businessCard/businessCard",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"app-plus": {
 					"titleNView": {
@@ -158,6 +167,7 @@
 		}, {
 			"path": "pages/releaseFirendCircle/releaseFirendCircle",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				// #ifdef MP-WEIXIN
 				"navigationStyle": "custom",
@@ -176,12 +186,14 @@
 		}, {
 			"path": "pages/chooseBgImg/chooseBgImg",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择背景图"
 			}
 		},
 		{
 			"path": "components/u-avatar-cropper/u-avatar-cropper",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择背景图",
 				"navigationBarBackgroundColor": "#000000"
 			}
@@ -189,6 +201,7 @@
 		{
 			"path": "pages/builtinBgImg/builtinBgImg",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择背景图",
 				// #ifdef MP-WEIXIN
 				"navigationStyle": "custom",
@@ -207,11 +220,13 @@
 		}, {
 			"path": "pages/moreInforMation/moreInforMation",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "更多信息"
 			}
 		}, {
 			"path": "pages/chat/userDetail",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -221,6 +236,7 @@
 		}, {
 			"path": "pages/chat/groupDetail",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -230,26 +246,31 @@
 		}, {
 			"path": "pages/setings/setings",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "设置"
 			}
 		}, {
 			"path": "pages/my/person",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "个人信息"
 			}
 		}, {
 			"path": "pages/my/common",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "通用"
 			}
 		}, {
 			"path": "pages/my/accountSafe",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "账号与安全"
 			}
 		}, {
 			"path": "pages/chat/updateGroupInfo",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -259,6 +280,7 @@
 		}, {
 			"path": "pages/chat/addGroupUser",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -268,6 +290,7 @@
 		}, {
 			"path": "pages/addressBook/list",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -277,6 +300,7 @@
 		}, {
 			"path": "pages/chat/detail",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"app-plus": {
 					"softinputNavBar": "none",
 					"softinputMode": "adjustPan",
@@ -292,42 +316,50 @@
 		, {
 			"path": "pages/qrcode/qrcode",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "我的二维码"
 			}
 		}, {
 			"path": "pages/chat/call",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择要提醒的人"
 			}
 		}, {
 			"path": "pages/chat/forward",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择一个聊天"
 			}
 		}, {
 			"path": "pages/webview/webview",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "webview"
 			}
 		}, {
 			"path": "pages/my/photo",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "朋友圈相册"
 			}
 		}, {
 			"path": "pages/my/face",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "表情商店"
 			}
 		}, {
 			"path": "pages/chat/moreMem",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "所有成员"
 			}
 		}
 	    ,{
             "path" : "pages/my/index",
             "style": {
+				"enablePullDownRefresh": true ,
             	"navigationBarTitleText": "我的",
             	"navigationStyle": "custom"
             }
@@ -335,6 +367,7 @@
 		{
 			"path": "pages/login/reg",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor":"#F6F7F8"
 			}
@@ -342,13 +375,15 @@
 		{
 			"path": "pages/login/forget",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "忘记密码",
-		    "navigationBarBackgroundColor":"#F6F7F8"
+				"navigationBarBackgroundColor":"#F6F7F8"
 			}
 		},
 		{
 			"path": "pages/login/agreement",
 			"style": {
+				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "用户协议"
 			}
 		}
