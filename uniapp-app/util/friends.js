@@ -4,7 +4,7 @@ function openSqlite(){
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.openDatabase({
 			name:'pop',  //数据库名称
-			path:'_doc/pop.db',   //数据库地址，uniapp推荐以下划线为开头，这到底存在哪里去了，我也不清楚，哈哈
+			path:'_doc/friends.db',   //数据库地址，uniapp推荐以下划线为开头，这到底存在哪里去了，我也不清楚，哈哈
 			success(e){
 				resolve(e); //成功回调
 			},
@@ -27,7 +27,7 @@ function userInfoSQL(){
 	return new Promise((resolve,reject) =>{
 	//创建表格在executeSql方法里写
 		plus.sqlite.executeSql({
-			name:'pop',
+			name:'friends',
 			//表格创建或者打开，后面为表格结构
 			sql:'create table if not exists userInfo("list" INTEGER PRIMARY KEY AUTOINCREMENT,"id" TEXT,"name" TEXT,"gender" TEXT,"avatar" TEXT)', 
 			success(e){
@@ -57,7 +57,7 @@ function addUserInformation(obj){
 			var avatar = obj.avatar || null; //头像
 			return new Promise((resolve,reject) =>{
 				plus.sqlite.executeSql({
-					name:'pop',
+					name:'friends',
 					sql:'insert into userInfo(id,name,gender,avatar) values("'+id+'","'+name+'","'+gender+'","'+avatar+'")',
 					success(e){
 						resolve(e);
@@ -125,7 +125,7 @@ function deleteInformationType(name,sol,qq,ww,ee){
 		}
 		return new Promise((resolve,reject) =>{
 			plus.sqlite.executeSql({
-				name:'pop',
+				name:'friends',
 				sql:sql,
 				success(e){
 					resolve(e);
@@ -154,7 +154,7 @@ function modifyInformation(listName,name,cont,use,sel){
 	//where前面的是要修改的，后面的是条件，选择哪个
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.executeSql({
-			name:'pop',
+			name:'friends',
 			sql:sql,
 			success(e){
 				resolve(e);
@@ -170,7 +170,7 @@ function modifyInformation(listName,name,cont,use,sel){
 function closeSQL(name){
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.closeDatabase({
-			name:'pop',
+			name:'friends',
 			success(e){
 				resolve(e);
 			},
@@ -183,8 +183,8 @@ function closeSQL(name){
 
 //监听数据库是否开启
 function isOpen(name,path){
-	var ss = name || 'pop';
-	var qq = path || '_doc/pop.db';
+	var ss = name || 'friends';
+	var qq = path || '_doc/friends.db';
 	//数据库打开了就返回true,否则返回false
 	var open = plus.sqlite.isOpenDatabase({
 					name:ss,
@@ -203,7 +203,7 @@ function pullSQL(id,num){
 	//根据list来倒序拿数据，跳过num条拿取15条
 	return new Promise((resolve,reject) =>{
 		plus.sqlite.selectSql({
-			name:'pop',
+			name:'friends',
 			sql:'select * from '+id+' order by list desc limit 15 offset '+num+'',
 			success(e){
 				resolve(e);
