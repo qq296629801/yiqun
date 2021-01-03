@@ -111,7 +111,7 @@
 	font-weight: 800;
 	line-height: 48rpx;
 	background-color: #fff;
-	border-bottom: solid 2rpx #f3f3f3;
+	border-bottom: solid 3rpx #eeeeee;
 	align-items: center;
 	image {
 		width: 76rpx;

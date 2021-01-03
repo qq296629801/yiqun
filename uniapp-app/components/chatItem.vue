@@ -1,9 +1,9 @@
 <template>
-	<view class="item" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
+	<view class="item u-border-bottom" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
 		<image mode="aspectFill" :src="`${$url}/${value.avatar || value.imgUrl}`" />
 		<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
 		<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
-		<view class="right u-border-bottom title-wrap">
+		<view class="right title-wrap">
 			<view class="right_top">
 				<view class="right_top_name u-line-1">{{ value.chatName }}</view>
 				<view class="right_top_time ">{{value.lastOperTime || value.lastOpenTime | format}}</view>

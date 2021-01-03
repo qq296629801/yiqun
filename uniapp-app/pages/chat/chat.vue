@@ -994,9 +994,23 @@
 			playVoice(msg){
 				let s =JSON.parse(msg.msgContext);
 				this.playMsgid= msg.id;
-				this.AUDIO.src = s.url;
+				this.AUDIO.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
 				this.$nextTick(function() {
 					this.AUDIO.play();
+				});
+				
+			},
+			playMp3(){
+				let s =JSON.parse(msg.msgContext);
+				const innerAudioContext = uni.createInnerAudioContext();
+				innerAudioContext.autoplay = true;
+				innerAudioContext.src = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-hello-uniapp/2cc220e0-c27a-11ea-9dfb-6da8e309e0d8.mp3';
+				innerAudioContext.onPlay(() => {
+				  console.log('开始播放');
+				});
+				innerAudioContext.onError((res) => {
+				  console.log(res.errMsg);
+				  console.log(res.errCode);
 				});
 			},
 			// 录音开始
