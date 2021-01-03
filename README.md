@@ -23,8 +23,8 @@
 - `https://gitee.com/xiaowang0482/wechat.git`
 
 #### 联系
-QQ群  1025293030
-微信  wandoufilm
+`QQ群 1025293030 
+微信 18767176707`
 
 #### 功能
 - 消息类型
