@@ -12,10 +12,10 @@
 
 #### 目录
 
-- uni-app   手机版支持 h5 ios android
-- vue-pc    电脑版支持 window linux mac 
+- uni-app 可以发布h5 ios android
 - vue-admin 后台管理系统
-- vue-home  作用未知
+- vue-pc 可以发布 window linux mac
+- vue-h5 原始的老版本h5 目前已经改用uni-app
 
 
 #### 感谢
