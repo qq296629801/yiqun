@@ -1,9 +1,9 @@
 {
     "name" : "易聊",
     "appid" : "__UNI__A91555C",
-    "description" : "",
-    "versionName" : "2.0.0",
-    "versionCode" : 200,
+    "description" : "打造跨平台即时通信软件，个人也能玩得转!",
+    "versionName" : "3.0.0",
+    "versionCode" : 300,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -52,7 +52,10 @@
             "ios" : {},
             /* SDK配置 */
             "sdkConfigs" : {
-                "ad" : {}
+                "ad" : {},
+                "push" : {
+                    "unipush" : {}
+                }
             },
             "icons" : {
                 "android" : {
