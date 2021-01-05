@@ -600,7 +600,6 @@ src:url(
 		border-top: 20rpx solid #2a2a2a;
 		top: 40rpx;
 		right: 450rpx;
-		animation: stretchdelay 1.2s infinite ease-in-out;
 	}
 }
 //右击菜单样式
@@ -618,6 +617,7 @@ src:url(
 	padding: 10rpx;
 	color: #e2e2e2;
 	z-index: 9999;
+	
 	view {
 		padding: 0 30rpx;
 		height: 70rpx;
@@ -651,7 +651,6 @@ src:url(
 		border-top: 20rpx solid #2a2a2a;
 		top: 40rpx;
 		right: 10rpx;
-		animation: stretchdelay 1.2s infinite ease-in-out;
 	}
 }
 
@@ -673,7 +672,7 @@ src:url(
 		height: 70%;
 		left: 10%;
 		z-index: 1001;
-		border-radius: 20upx;
+		border: 2rpx dotted red;
 		overflow: hidden;
 		top:100%;
 		transform: scale3d(.5,.5,1);
@@ -696,40 +695,44 @@ src:url(
 			opacity: 0;
 		}
 		.layer{
-			//transform: translate3d(0,-85vh,0) scale3d(.5,.5,1);
+			transform: translate3d(0,-85vh,0) scale3d(.5,.5,1);
 		}
 	}
 }
 .open-redenvelope{
 	width: 100%;
 	height: 70vh;
-	background-color: #cf3c35; 
+	background-color: #EC624F; 
 	position: relative;
 	.top{
+		position: fixed;
+		bottom: 100rpx;
 		width: 100%;
-		background-color: #fe5454;
+		background-color: #EC624F;
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
 		border-radius: 0 0 100% 100%;
-		box-shadow: inset 0 -5upx 0 #9c1712;
+		box-shadow: inset 0 -8upx 0 #DE4129;
 		.close-btn{
 			width: 100%;
 			height: 80upx;
 			display: flex;
 			justify-content: flex-end;
-			margin-bottom: 30upx;
 			.icon{
-				color: #9c1712;
+				color: #EE5B49;
 				margin-top: 10upx;
 				margin-right: 10upx;
 			}
 		}
-		image{
-			width: 130upx;
-			height: 130upx;
-			border: solid 4upx #cf3c35;
+		.img{
+			width: 200upx;
+			height: 200upx;
+			background-color: #E7CB9B;
 			border-radius: 100%;
+			font-size: 30px;
+			text-align: center;
+			padding-top: 30px;
 			margin-bottom: -65upx;
 		}
 		margin-bottom: 65upx;
@@ -740,11 +743,17 @@ src:url(
 		display: flex;
 		justify-content: center;
 		font-size: 32upx;
-		color: #fff;
+		color: #E7CB9B;
+		padding-top: 50rpx;
+		image{
+			width: 40rpx;
+			height: 40rpx;
+			border-radius: 5rpx;
+		}
 	}
 	.money{
 		font-size: 100upx;
-		color: #f8d757;
+		color: #E7CB9B;
 		display: flex;
 		padding-top: 20upx;
 	}
@@ -753,10 +762,10 @@ src:url(
 		bottom: 20upx;
 		align-items: center;
 		font-size: 28upx;
-		color: #f8d757;
+		color: #E7CB9B;
 		.icon{
 			font-size: 26upx;
-			color: #f8d757;
+			color: #E7CB9B;
 		}
 	}
 }
@@ -775,6 +784,7 @@ src:url(
 	box-shadow: 1px 1px 1px 1px #efefef;
 	.packet {
 	  padding-right: 12px;
+	  font-size: 28rpx;
 	}
 	.text {
 	  height: 40px;
@@ -785,13 +795,19 @@ src:url(
 		font-size: 25px;
 		float: right;
 	  }
+	  image{
+		  width: 64rpx;
+		  height: 64rpx;
+	  }
 	}
 	.footer {
 	  margin-top: 8px;
 	  height: 25px;
-	  background: white;
+	  font-size: 20rpx;
+	  border-top: 1px solid #f9b56f;
+	  background: #F09D47;
 	  padding-right: 5px;
-	  color: #797979;
+	  color: #fff;
 	}
 	.arrow-org {
 	  width: 10px;
@@ -817,6 +833,7 @@ src:url(
 	box-shadow: 1px 1px 1px 1px #efefef;
 	.packet {
 	  padding-left: 12px;
+	  font-size: 28rpx;
 	}
 	.text {
 	  height: 40px;
@@ -826,13 +843,19 @@ src:url(
 		color: red;
 		font-size: 25px;
 	  }
+	  image{
+	  		  width: 64rpx;
+	  		  height: 64rpx;
+	  }
 	}
 	.footer {
 	  margin-top: 8px;
 	  height: 25px;
-	  background: white;
+	  font-size: 20rpx;
+	  background: #F09D47;
+	  border-top: 1px solid #f9b56f;
 	  padding-left: 5px;
-	  color: #797979;
+	  color: #fff;
 	}
 	.arrow-org {
 	  width: 10px;

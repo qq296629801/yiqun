@@ -74,7 +74,7 @@
 	}
 	.top{
 		width: 100%;
-		background-color: #cf3c35;
+		background-color: #EC624F;
 		flex-wrap: wrap;
 		.blessing,.money{
 			width: 100%;
@@ -82,7 +82,7 @@
 			padding: 20upx 0;
 			justify-content: center;
 			font-size: 34upx;
-			background: #cf3c35;
+			background: #EC624F;
 		}
 		.money{
 			font-size: 100upx;

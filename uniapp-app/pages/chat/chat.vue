@@ -46,14 +46,13 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'">
+								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 									<div class="text">
-									  <view class="iconfont iconhongbao" style="color: #EB4B29;"></view>
-									  <!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
-									  <span class="packet" style="font-size: 28rpx;">恭喜发财，大吉大利</span>
+									  <image src="../../static/img/red.png"></image>
+									  <span class="packet">恭喜发财，大吉大利</span>
 									</div>
-									<div class="footer" style="font-size: 20rpx;">红包</div>
-									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#f9e0c2':'background:orange'"></div>
+									<div class="footer" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">红包</div>
+									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
 								  </div>
 							</view>
 						</view>
@@ -97,14 +96,13 @@
 							</view>
 							<!-- 红包 -->
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:##F7DFC3'">
+								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 									<div class="text">
-									   <span class="packet" style="font-size: 20px;">恭喜发财,大吉大利</span>
-										<view class="iconfont iconhongbao1" style="color: #EB4B29;"></view>
-										<!-- <u-icon :name="redenvelopeProcess(row.msgContext).surplusMoney===0?'red-packet':'red-packet-fill'" :color="redenvelopeProcess(row.msgContext).surplusMoney===0?'#e38184':'red'" size="50"></u-icon> -->
+									   <span class="packet">恭喜发财,大吉大利</span>
+										<image src="../../static/img/red.png"></image>
 									</div>
-									<div class="footer" style="font-size: 12px;">红包</div>
-									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F09D47':'background:orange'"></div>
+									<div class="footer" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">红包</div>
+									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
 								  </div>
 							</view>
 						</view>
@@ -199,14 +197,14 @@
 			<view class="mask" @touchmove.stop.prevent="discard" @tap="closeRedEnvelope"></view>
 			<view class="layer" @touchmove.stop.prevent="discard">
 				<view class="open-redenvelope">
+					<view class="from"><image :src="this.$url+packet.userAvatar"></image> {{packet.userName}} 的红包</view>
+					<view class="blessing">恭喜发财，大吉大利</view>
 					<view class="top">
 						<view class="close-btn">
 							<view class="icon close" @tap="closeRedEnvelope"></view>
 						</view>
-						<image :src="$url + packet.userAvatar"></image>
+						<view class="img">开</view>
 					</view>
-					<view class="from"> {{packet.userName}} 的红包</view>
-					<view class="blessing">恭喜发财，大吉大利</view>
 					<view class="showDetails" @tap="toDetails">
 						查看领取详情 
 					</view>
@@ -467,7 +465,7 @@
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-						description:'红包异常',
+						description:'好友暂不支持发红包',
 						money:0,
 						number:0,
 						userAvatar:'defalut.jpg'

@@ -305,7 +305,7 @@
 					"softinputNavBar": "none",
 					"softinputMode": "adjustPan",
 					"titleNView": {
-						"backgroundColor": "#cf3c35",
+						"backgroundColor": "#EC624F",
 						"titleColor": "#fff",
 						"titleText": ""
 					}
