@@ -769,7 +769,6 @@ src:url(
 		}
 	}
 }
-
  .message-red-packet-left {
 	position: relative;
 	border-radius: 0.106667rem;
@@ -809,6 +808,14 @@ src:url(
 	  padding-right: 5px;
 	  color: #fff;
 	}
+	.footer2 {
+	  margin-top: 8px;
+	  height: 25px;
+	  font-size: 20rpx;
+	  background:#F7DFC3;
+	  padding-right: 5px;
+	  color: #fff;
+	}
 	.arrow-org {
 	  width: 10px;
 	  height: 10px;
@@ -844,8 +851,8 @@ src:url(
 		font-size: 25px;
 	  }
 	  image{
-	  		  width: 64rpx;
-	  		  height: 64rpx;
+		  width: 64rpx;
+		  height: 64rpx;
 	  }
 	}
 	.footer {
@@ -854,6 +861,14 @@ src:url(
 	  font-size: 20rpx;
 	  background: #F09D47;
 	  border-top: 1px solid #f9b56f;
+	  padding-left: 5px;
+	  color: #fff;
+	}
+	.footer2 {
+	  margin-top: 8px;
+	  height: 25px;
+	  font-size: 20rpx;
+	  background:#F7DFC3;
 	  padding-left: 5px;
 	  color: #fff;
 	}

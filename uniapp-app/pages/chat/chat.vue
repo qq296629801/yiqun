@@ -6,7 +6,7 @@
 			 upper-threshold="50">
 			 
 				<view id="msglistview" class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
-					<!-- 系统消息 -->
+					<!-- 通知消息 -->
 					<!-- <view class="system">
 						<view class="text">
 							{{row.msgContext}}
@@ -18,16 +18,15 @@
 					</view> -->
 					
 					
-					<!-- 用户消息 -->
 					<!-- 自己发出的消息 -->
 					<view class="my" v-if="row.sendUid==_user_info.id">
+						<!-- 右键 -->
 						<view class="right-click" v-show="row.id==rightClickSelectId">
 							<view @tap="copyFunc(row.msgContext)">复制</view>
 							<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
 							<view @tap="forwardFunc(row)" v-if="row.msgType!=7">转发</view>
 							<view @tap="collectFunc(row)" v-if="row.msgType==1">收藏</view>
 							<text @tap="rollBackFunc(row)">撤销</text>
-
 						</view>
 						<!-- 左-消息 -->
 						<view class="left">
@@ -48,12 +47,12 @@
 							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
 								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 									<div class="text">
-									  <image src="../../static/img/red.png"></image>
+									  <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
 									  <span class="packet">恭喜发财，大吉大利</span>
 									</div>
-									<div class="footer" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">红包</div>
+									<div :class="redenvelopeProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
 									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
-								  </div>
+								</div>
 							</view>
 						</view>
 						<!-- 右-头像 -->
@@ -64,6 +63,7 @@
 					
 					<!-- 别人发出的消息 -->
 					<view class="other" v-if="row.sendUid!=_user_info.id">
+						<!-- 右键 -->
 						<view class="left-click" v-show="row.id==leftClickSelectId">
 							<view @tap="copyFunc(row.msgContext)">复制</view>
 							<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
@@ -99,9 +99,9 @@
 								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 									<div class="text">
 									   <span class="packet">恭喜发财,大吉大利</span>
-										<image src="../../static/img/red.png"></image>
+									   <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
 									</div>
-									<div class="footer" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">红包</div>
+									<div :class="redenvelopeProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
 									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
 								  </div>
 							</view>
