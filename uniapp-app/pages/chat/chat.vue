@@ -230,6 +230,7 @@
 	import emotion from '@/components/emotion/index.vue'
 	import emojiData from "../../static/emoji/emojiData.js"
 	import { transform } from "../../static/emoji/ChatUtils.js"
+	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
 	export default {
 		components: {
 			emotion,
@@ -373,11 +374,24 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			this.getMsgList();
-			this.sendMsg(0,'');
-			this.openConver();
-			this.queryMembers();
+			//this.getMsgList();
+			//this.sendMsg(0,'');
+			//this.openConver();
+			//this.queryMembers();
 			this.hideDrawer();
+			// #ifndef H5
+			console.log('000000000000000000000000')
+			openMsgSqlite().then(res=>{
+			});
+			createMsgSQL(this.chatObj.chatId).then(res=>{
+				console.log('-1-1-1-1-1-1--1-1-1')
+				console.log(res)
+			}).catch(res=>{
+				console.log('-2-2-2-2-2-2-2-2-2-')
+				console.log(res)
+			});
+			this.getMsgList2()
+			// #endif
 		},
 		onReady() {
             // #ifdef H5
@@ -637,8 +651,23 @@
 					  	});
 					  });
 			        }
-			      })
-			    },
+			      });
+			},
+			// 本地化获取消息记录
+			getMsgList2(){
+				this.scrollAnimation = false;
+				selectMsgSQL(this.chatObj.chatId).then(res=>{
+					this.msgList = res
+					this.$nextTick(function() {
+						this.scrollTop = 9999;
+						this.$nextTick(function() {
+							this.scrollAnimation = true;
+						});
+					});
+					console.log('999999999999999999999999')
+					console.log(res)
+				});
+			},
 			//触发滑动到顶部(加载历史信息记录)
 			loadHistory(e){
 			uni.showLoading({
@@ -877,17 +906,27 @@
 						break;
 					default:
 				}
+				// #ifndef H5
+				console.log('111111111111111111111111')
+				
+				addMsgSQL(msg).then(res=>{
+					console.log('2222222222222222222')
+				}).catch(res=>{
+					console.log('33333333333333333333')
+					console.log(res)
+				})
+				// #endif
 				this.scrollAnimation = false
-				this.$nextTick(() => {
-					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
-					this.scrollAnimation = true;
-				});
+				// this.$nextTick(() => {
+				// 	this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
+				// 	this.scrollAnimation = true;
+				// });
 				//非自己的消息震动
-				if(msg.sendUid!=this._user_info.id){
-					uni.vibrateLong();
-				} else {
-					this.openConver();
-				}
+				// if(msg.sendUid!=this._user_info.id){
+				// 	uni.vibrateLong();
+				// } else {
+				// 	this.openConver();
+				// }
 			},
 			addRevoke(res){
 				if (res.msgId != undefined && res.message == undefined) {
