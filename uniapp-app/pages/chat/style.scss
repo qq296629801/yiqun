@@ -374,7 +374,6 @@ src:url(
 							width: 80%;
 							text-align: center;
 							overflow: hidden;
-							// 最多两行
 							display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;
 						}
 					}
@@ -441,7 +440,7 @@ src:url(
 							}
 							.icon:after
 							{
-								border-left: solid 10upx rgba(240,108,122,.5);
+								border-left: solid 10upx rgba(198, 235, 254, 0.5);
 								animation: my-play 1s linear infinite;
 							}
 						}

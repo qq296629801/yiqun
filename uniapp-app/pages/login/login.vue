@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import { openFSqlite, createFSQL, selectFSQL, addFSQL } from '../../util/f.js'
   export default {
     data() {
       return {
@@ -34,6 +35,11 @@
 		showPassword: false
       };
     },
+	onShow() {
+		// #ifndef H5
+		openFSqlite().then();
+		// #endif
+	},
     methods: {
 		display() {
 		  this.showPassword = !this.showPassword
@@ -46,6 +52,19 @@
 					this.$u.vuex('_login',this._login)
 					// 	缓存通讯录
 					this.$socket.listGuests(this._user_info.id, res => {
+						// #ifndef H5
+						createFSQL(this._user_info.id).then();
+						res.response.data.forEach(f=>{
+							f.members.forEach(o=>{
+								o.name = f.name;
+								addFSQL(o,this._user_info.id).then();
+							})
+						})
+						selectFSQL(this._user_info.id).then(res=>{
+							console.log('----------1-----------')
+							console.log(res)
+						});
+						// #endif
 						this.$u.vuex('firendList', res.response.data)
 					})
 					//	缓存链接
@@ -53,12 +72,12 @@
 						this.$u.vuex('links',res.response.data)
 					});
 					// 批量进入房间
-					this.$socket.getGroups('', this._user_info.id, res => {
-						let list = res.response.data;
-						let groupIds = [];
-						list.forEach(group=>groupIds.push(group.chatId));
-						this.$socket.joinRoom(groupIds,res=>{})
-					});
+					// this.$socket.getGroups('', this._user_info.id, res => {
+					// 	let list = res.response.data;
+					// 	let groupIds = [];
+					// 	list.forEach(group=>groupIds.push(group.chatId));
+					// 	this.$socket.joinRoom(groupIds,res=>{})
+					// });
 					// 跳转到消息列表
 					this.$u.route({
 						url: 'pages/home/home',

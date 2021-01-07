@@ -375,10 +375,16 @@
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
 			//this.getMsgList();
-			//this.sendMsg(0,'');
+			this.sendMsg(0,'');
 			//this.openConver();
 			//this.queryMembers();
 			this.hideDrawer();
+			
+			// 每次加入房间通道 群聊有效
+			var groupIds = [];
+			groupIds.push(this.chatObj.chatId);
+			this.$socket.joinRoom(groupIds,res=>{});
+			
 			// #ifndef H5
 			console.log('000000000000000000000000')
 			openMsgSqlite().then(res=>{
