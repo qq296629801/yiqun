@@ -6,7 +6,8 @@
 </template>
 <script>
 import searchInput from '@/components/searchInput/index.vue'
-import addressBook from '@/components/addressBook.vue'	
+import addressBook from '@/components/addressBook.vue'
+import { openFSqlite, createFSQL, selectFSQL, addFSQL } from '../../util/f.js'
 export default {
 	components:{searchInput, addressBook},
 	data() {
@@ -15,16 +16,40 @@ export default {
 		};
 	},
 	onShow() {
-	  this.getFriends()
+	    this.getFriends()
 	},
 	onPageScroll(e) {
 		this.scrollTop = e.scrollTop;
 	},
 	methods: {
+		getFriendsByDb(){
+			var list = []
+			selectFSQL(this._user_info.id).then(res=>{
+				this.indexList.forEach(name=>{
+					var members = []
+					res.forEach(f=>{
+						if(f.name===name){
+							members.push(f);
+						}
+					})
+					let obj = {
+						name:name,
+						members:members
+					}
+					list.push(obj);
+				})
+				this.$u.vuex('firendList', list)
+			});
+		},
 		getFriends () {
+		  // #ifndef H5
+		  this.getFriendsByDb()
+		  // #endif	
+		  // #ifndef APP-PLUS
 		  this.$socket.listGuests(this._user_info.id, res => {
 			this.$u.vuex('firendList', res.response.data)
 		  })
+		  // #endif
 		},
 		linkToCard({id}){
 			this.$u.route({

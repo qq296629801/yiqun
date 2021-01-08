@@ -32,7 +32,8 @@
       return {
         phone: '',
         password: '',
-		showPassword: false
+		showPassword: false,
+		indexList: ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
       };
     },
 	onShow() {
@@ -60,10 +61,7 @@
 								addFSQL(o,this._user_info.id).then();
 							})
 						})
-						selectFSQL(this._user_info.id).then(res=>{
-							console.log('----------1-----------')
-							console.log(res)
-						});
+						
 						// #endif
 						this.$u.vuex('firendList', res.response.data)
 					})
