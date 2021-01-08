@@ -18,7 +18,7 @@
 <script>
 import searchInput from '@/components/searchInput/index.vue';
 import selectInput from '@/components/selectInput/selectInput.vue';
-import chatItem from '@/components/chatItem.vue'
+import chatItem from '@/components/chatItem.vue';
 export default {
 	components: { searchInput, selectInput,chatItem },
 	data() {

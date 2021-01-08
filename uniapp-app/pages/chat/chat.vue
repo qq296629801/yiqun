@@ -57,7 +57,7 @@
 						</view>
 						<!-- 右-头像 -->
 						<view :class="row.msgType==0?'right text':'right'" @tap="linkToCard(row.sendUid)">
-							<image :src="`${$url}/${row.avatar}`"></image>
+							<img-cache :src="`${$url}/${row.avatar}`"></img-cache>
 						</view>
 					</view>
 					
@@ -73,7 +73,7 @@
 						</view>
 						<!-- 左-头像 -->
 						<view :class="row.msgType==0?'left text':'left'" @tap="linkToCard(row.sendUid)">
-							<image :src="`${$url}/${row.avatar}`"></image>
+							<img-cache :src="`${$url}/${row.avatar}`"></img-cache>
 						</view>
 						<!-- 右-用户名称-时间-消息 -->
 						<view class="right">
@@ -231,10 +231,12 @@
 	import emojiData from "../../static/emoji/emojiData.js"
 	import { transform } from "../../static/emoji/ChatUtils.js"
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
+	import ImgCache from '@/components/img-cache/img-cache.vue';
 	export default {
 		components: {
 			emotion,
-			redenvelope
+			redenvelope,
+			ImgCache
 		},
 		data() {
 			return {
@@ -374,28 +376,27 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			//this.getMsgList();
+			
+			// #ifndef APP-PLUS
+			this.getMsgList();
+			//#endif
+			
 			this.sendMsg(0,'');
 			//this.openConver();
 			//this.queryMembers();
 			this.hideDrawer();
 			
 			// 每次加入房间通道 群聊有效
-			var groupIds = [];
-			groupIds.push(this.chatObj.chatId);
-			this.$socket.joinRoom(groupIds,res=>{});
+			if(this.chatObj.chatType===1){
+				var groupIds = [];
+				groupIds.push(this.chatObj.chatId);
+				this.$socket.joinRoom(groupIds,res=>{});
+			}
 			
 			// #ifndef H5
-			console.log('000000000000000000000000')
 			openMsgSqlite().then(res=>{
 			});
-			createMsgSQL(this.chatObj.chatId).then(res=>{
-				console.log('-1-1-1-1-1-1--1-1-1')
-				console.log(res)
-			}).catch(res=>{
-				console.log('-2-2-2-2-2-2-2-2-2-')
-				console.log(res)
-			});
+			createMsgSQL(this.chatObj.chatId).then(res=>{}).catch(res=>{});
 			this.getMsgList2()
 			// #endif
 		},
@@ -670,8 +671,6 @@
 							this.scrollAnimation = true;
 						});
 					});
-					console.log('999999999999999999999999')
-					console.log(res)
 				});
 			},
 			//触发滑动到顶部(加载历史信息记录)
@@ -913,20 +912,13 @@
 					default:
 				}
 				// #ifndef H5
-				console.log('111111111111111111111111')
-				
-				addMsgSQL(msg).then(res=>{
-					console.log('2222222222222222222')
-				}).catch(res=>{
-					console.log('33333333333333333333')
-					console.log(res)
-				})
+				addMsgSQL(msg).then(res=>{}).catch(res=>{})
 				// #endif
 				this.scrollAnimation = false
-				// this.$nextTick(() => {
-				// 	this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
-				// 	this.scrollAnimation = true;
-				// });
+				this.$nextTick(() => {
+					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
+					this.scrollAnimation = true;
+				});
 				//非自己的消息震动
 				// if(msg.sendUid!=this._user_info.id){
 				// 	uni.vibrateLong();

@@ -1,6 +1,6 @@
 <template>
 	<view class="item u-border-bottom" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
-		<image mode="aspectFill" :src="`${$url}/${value.avatar || value.imgUrl}`" />
+		<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
 		<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
 		<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 		<view class="right title-wrap">
@@ -19,8 +19,12 @@
 </template>
 
 <script>
+	import ImgCache from '@/components/img-cache/img-cache.vue';
 	export default {
 		name: 'u-chatItem',
+		components:{
+			ImgCache
+		},
 		props: {
 			value: {
 				type: Object,
