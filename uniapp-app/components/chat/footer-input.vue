@@ -77,6 +77,16 @@
 			};
 		},
 		methods:{
+			// 选择表情
+			chooseEmoji(){
+				this.hideMore = true;
+				if(this.hideEmoji){
+					this.hideEmoji = false;
+					this.openDrawer();
+				}else{
+					this.hideDrawer();
+				}
+			},
 			// 切换语音/文字输入
 			switchVoice(){
 				this.hideDrawer();
