@@ -65,6 +65,7 @@
 
 <script>
 	export default {
+		name:'red-envelope',
 		data() {
 			return {
 				typeClass:'luck',//normal

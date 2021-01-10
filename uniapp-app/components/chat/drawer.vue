@@ -55,7 +55,7 @@
 		props: {
 			hideMore: {
 				type: Boolean,
-				default: false
+				default: true
 			},
 			redenvelopeFlag: {
 				type: Boolean,
@@ -63,7 +63,7 @@
 			},
 			hideEmoji: {
 				type: Boolean,
-				default: false
+				default: true
 			},
 			popupLayerClass: {
 				type: String,

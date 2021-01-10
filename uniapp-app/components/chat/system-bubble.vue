@@ -23,6 +23,6 @@
 	}
 </script>
 
-<style lang="less">
-
+<style lang="scss">
+@import "@/pages/chat/style.scss";
 </style>

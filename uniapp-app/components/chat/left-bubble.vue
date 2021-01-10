@@ -51,7 +51,7 @@
 
 <script>
 	export default {
-		name: 'other-bubble',
+		name: 'left-bubble',
 		components:{
 		},
 		props: {

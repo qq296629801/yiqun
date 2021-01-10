@@ -9,52 +9,16 @@
 					<system-bubble :row="row"></system-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<self-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></self-bubble>
+					<left-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></left-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<other-bubble :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></other-bubble>
+					<right-bubble :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<drawer :popupLayerClass="popupLayerClass" :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji"></drawer>
-		
-		<!-- 底部输入栏 -->
-		<view :style="{ bottom: inputOffsetBottom > 0 ?  '20rpx' : '0rpx' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
-			<!-- H5下不能录音，输入栏布局改动一下 -->
-			<!-- #ifndef H5 -->
-			<view class="voice">
-				<view class="iconfont iconshuru" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
-			</view>
-			<!-- #endif -->
-			<!-- #ifdef H5 -->
-			<view class="more" @tap="showMore">
-				<view class="iconfont icontianjia"></view>
-			</view>
-			<!-- #endif -->
-			<!-- 录音 -->
-			<view class="textbox">
-				<view class="voice-mode" :class="[isVoice?'':'hidden',recording?'recording':'']" @touchstart="voiceBegin"
-				 @touchmove.stop.prevent="voiceIng" @touchend="voiceEnd" @touchcancel="voiceCancel">{{voiceTis}}</view>
-				<view class="text-mode" :class="isVoice?'hidden':''">
-					<view class="box">
-						<textarea auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" />
-					</view>
-					<view class="em" @tap="chooseEmoji">
-						<view class="iconfont iconbiaoqing"></view>
-					</view>
-				</view>
-			</view>
-			<!-- #ifndef H5 -->
-			<view class="more" @tap="showMore">
-				<view class="iconfont icontianjia"></view>
-			</view>
-			<!-- #endif -->
-			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
-				<view class="iconfont icontuiguang-weixuan"></view>
-			</view>
-		</view>
+		<footer-input :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 录音UI效果 -->
 		<view class="record" :class="recording?'':'hidden'">
@@ -74,31 +38,33 @@
 		
 		<!-- 红包 -->
 		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
-			<redenvelope @handTo="redenvelopeFunc"></redenvelope>
+			<red-envelope @handTo="redenvelopeFunc"></red-envelope>
 		</u-popup>
 	</view>
 </template>
 <script>
 	import Map from '@/js_sdk/ms-openMap/openMap.js'
-	import redenvelope from "@/components/redenvelope"
+	import Drawer from '@/components/chat/drawer.vue'
+	import RedCard from '@/components/chat/red-card.vue'
+	import RedEnvelope from "@/components/redenvelope"
 	import emojiData from "../../static/emoji/emojiData.js"
 	import { transform } from "../../static/emoji/ChatUtils.js"
-	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
-	import ImgCache from '@/components/img-cache/img-cache.vue';
-	import SelfBubble from '@/components/chat/self-bubble.vue'
-	import OtherBubble from '@/components/chat/other-bubble.vue'
+	import ImgCache from '@/components/img-cache/img-cache.vue'
+	import RightBubble from '@/components/chat/right-bubble.vue'
+	import LeftBubble from '@/components/chat/left-bubble.vue'
+	import FooterInput from '@/components/chat/footer-input.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
-	import Drawer from '@/components/chat/drawer.vue'
-	import RedCard from '@/components/chat/redCard.vue'
+	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
 	export default {
 		components: {
-			redenvelope,
-			ImgCache,
-			SelfBubble,
-			OtherBubble,
-			SystemBubble,
 			Drawer,
-			RedCard
+			RedCard,
+			ImgCache,
+			RightBubble,
+			LeftBubble,
+			SystemBubble,
+			RedEnvelope,
+			FooterInput
 		},
 		data() {
 			return {
@@ -257,6 +223,25 @@
 			}
 		},
 		methods:{
+			// 打开抽屉
+			openDrawer(){
+				this.popupLayerClass = 'showLayer';
+				this.scrollAnimation = false
+				this.$nextTick(() => {
+					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
+					this.scrollAnimation = true;
+				});
+			},
+			// 隐藏抽屉
+			hideDrawer(){
+				this.popupLayerClass = '';
+				setTimeout(()=>{
+					this.hideMore = true;
+					this.hideEmoji = true;
+					this.rClickId = '';
+					this.lClickId = '';
+				},150);
+			},
 			// 置底
 			scrollToBottom(t) {
 					let that = this
@@ -456,36 +441,7 @@
 				}
 				return content;
 			},
-			//更多功能(点击+弹出) 
-			showMore(){
-				this.isVoice = false;
-				this.hideEmoji = true;
-				if(this.hideMore){
-					this.hideMore = false;
-					this.openDrawer();
-				}else{
-					this.hideDrawer();
-				}
-			},
-			// 打开抽屉
-			openDrawer(){
-				this.popupLayerClass = 'showLayer';
-				this.scrollAnimation = false
-				this.$nextTick(() => {
-					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
-					this.scrollAnimation = true;
-				});
-			},
-			// 隐藏抽屉
-			hideDrawer(){
-				this.popupLayerClass = '';
-				setTimeout(()=>{
-					this.hideMore = true;
-					this.hideEmoji = true;
-					this.rClickId = '';
-					this.lClickId = '';
-				},150);
-			},
+			
 			// 选择图片发送
 			chooseImage(){
 				this.getImage('album');
@@ -696,97 +652,6 @@
             addSystemRedEnvelopeMsg(msg){
                 this.msgList.push(msg);
             },
-			// 录音开始
-			voiceBegin(e){
-				if(e.touches.length>1){
-					return ;
-				}
-				this.initPoint.Y = e.touches[0].clientY;
-				this.initPoint.identifier = e.touches[0].identifier;
-				this.RECORDER.start({format:"mp3"});//录音开始,
-			},
-			//录音开始UI效果
-			recordBegin(e){
-				this.recording = true;
-				this.voiceTis='松开 结束';
-				this.recordLength = 0;
-				this.recordTimer = setInterval(()=>{
-					this.recordLength++;
-				},1000)
-			},
-			// 录音被打断
-			voiceCancel(){
-				this.recording = false;
-				this.voiceTis='按住 说话';
-				this.recordTis = '手指上滑 取消发送'
-				this.willStop = true;//不发送录音
-				this.RECORDER.stop();//录音结束
-			},
-			// 录音中(判断是否触发上滑取消发送)
-			voiceIng(e){
-				if(!this.recording){
-					return;
-				}
-				let touche = e.touches[0];
-				//上滑一个导航栏的高度触发上滑取消发送
-				if(this.initPoint.Y - touche.clientY>=uni.upx2px(100)){
-					this.willStop = true;
-					this.recordTis = '松开手指 取消发送'
-				}else{
-					this.willStop = false;
-					this.recordTis = '手指上滑 取消发送'
-				}
-			},
-			// 结束录音
-			voiceEnd(e){
-				if(!this.recording){
-					return;
-				}
-				this.recording = false;
-				this.voiceTis='按住 说话';
-				this.recordTis = '手指上滑 取消发送'
-				this.RECORDER.stop();//录音结束
-			},
-			//录音结束(回调文件)
-			recordEnd(e){
-				clearInterval(this.recordTimer);
-				if(!this.willStop){
-			      let tempFilePaths =e.tempFilePath;
-				  let that=this;
-					uni.uploadFile({
-						url: this.$uploadUrl, //仅为示例，非真实的接口地址
-						filePath: tempFilePaths,
-						header: {
-						'merchcode':'md5'
-						},
-						name: 'file',
-						formData: {
-							'user': 'test'
-						},
-						success: (res) => {
-							let data =JSON.parse(res.data)
-							let msg = {
-								length:0,
-								url:data.data
-							}
-							let min = parseInt(this.recordLength/60);
-							let sec = this.recordLength%60;
-							min = min<10?'0'+min:min;
-							sec = sec<10?'0'+sec:sec;
-							msg.length = min+':'+sec;
-							this.sendMsg(3,JSON.stringify(msg))
-						}
-					});
-				}else{
-					// console.log('取消发送录音');
-				}
-				this.willStop = false;
-			},
-			// 切换语音/文字输入
-			switchVoice(){
-				this.hideDrawer();
-				this.isVoice = this.isVoice?false:true;
-			},
 			discard(){
 				return;
 			}

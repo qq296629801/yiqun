@@ -51,7 +51,7 @@
 	import ImgCache from '@/components/img-cache/img-cache.vue';
 	import { transform } from "../../static/emoji/ChatUtils.js"
 	export default {
-		name: 'selft-bubble',
+		name: 'right-bubble',
 		components:{
 			ImgCache
 		},
