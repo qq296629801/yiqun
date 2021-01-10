@@ -6,107 +6,16 @@
 			 upper-threshold="50">
 			 
 				<view id="msglistview" class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
-					<!-- 通知消息 -->
-					<!-- <view class="system">
-						<view class="text">
-							{{row.msgContext}}
-						</view>
-						<view class="red-envelope">
-							<image src="/static/img/red-envelope-chat.png"></image>
-							{{row.msgContext}}
-						</view>
-					</view> -->
 					
+					<!-- 系统通知的消息 -->
+					<system-bubble :rom="rom"></system-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<view class="my" v-if="row.sendUid==_user_info.id">
-						<!-- 右键 -->
-						<view class="right-click" v-show="row.id==rightClickSelectId">
-							<view @tap="copyFunc(row.msgContext)">复制</view>
-							<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
-							<view @tap="forwardFunc(row)" v-if="row.msgType!=7">转发</view>
-							<view @tap="collectFunc(row)" v-if="row.msgType==1">收藏</view>
-							<text @tap="rollBackFunc(row)">撤销</text>
-						</view>
-						<!-- 左-消息 -->
-						<view class="left">
-							<!-- 文字消息 -->
-							<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==0" class="bubble text">
-								<rich-text :nodes="transformFace(row.msgContext)"></rich-text>
-							</view>
-							<!-- 图片消息 -->
-							<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
-								<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
-							</view>
-							<!-- 语言消息 -->
-							<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgid == row.id?'play':''">
-								<view class="length">{{recordToJson(row.msgContext).length}}</view>
-								<view class="icon my-voice"></view>
-							</view>
-							<!-- 红包 -->
-							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
-									<div class="text">
-									  <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
-									  <span class="packet">恭喜发财，大吉大利</span>
-									</div>
-									<div :class="redenvelopeProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
-									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
-								</div>
-							</view>
-						</view>
-						<!-- 右-头像 -->
-						<view :class="row.msgType==0?'right text':'right'" @tap="linkToCard(row.sendUid)">
-							<img-cache :src="`${$url}/${row.avatar}`"></img-cache>
-						</view>
-					</view>
+					<self-bubble :rom="rom" :rightClickSelectId="rightClickSelectId" :playMsgid="playMsgid"></self-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<view class="other" v-if="row.sendUid!=_user_info.id">
-						<!-- 右键 -->
-						<view class="left-click" v-show="row.id==leftClickSelectId">
-							<view @tap="copyFunc(row.msgContext)">复制</view>
-							<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
-							<view @tap="forwardFunc(row)" v-if="row.msgType!=7">转发</view>
-							<view @tap="collectFunc(row)" v-if="row.msgType==1">收藏</view>
-							<text @tap="rollBackFunc(row)">撤销</text>
-						</view>
-						<!-- 左-头像 -->
-						<view :class="row.msgType==0?'left text':'left'" @tap="linkToCard(row.sendUid)">
-							<img-cache :src="`${$url}/${row.avatar}`"></img-cache>
-						</view>
-						<!-- 右-用户名称-时间-消息 -->
-						<view class="right">
-							<view class="username">
-								<view class="name">{{row.nickName}}</view>
-								<view class="time">{{row.operTime|formatDate}}</view>
-							</view>
-							<!-- 文字消息 -->
-							<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==0" class="bubble">
-								<rich-text :nodes="row.msgContext"></rich-text>
-							</view>
-							<!-- 语音消息 -->
-							<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgid == row.id?'play':''">
-								<view class="icon other-voice"></view>
-								<view class="length">{{recordToJson(row.msgContext).length}}</view>
-							</view>
-							<!-- 图片消息 -->
-							<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
-								<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
-							</view>
-							<!-- 红包 -->
-							<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
-								<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
-									<div class="text">
-									   <span class="packet">恭喜发财,大吉大利</span>
-									   <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
-									</div>
-									<div :class="redenvelopeProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
-									<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
-								  </div>
-							</view>
-						</view>
-					</view>
+					<other-bubble :row="rom" :leftClickSelectId="leftClickSelectId" :playMsgid="playMsgid"></other-bubble>
+					
 				</view>
 
 			</scroll-view>
@@ -152,16 +61,20 @@
 		<!-- 底部输入栏 -->
 		<view :style="{ bottom: inputOffsetBottom > 0 ?  '15px' : '0' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- H5下不能录音，输入栏布局改动一下 -->
+			
 			<!-- #ifndef H5 -->
 			<view class="voice">
 				<view class="iconfont iconshuru" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
 			</view>
 			<!-- #endif -->
+			
 			<!-- #ifdef H5 -->
 			<view class="more" @tap="showMore">
 				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
+			
+			<!-- 录音 -->
 			<view class="textbox">
 				<view class="voice-mode" :class="[isVoice?'':'hidden',recording?'recording':'']" @touchstart="voiceBegin"
 				 @touchmove.stop.prevent="voiceIng" @touchend="voiceEnd" @touchcancel="voiceCancel">{{voiceTis}}</view>
@@ -174,6 +87,7 @@
 					</view>
 				</view>
 			</view>
+			
 			<!-- #ifndef H5 -->
 			<view class="more" @tap="showMore">
 				<view class="iconfont icontianjia"></view>
@@ -182,6 +96,7 @@
 			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
+			
 		</view>
 		
 		<!-- 录音UI效果 -->
@@ -206,7 +121,7 @@
 						<view class="img">开</view>
 					</view>
 					<view class="showDetails" @tap="toDetails">
-						查看领取详情 
+						      查看领取详情
 					</view>
 				</view>
 			</view>
@@ -232,11 +147,17 @@
 	import { transform } from "../../static/emoji/ChatUtils.js"
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
 	import ImgCache from '@/components/img-cache/img-cache.vue';
+	import SelfBubble from '@/components/chat/self-bubble.vue'
+	import OtherBubble from '@/components/chat/other-bubble.vue'
+	import SystemBubble from '@/components/chat/system-bubble.vue'
 	export default {
 		components: {
 			emotion,
 			redenvelope,
-			ImgCache
+			ImgCache,
+			SelfBubble,
+			OtherBubble,
+			SystemBubble
 		},
 		data() {
 			return {

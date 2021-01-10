@@ -671,7 +671,8 @@ src:url(
 		height: 70%;
 		left: 10%;
 		z-index: 1001;
-		border: 2rpx dotted red;
+		border-radius: 10rpx;
+		//border: 2rpx dotted red;
 		overflow: hidden;
 		top:100%;
 		transform: scale3d(.5,.5,1);
@@ -741,6 +742,7 @@ src:url(
 		padding: 5upx 5%;
 		display: flex;
 		justify-content: center;
+		text-align: center;
 		font-size: 32upx;
 		color: #E7CB9B;
 		padding-top: 50rpx;
@@ -759,7 +761,7 @@ src:url(
 	.showDetails{
 		position: absolute;
 		bottom: 20upx;
-		align-items: center;
+		text-align: center;
 		font-size: 28upx;
 		color: #E7CB9B;
 		.icon{
@@ -770,15 +772,15 @@ src:url(
 }
  .message-red-packet-left {
 	position: relative;
-	border-radius: 0.106667rem;
+	border-radius: 10rpx;
 	background: orange;
 	font-size: 0.4rem;
 	color: #fff;
 	text-align: right;
 	display: inline-table;
-	max-width: 300px;
+	max-width: 380px;
 	min-width: 200px;
-	height: 70px;
+	height: 60px;
 	box-shadow: 1px 1px 1px 1px #efefef;
 	.packet {
 	  padding-right: 12px;
@@ -805,6 +807,7 @@ src:url(
 	  border-top: 1px solid #f9b56f;
 	  background: #F09D47;
 	  padding-right: 5px;
+	  border-radius: 10rpx;
 	  color: #fff;
 	}
 	.footer2 {
@@ -813,6 +816,7 @@ src:url(
 	  font-size: 20rpx;
 	  background:#F7DFC3;
 	  padding-right: 5px;
+	  border-radius: 10rpx;
 	  color: #fff;
 	}
 	.arrow-org {
@@ -827,15 +831,15 @@ src:url(
 	}
 	.message-red-packet-right {
 	position: relative;
-	border-radius: 0.106667rem;
+	border-radius: 10rpx;
 	background: orange;
 	font-size: 0.4rem;
 	color: #fff;
 	text-align: left;
 	display: inline-table;
-	max-width: 300px;
+	max-width: 380px;
 	min-width: 200px;
-	height: 70px;
+	height: 60px;
 	box-shadow: 1px 1px 1px 1px #efefef;
 	.packet {
 	  padding-left: 12px;
@@ -861,6 +865,7 @@ src:url(
 	  background: #F09D47;
 	  border-top: 1px solid #f9b56f;
 	  padding-left: 5px;
+	  border-radius: 10rpx;
 	  color: #fff;
 	}
 	.footer2 {
@@ -869,6 +874,7 @@ src:url(
 	  font-size: 20rpx;
 	  background:#F7DFC3;
 	  padding-left: 5px;
+	  border-radius: 10rpx;
 	  color: #fff;
 	}
 	.arrow-org {

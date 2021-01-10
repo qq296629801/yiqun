@@ -75,7 +75,7 @@ function addMsgSQL(obj){
 function selectMsgSQL(groupId){
 	if(groupId !== undefined){
 		//第一个是表单名称，后两个参数是列表名，用来检索
-		var sql = 'select * from s_group_msg_'+groupId;
+		var sql = 'select * from s_group_msg_' + groupId;
 		return new Promise((resolve,reject)=>{
 			plus.sqlite.selectSql({
 				name:'msg',

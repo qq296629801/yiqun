@@ -2,7 +2,7 @@
 	<view>
 		<u-grid :col="6" :border="false">
 			<u-grid-item v-for="(item, index) in _membersNoneIndex" :index="index" :key="item.id" @tap="linkTo(item.id)">
-				<u-avatar :src="$url + item.avatar" mode="square"></u-avatar>
+				<img-cache :src="$url + item.avatar"></img-cache>
 				<view class="grid-text">{{ item.groupNickName||item.nickName }}</view>
 			</u-grid-item>
 			<u-grid-item @tap="showAddGroupUser">
@@ -15,9 +15,12 @@
 </template>
 
 <script>
+	import ImgCache from '@/components/img-cache/img-cache.vue';
 	export default {
 		name:'moreMembers',
-		components:{},
+		components:{
+			ImgCache
+		},
 		data() {
 			return {
 			};

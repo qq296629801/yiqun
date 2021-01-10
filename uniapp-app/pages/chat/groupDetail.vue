@@ -11,7 +11,7 @@
 		<view style="background-color: #FFFFFF;padding-left: 30rpx;">
 			<u-grid :col="6" :border="false">
 				<u-grid-item v-for="(item, index) in members" :index="index" :key="item.id" v-if="index<=10" @tap="linkToCard(item.id)">
-					<u-avatar :src="$url + item.avatar" mode="square"></u-avatar>
+					<img-cache :src="$url + item.avatar"></img-cache>
 					<view class="grid-text">{{ item.groupNickName||item.nickName }}</view>
 				</u-grid-item>
 				<u-grid-item @click="showAddGroupUser">
@@ -62,7 +62,11 @@
 </template>
 
 <script>
+import ImgCache from '@/components/img-cache/img-cache.vue';
 export default {
+	components:{
+		ImgCache
+	},
 	data() {
 		return {
 			src1: require('@/static/qrcode.png'),
