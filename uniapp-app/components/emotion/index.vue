@@ -21,6 +21,7 @@
 		emojiList
 	} from "@/static/emoji/emoji.js"
 	export default {
+		name:'u-emotion',
 		data() {
 			return {
 				list: emojiList,

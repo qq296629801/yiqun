@@ -7,8 +7,10 @@
 				<view id="msglistview" class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
 					<!-- 系统通知的消息 -->
 					<system-bubble :row="row"></system-bubble>
+					
 					<!-- 自己发出的消息 -->
 					<self-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></self-bubble>
+					
 					<!-- 别人发出的消息 -->
 					<other-bubble :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></other-bubble>
 				</view>
@@ -16,42 +18,10 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<view class="popup-layer" :class="popupLayerClass" @touchmove.stop.prevent="discard">
-			<!-- 表情 -->
-			<emotion @addEmoji="addEmoji" @send="sendMsg(0,textMsg)" :class="{hidden:hideEmoji}"></emotion>
-			<!-- 更多功能 相册-拍照-红包 -->
-			<view class="more-layer" :class="{hidden:hideMore}">
-				<view class="list">
-					<view class="box" @tap="chooseImage">
-						<image class="box-xx" src="../../static/img/more/tupian.png"></image>
-					</view>
-					<view class="box" @tap="camera">
-						<image class="box-xx" src="../../static/img/more/paizhao.png"></image>
-					</view>
-					<view class="box" @tap="redenvelopeFlag = true">
-						<image class="box-xx" src="../../static/img/more/hongbao.png"></image>
-					</view>
-					<view class="box" @tap="weizhi">
-						<image class="box-xx" src="../../static/img/more/weizhi.png"></image>
-					</view>
-					<!-- <view class="box">
-						<image class="box-xx" src="../../static/img/more/yuyintonghua.png"></image>
-					</view>
-					<view class="box">
-						<image class="box-xx" src="../../static/img/more/yuyinshuru.png"></image>
-					</view>
-					<view class="box">
-						<image class="box-xx" src="../../static/img/more/me-shouchang.png"></image>
-					</view>
-					<view class="box">
-						<image class="box-xx" src="../../static/img/more/userinfo.png"></image>
-					</view> -->
-				</view>
-			</view>
-		</view>
+		<drawer :popupLayerClass="popupLayerClass" :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji"></drawer>
 		
 		<!-- 底部输入栏 -->
-		<view :style="{ bottom: inputOffsetBottom > 0 ?  '15px' : '0' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
+		<view :style="{ bottom: inputOffsetBottom > 0 ?  '20rpx' : '0rpx' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- H5下不能录音，输入栏布局改动一下 -->
 			<!-- #ifndef H5 -->
 			<view class="voice">
@@ -94,29 +64,14 @@
 		</view>
 		
 		<!-- 红包弹窗 -->
-		<view class="windows" :class="windowsState">
-			<!-- 遮罩层 -->
-			<view class="mask" @touchmove.stop.prevent="discard" @tap="closeRedEnvelope"></view>
-			<view class="layer" @touchmove.stop.prevent="discard">
-				<view class="open-redenvelope">
-					<view class="from"><image :src="this.$url+packet.userAvatar"></image> {{packet.userName}} 的红包</view>
-					<view class="blessing">恭喜发财，大吉大利</view>
-					<view class="top">
-						<view class="close-btn">
-							<view class="icon close" @tap="closeRedEnvelope"></view>
-						</view>
-						<view class="img">开</view>
-					</view>
-					<view class="showDetails" @tap="toDetails">
-						      查看领取详情
-					</view>
-				</view>
-			</view>
-		</view>
+		<red-card :windowsState="windowsState" :packet="packet"></red-card>
+		
 		<!-- @功能 -->
 		<view class="process" v-show="_call_s.length>0" @click="processFunc">
 			<text>当前{{_call_s.length}}人@我</text>
 		</view>
+		
+		
 		<!-- 红包 -->
 		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
 			<redenvelope @handTo="redenvelopeFunc"></redenvelope>
@@ -126,7 +81,6 @@
 <script>
 	import Map from '@/js_sdk/ms-openMap/openMap.js'
 	import redenvelope from "@/components/redenvelope"
-	import emotion from '@/components/emotion/index.vue'
 	import emojiData from "../../static/emoji/emojiData.js"
 	import { transform } from "../../static/emoji/ChatUtils.js"
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
@@ -134,14 +88,17 @@
 	import SelfBubble from '@/components/chat/self-bubble.vue'
 	import OtherBubble from '@/components/chat/other-bubble.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
+	import Drawer from '@/components/chat/drawer.vue'
+	import RedCard from '@/components/chat/redCard.vue'
 	export default {
 		components: {
-			emotion,
 			redenvelope,
 			ImgCache,
 			SelfBubble,
 			OtherBubble,
-			SystemBubble
+			SystemBubble,
+			Drawer,
+			RedCard
 		},
 		data() {
 			return {
@@ -204,42 +161,6 @@
 				inputOffsetBottom: 0, //键盘的高度
 				viewOffsetBottom: 0, //视窗距离页面的距离
 			};
-		},
-		filters: {
-			formatDate: function (e) {
-				// 获取js 时间戳
-				let time = new Date().getTime();
-				// 去掉 js 时间戳后三位
-				time = parseInt((time - e) / 1000);
-				// 存储转换值
-				let s;
-				if (time < 60 * 10) {
-				  // 十分钟内
-				  return '刚刚';
-				} else if (time < 60 * 60 && time >= 60 * 10) {
-				  // 超过十分钟少于1小时
-				  s = Math.floor(time / 60);
-				  return s + '分钟前';
-				} else if (time < 60 * 60 * 24 && time >= 60 * 60) {
-				  // 超过1小时少于24小时
-				  s = Math.floor(time / 60 / 60);
-				  return s + '小时前';
-				} else if (time < 60 * 60 * 24 * 3 && time >= 60 * 60 * 24) {
-				  // 超过1天少于3天内
-				  s = Math.floor(time / 60 / 60 / 24);
-				  return s + '天前';
-				} else {
-				  // 超过3天
-				 var date = new Date(e);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-				 var Y = date.getFullYear() + '-';
-				 var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-				 var D = date.getDate() + ' ';
-				 var h = date.getHours() + ':';
-				 var m = date.getMinutes() + ':';
-				 var ss = date.getSeconds();
-				 return Y+M+D+h+m+ss;
-				}   
-			}
 		},
 		//头部按钮监听
 		onNavigationBarButtonTap({ index }) {
@@ -839,23 +760,6 @@
             addSystemRedEnvelopeMsg(msg){
                 this.msgList.push(msg);
             },
-			// 关闭红包弹窗
-			closeRedEnvelope(){
-				this.windowsState = 'hide';
-				setTimeout(()=>{
-					this.windowsState = '';
-				},200)
-			},
-			//领取详情
-			toDetails(){
-				// 获取最新红包情况
-				//TODO 从服务器上获取红包列表
-				//let packet = this.redenvelopeProcess(this.message.msgContext)
-				this.$u.vuex('_redenvelope',this.packet)
-				uni.navigateTo({
-					url:'./detail'
-				})
-			},
 			// 录音开始
 			voiceBegin(e){
 				if(e.touches.length>1){
