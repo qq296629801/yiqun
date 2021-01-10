@@ -268,14 +268,7 @@
 						}
 					})
 			},
-			weizhi(){
-				uni.getLocation({
-					type: 'wgs84 ',
-					success: function (res) {
-						Map.openMap(res.latitude, res.longitude, '易群', 'wgs84')
-					}
-				});
-			},
+		
 			//收藏表情
 			collectFunc({msgContext}){
 				this.$socket.addEmoticon(this._user_info.id, msgContext, res => {

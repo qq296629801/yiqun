@@ -51,7 +51,7 @@
 	import ImgCache from '@/components/img-cache/img-cache.vue';
 	import { transform } from "../../static/emoji/ChatUtils.js"
 	export default {
-		name: 'yiqun-selft-bubble',
+		name: 'selft-bubble',
 		components:{
 			ImgCache
 		},

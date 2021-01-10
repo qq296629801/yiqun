@@ -51,7 +51,7 @@
 
 <script>
 	export default {
-		name: 'yiqun-other-bubble',
+		name: 'other-bubble',
 		components:{
 		},
 		props: {

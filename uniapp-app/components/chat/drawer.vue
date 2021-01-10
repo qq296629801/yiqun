@@ -40,7 +40,7 @@
 <script>
 	import emotion from '@/components/emotion/index.vue'
 	export default {
-		name:'yiqun-drawer',
+		name:'drawer',
 		components:{
 			emotion
 		},
@@ -71,6 +71,14 @@
 			},
 		},
 		methods:{
+			weizhi(){
+				uni.getLocation({
+					type: 'wgs84 ',
+					success: function (res) {
+						Map.openMap(res.latitude, res.longitude, '易群', 'wgs84')
+					}
+				});
+			},
 			discard(){
 				return;
 			},

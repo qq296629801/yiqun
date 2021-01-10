@@ -25,7 +25,7 @@
 
 <script>
 	export default {
-		name:'yiqun-red-card',
+		name:'red-card',
 		data() {
 			return {
 				
