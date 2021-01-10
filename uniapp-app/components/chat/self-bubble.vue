@@ -3,25 +3,26 @@
 		<!-- 自己发出的消息 -->
 		<view class="my" v-if="row.sendUid==_user_info.id">
 			<!-- 右键 -->
-			<view class="right-click" v-show="row.id==rightClickSelectId">
+			<view class="right-click" v-show="row.id==rClickId">
 				<view @tap="copyFunc(row.msgContext)">复制</view>
 				<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
 				<view @tap="forwardFunc(row)" v-if="row.msgType!=7">转发</view>
 				<view @tap="collectFunc(row)" v-if="row.msgType==1">收藏</view>
 				<text @tap="rollBackFunc(row)">撤销</text>
 			</view>
+			
 			<!-- 左-消息 -->
 			<view class="left">
 				<!-- 文字消息 -->
-				<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==0" class="bubble text">
+				<view @longtap="rClickId = row.id" v-if="row.msgType==0" class="bubble text">
 					<rich-text :nodes="transformFace(row.msgContext)"></rich-text>
 				</view>
 				<!-- 图片消息 -->
-				<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
+				<view @longtap="rClickId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
 					<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 语言消息 -->
-				<view @longtap="rightClickSelectId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgid == row.id?'play':''">
+				<view @longtap="rClickId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgId == row.id?'play':''">
 					<view class="length">{{recordToJson(row.msgContext).length}}</view>
 					<view class="icon my-voice"></view>
 				</view>
@@ -37,6 +38,7 @@
 					</div>
 				</view>
 			</view>
+			
 			<!-- 右-头像 -->
 			<view :class="row.msgType==0?'right text':'right'" @tap="linkToCard(row.sendUid)">
 				<img-cache :src="`${$url}/${row.avatar}`"></img-cache>
@@ -60,11 +62,11 @@
 					return {};
 				}
 			},
-			rightClickSelectId: {
+			rClickId: {
 				type: Boolean,
 				default: false
 			},
-			playMsgid: {
+			playMsgId: {
 				type: String,
 				default: ''
 			},
@@ -108,7 +110,7 @@
 			// 播放语音
 			playVoice(msg){
 				let s =JSON.parse(msg.msgContext);
-				this.playMsgid= msg.id;
+				this.playMsgId= msg.id;
 				this.AUDIO.src = this.$url + s.url;
 				this.$nextTick(function() {
 					this.AUDIO.play();
@@ -185,6 +187,6 @@
 	}
 </script>
 
-<style lang="less">
-
+<style lang="scss">
+@import "@/pages/chat/style.scss";
 </style>

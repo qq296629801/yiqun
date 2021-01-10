@@ -4,20 +4,14 @@
 			<scroll-view id="scrollview" class="msg-list" :class="{'chat-h':popupLayerClass === 'showLayer'}" scroll-y="true"
 			 :scroll-with-animation="scrollAnimation" :scroll-top="scrollTop" :scroll-into-view="scrollToView" @scrolltoupper="loadHistory"
 			 upper-threshold="50">
-			 
 				<view id="msglistview" class="row" v-for="(row,index) in msgList" :key="index" :id="'msg'+row.id">
-					
 					<!-- 系统通知的消息 -->
-					<system-bubble :rom="rom"></system-bubble>
-					
+					<system-bubble :row="row"></system-bubble>
 					<!-- 自己发出的消息 -->
-					<self-bubble :rom="rom" :rightClickSelectId="rightClickSelectId" :playMsgid="playMsgid"></self-bubble>
-					
+					<self-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></self-bubble>
 					<!-- 别人发出的消息 -->
-					<other-bubble :row="rom" :leftClickSelectId="leftClickSelectId" :playMsgid="playMsgid"></other-bubble>
-					
+					<other-bubble :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></other-bubble>
 				</view>
-
 			</scroll-view>
 		</view>
 		
@@ -25,7 +19,6 @@
 		<view class="popup-layer" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- 表情 -->
 			<emotion @addEmoji="addEmoji" @send="sendMsg(0,textMsg)" :class="{hidden:hideEmoji}"></emotion>
-			
 			<!-- 更多功能 相册-拍照-红包 -->
 			<view class="more-layer" :class="{hidden:hideMore}">
 				<view class="list">
@@ -44,7 +37,6 @@
 					<!-- <view class="box">
 						<image class="box-xx" src="../../static/img/more/yuyintonghua.png"></image>
 					</view>
-					
 					<view class="box">
 						<image class="box-xx" src="../../static/img/more/yuyinshuru.png"></image>
 					</view>
@@ -61,19 +53,16 @@
 		<!-- 底部输入栏 -->
 		<view :style="{ bottom: inputOffsetBottom > 0 ?  '15px' : '0' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- H5下不能录音，输入栏布局改动一下 -->
-			
 			<!-- #ifndef H5 -->
 			<view class="voice">
 				<view class="iconfont iconshuru" :class="isVoice?'iconshuru':'iconyuyin1'" @tap="switchVoice"></view>
 			</view>
 			<!-- #endif -->
-			
 			<!-- #ifdef H5 -->
 			<view class="more" @tap="showMore">
 				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
-			
 			<!-- 录音 -->
 			<view class="textbox">
 				<view class="voice-mode" :class="[isVoice?'':'hidden',recording?'recording':'']" @touchstart="voiceBegin"
@@ -87,7 +76,6 @@
 					</view>
 				</view>
 			</view>
-			
 			<!-- #ifndef H5 -->
 			<view class="more" @tap="showMore">
 				<view class="iconfont icontianjia"></view>
@@ -96,7 +84,6 @@
 			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
-			
 		</view>
 		
 		<!-- 录音UI效果 -->
@@ -126,13 +113,10 @@
 				</view>
 			</view>
 		</view>
-
-		
 		<!-- @功能 -->
 		<view class="process" v-show="_call_s.length>0" @click="processFunc">
 			<text>当前{{_call_s.length}}人@我</text>
 		</view>
-		
 		<!-- 红包 -->
 		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
 			<redenvelope @handTo="redenvelopeFunc"></redenvelope>
@@ -171,8 +155,8 @@
 				memberData:{},
 				forwardData:{},
 				forwardFlag: false,
-				rightClickSelectId:'',
-				leftClickSelectId:'',
+				rClickId:'',
+				lClickId:'',
 				pageNum:1,
 				disabledSay:0,//禁止聊天 1
 				rightClickFlag: false,
@@ -297,23 +281,19 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			
 			// #ifndef APP-PLUS
 			this.getMsgList();
 			//#endif
-			
 			this.sendMsg(0,'');
 			//this.openConver();
 			//this.queryMembers();
 			this.hideDrawer();
-			
 			// 每次加入房间通道 群聊有效
 			if(this.chatObj.chatType===1){
 				var groupIds = [];
 				groupIds.push(this.chatObj.chatId);
 				this.$socket.joinRoom(groupIds,res=>{});
 			}
-			
 			// #ifndef H5
 			openMsgSqlite().then(res=>{
 			});
@@ -326,11 +306,9 @@
             const icon = document.getElementsByClassName('uni-page-head-btn')[0];
             icon.style.display = 'none';
             // #endif
-			
 			uni.setNavigationBarTitle({
 				title: this.chatObj.chatName
 			});
-			
 			//h5暂不支持键盘的高度监听
 			uni.onKeyboardHeightChange(res => {
 				this.inputOffsetBottom = res.height;
@@ -341,7 +319,6 @@
 					// #endif
 				}
 			});
-			
 		},
 		watch: {
 			inputOffsetBottom: {
@@ -393,16 +370,7 @@
 			deleteFunc(id,index){
 				this.msgList.splice(index,1);
 			},
-			// 打开红包
-			openRedEnvelopeFunc(msg,index){
-				this.windowsState = 'show'
-				//获取最新的message
-				this.message = msg
-				// 从服务器获取最新包
-				this.sendMsg(8, msg.id);
-				// 解析红包数据
-				this.packet = this.redenvelopeProcess(msg.msgContext)
-			},
+			
 			//处理红包数据
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
@@ -464,34 +432,6 @@
 					this.$u.vuex('_call_s',this.calls)
 				}
 			},
-			//转发
-			forwardFunc({msgType,msgContext}){
-				this.$u.route({
-					url:'pages/chat/forward',
-					params:{msgType,msgContext}
-				});	
-			},
-			//撤销
-			rollBackFunc({id,operTime}){
-				let _this = this
-				uni.showActionSheet({
-				    itemList: ['确认'],
-				    success: function (res) {
-				        if(res.tapIndex==0){
-							let type = _this.chatObj.chatType;
-							let arr = ['deleteFriendMsg','deleteGroupMsg']
-							_this.$socket[arr[type]](_this._user_info.id, id, _this.chatObj.chatId, res => {
-								if (res.success) {
-								  _this.sendMsg(6, id)
-								}
-							})
-						}
-				    },
-				    fail: function (res) {
-				        console.log(res.errMsg);
-				    }
-				});
-			},
 			//监听输入框
 			Input(e){
 				if(this.textMsg.indexOf('@')!=-1){
@@ -502,24 +442,6 @@
 					  });	
 				  }
 				}
-			},
-			//复制
-			copyFunc(content){
-				uni.setClipboardData({
-				data:content,
-				success:()=>{
-				  uni.showToast({
-					title:"复制成功"
-				  })
-				}
-			  });
-			},
-			//名片
-			linkToCard(id){
-				this.$u.route({
-					url: 'pages/businessCard/businessCard',
-					params:{ id: id, source: 1}
-				})
 			},
 			//获取群成员
             queryMembers () {
@@ -533,10 +455,6 @@
 				 })
                 }
             },
-			//表情转换
-			transformFace(text){
-				return transform(text)
-			},
 			//消费消息
 			openConver () {
 			  let _this = this
@@ -663,8 +581,8 @@
 				setTimeout(()=>{
 					this.hideMore = true;
 					this.hideEmoji = true;
-					this.rightClickSelectId = '';
-					this.leftClickSelectId = '';
+					this.rClickId = '';
+					this.lClickId = '';
 				},150);
 			},
 			// 选择图片发送
@@ -938,37 +856,6 @@
 					url:'./detail'
 				})
 			},
-			// 预览图片
-			showPic(msg){
-				uni.previewImage({
-					indicator:"none",
-					current: msg,
-					urls: this.msgImgList
-				});
-			},
-			// 播放语音
-			playVoice(msg){
-				let s =JSON.parse(msg.msgContext);
-				this.playMsgid= msg.id;
-				this.AUDIO.src = this.$url + s.url;
-				this.$nextTick(function() {
-					this.AUDIO.play();
-				});
-				
-			},
-			playMp3(){
-				let s =JSON.parse(msg.msgContext);
-				const innerAudioContext = uni.createInnerAudioContext();
-				innerAudioContext.autoplay = true;
-				innerAudioContext.src = this.$url + s.url;
-				innerAudioContext.onPlay(() => {
-				  console.log('开始播放');
-				});
-				innerAudioContext.onError((res) => {
-				  console.log(res.errMsg);
-				  console.log(res.errCode);
-				});
-			},
 			// 录音开始
 			voiceBegin(e){
 				if(e.touches.length>1){
@@ -1019,10 +906,6 @@
 				this.voiceTis='按住 说话';
 				this.recordTis = '手指上滑 取消发送'
 				this.RECORDER.stop();//录音结束
-			},
-			recordToJson(msg){
-				let s =JSON.parse(msg);
-				return s
 			},
 			//录音结束(回调文件)
 			recordEnd(e){

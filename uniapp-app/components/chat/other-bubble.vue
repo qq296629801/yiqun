@@ -3,7 +3,7 @@
 		<!-- 别人发出的消息 -->
 		<view class="other" v-if="row.sendUid!=_user_info.id">
 			<!-- 右键 -->
-			<view class="left-click" v-show="row.id==leftClickSelectId">
+			<view class="left-click" v-show="row.id==lClickId">
 				<view @tap="copyFunc(row.msgContext)">复制</view>
 				<view @tap="deleteFunc(row.id,index)" v-if="row.msgType!=1">删除</view>
 				<view @tap="forwardFunc(row)" v-if="row.msgType!=7">转发</view>
@@ -21,16 +21,16 @@
 					<view class="time">{{row.operTime|formatDate}}</view>
 				</view>
 				<!-- 文字消息 -->
-				<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==0" class="bubble">
+				<view @longtap="lClickId = row.id" v-if="row.msgType==0" class="bubble">
 					<rich-text :nodes="row.msgContext"></rich-text>
 				</view>
 				<!-- 语音消息 -->
-				<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgid == row.id?'play':''">
+				<view @longtap="lClickId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgid == row.id?'play':''">
 					<view class="icon other-voice"></view>
 					<view class="length">{{recordToJson(row.msgContext).length}}</view>
 				</view>
 				<!-- 图片消息 -->
-				<view @longtap="leftClickSelectId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
+				<view @longtap="lClickId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
 					<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 红包 -->
@@ -61,7 +61,7 @@
 					return {};
 				}
 			},
-			leftClickSelectId: {
+			lClickId: {
 				type: Boolean,
 				default: false
 			},
@@ -187,6 +187,6 @@
 	}
 </script>
 
-<style lang="less">
-
+<style lang="scss">
+@import "@/pages/chat/style.scss";
 </style>
