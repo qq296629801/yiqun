@@ -257,6 +257,7 @@
 			}
 		},
 		methods:{
+			// 置底
 			scrollToBottom(t) {
 					let that = this
 					let query = uni.createSelectorQuery()
@@ -268,23 +269,10 @@
 						}
 					})
 			},
-		
-			//收藏表情
-			collectFunc({msgContext}){
-				this.$socket.addEmoticon(this._user_info.id, msgContext, res => {
-					if(res.success){
-						uni.showToast({
-							icon:'none',
-							title:'添加成功'
-						})
-					}
-				  });
-			},
 			//删除
 			deleteFunc(id,index){
 				this.msgList.splice(index,1);
 			},
-			
 			//处理红包数据
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
@@ -468,7 +456,6 @@
 				}
 				return content;
 			},
-			
 			//更多功能(点击+弹出) 
 			showMore(){
 				this.isVoice = false;
@@ -505,11 +492,11 @@
 			},
 			//拍照发送
 			camera(){
-				this.getImage('camera');
+			  this.getImage('camera');
 			},
 			//发红包
-			handRedEnvelopes(){this.hideDrawer();
-				
+			handRedEnvelopes(){
+			  this.hideDrawer();
 			},
 			//选照片 or 拍照
 			getImage(type){
@@ -554,53 +541,7 @@
 					this.hideDrawer();
 				}
 			},
-			//添加表情
-			addEmoji(em, del){
-				if (em.emoticonFlag){
-					this.sendMsg(1,em.avatar);
-				} else {
-					//判断删除按钮
-					if(del){
-					  var str;
-					  var msglen = this.textMsg.length - 1;
-					  let start = this.textMsg.lastIndexOf("[");
-					  let end = this.textMsg.lastIndexOf("]");
-					  let len = end - start;
-					  if(end != -1 && end === msglen && len >= 2 && len <= 4){
-						    // 表情字符
-							str = this.textMsg.slice(0, start);
-						}else{
-							// 普通键盘输入汉字 或者字符
-							str = this.textMsg.slice(0, msglen);
-						}
-						
-						this.textMsg = str
-						return;
-					}
-					this.emojiList =emojiData.imgArr[em.groupIndex].emojiList
-					this.emojiPath =emojiData.imgArr[em.groupIndex].emojiPath
-					if(!em.minEmoji){
-						this.sendBigEmoji(em.emojiItem.url)
-					}else{
-					  this.textMsg+=em.emojiItem.alt;
-					}
-				}
-			},
-			// 发送大表情
-			sendBigEmoji(url){
-				this.hideDrawer();//隐藏抽屉
-				if(!url){
-				    return;
-				}
-				let imgstr = '<img style="width:48px;height:48px;" src="'+ this.emojiPath + url +'">';
-				let content = '<div style="align-items: center;word-wrap:break-word;">'
-				             + imgstr
-				             + '</div>';    
-				let msg = {text:content}
-				this.sendMsg(1, msg);
-				//清空输入框
-				this.textMsg = '';
-			},
+
 			//获取焦点，如果不是选表情ing,则关闭抽屉
 			textareaFocus(){
 				if(this.popupLayerClass=='showLayer' && this.hideMore == false){
@@ -679,6 +620,7 @@
 				// 	this.openConver();
 				// }
 			},
+			//增加撤销
 			addRevoke(res){
 				if (res.msgId != undefined && res.message == undefined) {
 				  for(var index in this.msgList){
@@ -688,6 +630,7 @@
 				  }
 				}
 			},
+			// 增加红包
 			addRobEnvelope(res){
 				if (res.msgId != undefined && res.message != undefined) {
 				 this.packet = this.redenvelopeProcess(res.message)

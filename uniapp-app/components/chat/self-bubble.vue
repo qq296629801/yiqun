@@ -112,6 +112,17 @@
 			}
 		},
 		methods:{
+			//收藏表情
+			collectFunc({msgContext}){
+				this.$socket.addEmoticon(this._user_info.id, msgContext, res => {
+					if(res.success){
+						uni.showToast({
+							icon:'none',
+							title:'添加成功'
+						})
+					}
+				  });
+			},
 			// 打开红包
 			openRedEnvelopeFunc(msg,index){
 				this.windowsState = 'show'
