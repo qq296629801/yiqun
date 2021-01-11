@@ -118,7 +118,6 @@ src:url(
 	width: 100%;
 	min-height: 100upx;
 	background-color: #fff;
-	//border-top: 1px solid #e5e6e6;
 	box-shadow:1px -4px 4px 1px #e5e6e6;
 	display: flex;
 	position: fixed;
@@ -129,22 +128,19 @@ src:url(
 	transition: all .15s linear;
 	.voice,.more{
 		flex-shrink: 0;
-		width: 90upx;
-		height: 100upx;
+		width: 90rpx;
+		height: 90rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 	
 	.send{
-		width: 150upx;
+		width: 90rpx;
+		height: 90rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		image{
-			width: 60upx;
-			height: 60upx;
-		}
 	}
 	.textbox{
 		width: 100%;
@@ -185,7 +181,7 @@ src:url(
 				flex-shrink: 0;
 				width: 80upx;
 				padding-left: 10upx;
-				height: 70upx;
+				height: 60upx;
 				display: flex;
 				justify-content: center;
 				align-items: center;

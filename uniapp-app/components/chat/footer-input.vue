@@ -31,6 +31,7 @@
 				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
+			
 			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
