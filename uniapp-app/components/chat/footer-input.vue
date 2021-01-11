@@ -31,7 +31,6 @@
 				<view class="iconfont icontianjia"></view>
 			</view>
 			<!-- #endif -->
-			
 			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
@@ -49,6 +48,14 @@
 	export default {
 		name:'footer-input',
 		props: {
+			recordTis:{
+				type: String,
+				default: ''
+			},
+			willStop:{
+				type: Boolean,
+				default: false
+			},
 			inputOffsetBottom: {
 				type: Number,
 				default: 0
@@ -84,6 +91,9 @@
 			};
 		},
 		methods:{
+			textareaFocus(){
+				this.$emit('textareaFocus', true);
+			},
 			// 选择表情
 			chooseEmoji(){
 				this.hideMore = true;
@@ -198,22 +208,11 @@
 			},
 			// 打开抽屉
 			openDrawer(){
-				this.popupLayerClass = 'showLayer';
-				this.scrollAnimation = false
-				this.$nextTick(() => {
-					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
-					this.scrollAnimation = true;
-				});
+				this.$emit('openDrawer', true);
 			},
 			// 隐藏抽屉
 			hideDrawer(){
-				this.popupLayerClass = '';
-				setTimeout(()=>{
-					this.hideMore = true;
-					this.hideEmoji = true;
-					this.rClickId = '';
-					this.lClickId = '';
-				},150);
+				this.$emit('hideDrawer', true);
 			},
 		}
 	}

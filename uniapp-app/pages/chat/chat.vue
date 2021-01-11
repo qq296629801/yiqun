@@ -18,7 +18,7 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<footer-input :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
+		<footer-input @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 红包弹窗 -->
 		<red-card :windowsState="windowsState" :packet="packet"></red-card>
@@ -213,8 +213,10 @@
 				this.popupLayerClass = 'showLayer';
 				this.scrollAnimation = false
 				this.$nextTick(() => {
-					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
-					this.scrollAnimation = true;
+					if(this.msgList.length>0){
+						this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
+						this.scrollAnimation = true;
+					}
 				});
 			},
 			// 隐藏抽屉
