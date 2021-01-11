@@ -23,11 +23,6 @@
 		<!-- 红包弹窗 -->
 		<red-card :windowsState="windowsState" :packet="packet"></red-card>
 		
-		<!-- @功能 -->
-		<!-- <view class="process" v-show="_call_s.length>0" @click="processFunc">
-			<text>当前{{_call_s.length}}人@我</text>
-		</view> -->
-		
 		<!-- 红包 -->
 		<red-envelope @handTo="redenvelopeFunc" :redenvelopeFlag="redenvelopeFlag"></red-envelope>
 	</view>
