@@ -1,5 +1,7 @@
 <template>
 	<view>
+		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
+		
 		<view class="tabr">
 			<view :class="{on:typeClass=='luck'}" @tap="switchType('luck')">拼手气红包</view><view :class="{on:typeClass=='normal'}"  @tap="switchType('normal')">普通红包</view>
 			<view class="border" :class="typeClass"></view>
@@ -60,12 +62,21 @@
 				</view>
 			</view>
 		</view>
+		
+		</u-popup>
+		
 	</view>
 </template>
 
 <script>
 	export default {
 		name:'red-envelope',
+		props: {
+			redenvelopeFlag: {
+				type: Boolean,
+				default: false
+			},
+		},
 		data() {
 			return {
 				typeClass:'luck',//normal

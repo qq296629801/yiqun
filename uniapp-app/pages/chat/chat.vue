@@ -20,26 +20,16 @@
 		<!-- 抽屉栏 -->
 		<footer-input :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
-		<!-- 录音UI效果 -->
-		<view class="record" :class="recording?'':'hidden'">
-			<view class="ing" :class="willStop?'hidden':''"><view class="icon luyin2" ></view></view>
-			<view class="cancel" :class="willStop?'':'hidden'"><view class="icon chehui" ></view></view>
-			<view class="tis" :class="willStop?'change':''">{{recordTis}}</view>
-		</view>
-		
 		<!-- 红包弹窗 -->
 		<red-card :windowsState="windowsState" :packet="packet"></red-card>
 		
 		<!-- @功能 -->
-		<view class="process" v-show="_call_s.length>0" @click="processFunc">
+		<!-- <view class="process" v-show="_call_s.length>0" @click="processFunc">
 			<text>当前{{_call_s.length}}人@我</text>
-		</view>
-		
+		</view> -->
 		
 		<!-- 红包 -->
-		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
-			<red-envelope @handTo="redenvelopeFunc"></red-envelope>
-		</u-popup>
+		<red-envelope @handTo="redenvelopeFunc" :redenvelopeFlag="redenvelopeFlag"></red-envelope>
 	</view>
 </template>
 <script>

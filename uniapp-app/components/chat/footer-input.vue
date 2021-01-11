@@ -35,6 +35,12 @@
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
 		</view>
+		<!-- 录音UI效果 -->
+		<view class="record" :class="recording?'':'hidden'">
+			<view class="ing" :class="willStop?'hidden':''"><view class="icon luyin2" ></view></view>
+			<view class="cancel" :class="willStop?'':'hidden'"><view class="icon chehui" ></view></view>
+			<view class="tis" :class="willStop?'change':''">{{recordTis}}</view>
+		</view>
 	</view>
 </template>
 
