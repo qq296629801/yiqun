@@ -18,7 +18,7 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<footer-input @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
+		<footer-input @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 红包弹窗 -->
 		<red-card :windowsState="windowsState" :packet="packet"></red-card>
@@ -208,6 +208,17 @@
 			}
 		},
 		methods:{
+			//更多功能(点击+弹出)
+			showMore(){
+				this.isVoice = false;
+				this.hideEmoji = true;
+				if(this.hideMore){
+					this.hideMore = false;
+					this.openDrawer();
+				}else{
+					this.hideDrawer();
+				}
+			},
 			// 打开抽屉
 			openDrawer(){
 				this.popupLayerClass = 'showLayer';

@@ -197,14 +197,7 @@
 			},
 			//更多功能(点击+弹出)
 			showMore(){
-				this.isVoice = false;
-				this.hideEmoji = true;
-				if(this.hideMore){
-					this.hideMore = false;
-					this.openDrawer();
-				}else{
-					this.hideDrawer();
-				}
+				this.$emit('showMore', true);
 			},
 			// 打开抽屉
 			openDrawer(){
