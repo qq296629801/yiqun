@@ -16,12 +16,12 @@
 - vue-admin 后台管理系统
 - vue-pc 可以发布 window linux mac
 - vue-h5 原始的老版本h5 目前已经改用uni-app
-
+- easy-im java demo版本 完整版联系作者获取
 
 #### 感谢
 - `https://gitee.com/lele-666/V-IM.git` 
 - `https://gitee.com/xiaowang0482/wechat.git`
-
+-  https://github.com/mengjava/easy-im.git
 #### 联系
 `QQ群 1025293030 
 微信 18767176707`
