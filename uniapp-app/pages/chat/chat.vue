@@ -18,7 +18,10 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<footer-input @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
+		<im-drawer :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		
+		<!-- 底部输入框 -->
+		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 红包弹窗 -->
 		<red-card :windowsState="windowsState" :packet="packet"></red-card>
@@ -29,7 +32,7 @@
 </template>
 <script>
 	import Map from '@/js_sdk/ms-openMap/openMap.js'
-	import Drawer from '@/components/chat/drawer.vue'
+	import ImDrawer from '@/components/chat/im-drawer.vue'
 	import RedCard from '@/components/chat/red-card.vue'
 	import RedEnvelope from "@/components/redenvelope"
 	import emojiData from "../../static/emoji/emojiData.js"
@@ -42,7 +45,7 @@
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
 	export default {
 		components: {
-			Drawer,
+			ImDrawer,
 			RedCard,
 			ImgCache,
 			RightBubble,
@@ -495,7 +498,6 @@
 					this.hideDrawer();
 				}
 			},
-
 			//获取焦点，如果不是选表情ing,则关闭抽屉
 			textareaFocus(){
 				if(this.popupLayerClass=='showLayer' && this.hideMore == false){
@@ -504,7 +506,7 @@
 			},
 			//发送消息
 			sendMsg (msgType, text) {
-				
+			 
 			 if (this.disabledSay == 1) {
 				 uni.showToast({
 				 	title:'你已经被管理员禁言'

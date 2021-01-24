@@ -91,18 +91,26 @@
 			};
 		},
 		methods:{
+			//监听输入框
+			Input(e){
+				if(this.textMsg.indexOf('@')!=-1){
+				  if (this.chatObj.chatType==1){
+					  this.$u.route({
+					  	url:'pages/chat/call',
+					  	params:{ msg :this.textMsg }
+					  });	
+				  }
+				}
+			},
+			sendMsg(index,textMsg){
+				this.$emit('sendMsg', index,textMsg);
+			},
 			textareaFocus(){
 				this.$emit('textareaFocus', true);
 			},
 			// 选择表情
 			chooseEmoji(){
-				this.hideMore = true;
-				if(this.hideEmoji){
-					this.hideEmoji = false;
-					this.openDrawer();
-				}else{
-					this.hideDrawer();
-				}
+				this.$emit('chooseEmoji', true);
 			},
 			// 切换语音/文字输入
 			switchVoice(){
