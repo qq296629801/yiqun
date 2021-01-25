@@ -18,7 +18,7 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @redShow="redenvelopeFlag = true" :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
 		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
