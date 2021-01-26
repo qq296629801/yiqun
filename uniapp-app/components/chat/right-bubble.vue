@@ -27,7 +27,7 @@
 					<view class="icon my-voice"></view>
 				</view>
 				<!-- 红包 -->
-				<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
+				<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row)">
 					<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 						<div class="text">
 						  <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
@@ -70,6 +70,10 @@
 				type: String,
 				default: ''
 			},
+			index:{
+				type:Number,
+				defalut:0
+			}
 		},
 		data() {
 			return {
@@ -124,14 +128,8 @@
 				  });
 			},
 			// 打开红包
-			openRedEnvelopeFunc(msg,index){
-				this.windowsState = 'show'
-				//获取最新的message
-				this.message = msg
-				// 从服务器获取最新包
-				this.sendMsg(8, msg.id);
-				// 解析红包数据
-				this.packet = this.redenvelopeProcess(msg.msgContext)
+			openRedEnvelopeFunc(msg){
+				this.$emit('openRedEnvelopeFunc',msg);
 			},
 			//处理红包数据
 			redenvelopeProcess(msgContext){

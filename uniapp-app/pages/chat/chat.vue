@@ -8,26 +8,29 @@
 					<!-- 系统通知的消息 -->
 					<system-bubble :row="row"></system-bubble>
 					
-					<!-- 自己发出的消息 -->
+					<!-- 别人发出的消息 -->
 					<left-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></left-bubble>
 					
-					<!-- 别人发出的消息 -->
-					<right-bubble :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></right-bubble>
+					<!-- 自己发出的消息 -->
+					<right-bubble :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @redShow="redenvelopeFlag = true" :hideMore="hideMore" :redenvelopeFlag="redenvelopeFlag" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
 		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
-		<!-- 红包弹窗 -->
-		<red-card :windowsState="windowsState" :packet="packet"></red-card>
+		<!-- 红包卡片弹窗 -->
+		<red-card @closeRedEnvelope="closeRedEnvelope" :windowsState="windowsState" :packet="packet"></red-card>
 		
-		<!-- 红包 -->
-		<red-envelope @handTo="redenvelopeFunc" :redenvelopeFlag="redenvelopeFlag"></red-envelope>
+		<!-- 发红包弹窗 -->
+		<u-popup v-model="redenvelopeFlag" mode="bottom" length="50%">
+			<red-envelope @redenvelopeFunc="redenvelopeFunc">
+			</red-envelope>
+		</u-popup>
 	</view>
 </template>
 <script>
@@ -211,6 +214,39 @@
 			}
 		},
 		methods:{
+			// 关闭红包弹窗
+			closeRedEnvelope(){
+				this.windowsState = 'hide';
+				setTimeout(()=>{
+					this.windowsState = '';
+				},200)
+			},
+			// 打开红包
+			openRedEnvelopeFunc(msg){
+				this.windowsState = 'show'
+				//获取最新的message
+				this.message = msg
+				// 从服务器获取最新包
+				this.sendMsg(8, msg.id);
+				// 解析红包数据
+				this.packet = this.redenvelopeProcess(msg.msgContext)
+			},
+			//处理红包数据
+			redenvelopeProcess(msgContext){
+				let packets = JSON.parse(msgContext).Packets;
+				let msg = {
+						description:'好友暂不支持发红包',
+						money:0,
+						number:0,
+						userAvatar:'defalut.jpg'
+					}
+				if(packets===undefined)
+					return msg;
+				return packets[0];
+			},
+			hideRed(){
+				this.redenvelopeFlag = false;
+			},
 			//更多功能(点击+弹出)
 			showMore(){
 				this.isVoice = false;

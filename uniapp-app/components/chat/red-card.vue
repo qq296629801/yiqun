@@ -12,7 +12,7 @@
 						<view class="close-btn">
 							<view class="icon close" @tap="closeRedEnvelope"></view>
 						</view>
-						<view class="img">开</view>
+						<view class="img" @tap="toDetails">开</view>
 					</view>
 					<view class="showDetails" @tap="toDetails">
 						      查看领取详情
@@ -59,10 +59,7 @@
 			},
 			// 关闭红包弹窗
 			closeRedEnvelope(){
-				this.windowsState = 'hide';
-				setTimeout(()=>{
-					this.windowsState = '';
-				},200)
+				this.$emit("closeRedEnvelope", true)
 			},
 		}
 	}

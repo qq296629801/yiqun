@@ -1,7 +1,5 @@
 <template>
 	<view>
-		<u-popup v-model="redenvelopeFlag" mode="bottom" length="50%">
-		
 		<view class="tabr">
 			<view :class="{on:typeClass=='luck'}" @tap="switchType('luck')">拼手气红包</view><view :class="{on:typeClass=='normal'}"  @tap="switchType('normal')">普通红包</view>
 			<view class="border" :class="typeClass"></view>
@@ -62,9 +60,6 @@
 				</view>
 			</view>
 		</view>
-		
-		</u-popup>
-		
 	</view>
 </template>
 
@@ -72,10 +67,6 @@
 	export default {
 		name:'red-envelope',
 		props: {
-			redenvelopeFlag: {
-				type: Boolean,
-				default: false
-			},
 		},
 		data() {
 			return {
@@ -102,8 +93,7 @@
 					return uni.showToast({title:"数量填写大于0的整数",icon:'none'});
 				}
 				this.redPacket.title = this.redPacket.title ||'恭喜发财';
-				//没填写则默认恭喜发财
-				this.$emit('handTo',this.redPacket)
+				this.$emit('redenvelopeFunc',this.redPacket)
 			}
 		}
 	}

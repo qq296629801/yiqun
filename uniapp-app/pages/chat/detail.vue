@@ -51,11 +51,9 @@
 			return {
 				//动画效果
 				radius:'100% 100% 0 0'
-				
 			};
 		},
 		onShow() {
-			console.log(this._redenvelope);
 		},
 		onPageScroll(e) {
 			//e.scrollTop;
