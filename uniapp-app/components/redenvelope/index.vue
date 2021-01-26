@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-popup v-model="redenvelopeFlag" mode="bottom" length="70%">
+		<u-popup v-model="redenvelopeFlag" mode="bottom" length="50%">
 		
 		<view class="tabr">
 			<view :class="{on:typeClass=='luck'}" @tap="switchType('luck')">拼手气红包</view><view :class="{on:typeClass=='normal'}"  @tap="switchType('normal')">普通红包</view>
@@ -120,24 +120,29 @@
 	.tabr{
 		width: 94%;
 		height: 105upx;
-		padding: 0 3%;
-		margin-top: 80rpx;
+		padding: 0 5%;
 		border-bottom: solid 1upx #dedede;
 		view{
 			width: 50%;
 			height: 100upx;
 			justify-content: center;
 			align-items: center;
-			font-size: 28upx;
-			color: #999;
+			font-size: 16px;
+			font-weight: 600;
+			color: #171717;
 		}
 		.on{
-			color: #cf3c35;
+			color: #E3653E;
+			font-size: 16px;
+			font-weight: 600;
 		}
 		.border{
-			height: 4upx;
-			background-color: #cf3c35;
+			height: 4px;
+			background-color: #E3653E;
+			-webkit-transition: all .3s ease-out;
 			transition: all .3s ease-out;
+			margin-top: -3px;
+			border-radius: 10px;
 			&.normal{
 				transform: translate3d(100%,0,0);
 			}
@@ -170,7 +175,7 @@
 			width: 94%;
 		}
 		.row,.tis,.blessing{
-			border-bottom: #dedede solid 1upx;
+			border-bottom: #eeeeee solid 3upx;
 		}
 		.row,.blessing{
 			padding: 0 3%;
@@ -181,6 +186,9 @@
 			align-items: center;
 		}
 		.row{
+			font-size: 25rpx;
+			font-weight: 600;
+			color: #171717;
 			justify-content: space-between;
 			flex-wrap: nowrap;
 			.term,.input{
@@ -203,25 +211,26 @@
 			}
 		}
 		.tis{
-			height: 60upx;
-			padding: 20upx 3%;
+			height: 100upx;
+			padding: 30upx 3%;
 			font-size: 30upx;
-			color: #999;
+			color: #919191;
 		}
 		.blessing{
 			input{
 				width: 100%;
 				height: 50upx;
-				font-size: 32upx;
+				font-size: 30upx;
+				font-weight: 600;
 			}
 		}	
 		.hand{
-			margin: 30upx 3%;
-			background-color: #cf3c35;
+			margin: 30upx 30%;
 			color: #fff;
 			font-size: 34upx;
 			justify-content: center;
-			border-radius: 10upx;
+			background-color: #F5A48A;
+			border-radius: 100upx;
 			height: 90upx;
 		}
 	}
