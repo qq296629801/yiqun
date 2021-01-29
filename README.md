@@ -21,7 +21,7 @@
 #### 感谢
 - `https://gitee.com/lele-666/V-IM.git` 
 - `https://gitee.com/xiaowang0482/wechat.git`
--  https://github.com/mengjava/easy-im.git
+- `https://github.com/mengjava/easy-im.git`
 #### 联系
 `QQ群 1025293030 
 微信 18767176707`
