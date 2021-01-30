@@ -18,10 +18,11 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @getImage="getImage" @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @addEmoji="addEmoji" :textMsg="textMsg" @sendMsg="sendMsg" @getImage="getImage" @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
-		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
+		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis"
+		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
 		<red-card @closeRedEnvelope="closeRedEnvelope" :windowsState="windowsState" :packet="packet"></red-card>
@@ -214,6 +215,53 @@
 			}
 		},
 		methods:{
+			//添加表情
+			addEmoji(em, del){
+				if (em.emoticonFlag){
+					this.sendMsg(1,em.avatar);
+				} else {
+					//判断删除按钮
+					if(del){
+					  var str;
+					  var msglen = this.textMsg.length - 1;
+					  let start = this.textMsg.lastIndexOf("[");
+					  let end = this.textMsg.lastIndexOf("]");
+					  let len = end - start;
+					  if(end != -1 && end === msglen && len >= 2 && len <= 4){
+						    // 表情字符
+							str = this.textMsg.slice(0, start);
+						}else{
+							// 普通键盘输入汉字 或者字符
+							str = this.textMsg.slice(0, msglen);
+						}
+						
+						this.textMsg = str
+						return;
+					}
+					this.emojiList =emojiData.imgArr[em.groupIndex].emojiList
+					this.emojiPath =emojiData.imgArr[em.groupIndex].emojiPath
+					if(!em.minEmoji){
+						this.sendBigEmoji(em.emojiItem.url)
+					}else{
+					  this.textMsg+=em.emojiItem.alt;
+					}
+				}
+			},
+			// 发送大表情
+			sendBigEmoji(url){
+				this.hideDrawer();//隐藏抽屉
+				if(!url){
+				    return;
+				}
+				let imgstr = '<img style="width:48px;height:48px;" src="'+ this.emojiPath + url +'">';
+				let content = '<div style="align-items: center;word-wrap:break-word;">'
+				             + imgstr
+				             + '</div>';    
+				let msg = {text:content}
+				this.sendMsg(1, msg);
+				//清空输入框
+				this.textMsg = '';
+			},
 			openLeft(row){
 				this.lClickId = row.id;
 			},
@@ -696,7 +744,7 @@
             },
 			discard(){
 				return;
-			}
+			},
 		}
 	}
 </script>

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+	import emojiData from "../../static/emoji/emojiData.js"
 	import emotion from '@/components/emotion/index.vue'
 	export default {
 		name:'im-drawer',
@@ -63,18 +64,19 @@
 				type: String,
 				default: ''
 			},
+			textMsg: {
+				type: String,
+				default: ''
+			},
 		},
 		methods:{
+			sendMsg(index,textMsg){
+				this.$emit('sendMsg', index , textMsg);
+			},
 			redShow(){
 				this.$emit('redShow', true);
 			},
 			weizhi(){
-				// uni.getLocation({
-				// 	type: 'wgs84 ',
-				// 	success: function (res) {
-				// 		Map.openMap(res.latitude, res.longitude, '易群', 'wgs84')
-				// 	}
-				// });
 			},
 			discard(){
 				return;
@@ -92,50 +94,7 @@
 			},
 			//添加表情
 			addEmoji(em, del){
-				if (em.emoticonFlag){
-					this.sendMsg(1,em.avatar);
-				} else {
-					//判断删除按钮
-					if(del){
-					  var str;
-					  var msglen = this.textMsg.length - 1;
-					  let start = this.textMsg.lastIndexOf("[");
-					  let end = this.textMsg.lastIndexOf("]");
-					  let len = end - start;
-					  if(end != -1 && end === msglen && len >= 2 && len <= 4){
-						    // 表情字符
-							str = this.textMsg.slice(0, start);
-						}else{
-							// 普通键盘输入汉字 或者字符
-							str = this.textMsg.slice(0, msglen);
-						}
-						
-						this.textMsg = str
-						return;
-					}
-					this.emojiList =emojiData.imgArr[em.groupIndex].emojiList
-					this.emojiPath =emojiData.imgArr[em.groupIndex].emojiPath
-					if(!em.minEmoji){
-						this.sendBigEmoji(em.emojiItem.url)
-					}else{
-					  this.textMsg+=em.emojiItem.alt;
-					}
-				}
-			},
-			// 发送大表情
-			sendBigEmoji(url){
-				this.hideDrawer();//隐藏抽屉
-				if(!url){
-				    return;
-				}
-				let imgstr = '<img style="width:48px;height:48px;" src="'+ this.emojiPath + url +'">';
-				let content = '<div style="align-items: center;word-wrap:break-word;">'
-				             + imgstr
-				             + '</div>';    
-				let msg = {text:content}
-				this.sendMsg(1, msg);
-				//清空输入框
-				this.textMsg = '';
+				this.$emit('addEmoji', em, del);
 			},
 		}
 	}

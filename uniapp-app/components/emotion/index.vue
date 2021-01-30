@@ -1,8 +1,7 @@
 <template>
 	<view class="emotion-wrap">
 		<view class="emotion-btn">
-			<u-button class="emotion-del" size="mini" @tap="handleRemoveEmoji">删除</u-button>
-			<u-button size="mini" type="success" @tap="handleSend">发送</u-button>
+			<u-icon class="emotion-del" size="40" name="arrow-left" @tap="handleRemoveEmoji"></u-icon>
 		</view>
 		<swiper class="swiper-wrap" indicator-dots="true" duration="150">
 			<swiper-item v-for="(page,pid) in list" :key="pid">
