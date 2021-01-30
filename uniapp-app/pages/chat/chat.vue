@@ -9,16 +9,16 @@
 					<system-bubble :row="row"></system-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<left-bubble :row="row" :rClickId="rClickId" :playMsgId="playMsgid"></left-bubble>
+					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<right-bubble :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :lClickId="lClickId" :playMsgid="playMsgid"></right-bubble>
+					<right-bubble @openRight="openRight" :rClickId="rClickId"  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @getImage="getImage" @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
 		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis" :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
@@ -69,8 +69,8 @@
 				memberData:{},
 				forwardData:{},
 				forwardFlag: false,
-				rClickId:'',
-				lClickId:'',
+				rClickId:0,
+				lClickId:0,
 				pageNum:1,
 				disabledSay:0,//禁止聊天 1
 				rightClickFlag: false,
@@ -214,6 +214,12 @@
 			}
 		},
 		methods:{
+			openLeft(row){
+				this.lClickId = row.id;
+			},
+			openRight(row){
+				this.rClickId = row.id;
+			},
 			// 关闭红包弹窗
 			closeRedEnvelope(){
 				this.windowsState = 'hide';
@@ -275,8 +281,8 @@
 				setTimeout(()=>{
 					this.hideMore = true;
 					this.hideEmoji = true;
-					this.rClickId = '';
-					this.lClickId = '';
+					this.rClickId = 0;
+					this.lClickId = 0;
 				},150);
 			},
 			// 置底

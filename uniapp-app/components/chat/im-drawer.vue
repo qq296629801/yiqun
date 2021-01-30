@@ -19,16 +19,16 @@
 					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/weizhi.png"></image>
 					</view>
-					<view class="box">
+					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/yuyintonghua.png"></image>
 					</view>
-					<view class="box">
+					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/yuyinshuru.png"></image>
 					</view>
-					<view class="box">
+					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/me-shouchang.png"></image>
 					</view>
-					<view class="box">
+					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/userinfo.png"></image>
 					</view>
 				</view>
@@ -69,15 +69,18 @@
 				this.$emit('redShow', true);
 			},
 			weizhi(){
-				uni.getLocation({
-					type: 'wgs84 ',
-					success: function (res) {
-						Map.openMap(res.latitude, res.longitude, '易群', 'wgs84')
-					}
-				});
+				// uni.getLocation({
+				// 	type: 'wgs84 ',
+				// 	success: function (res) {
+				// 		Map.openMap(res.latitude, res.longitude, '易群', 'wgs84')
+				// 	}
+				// });
 			},
 			discard(){
 				return;
+			},
+			getImage(type){
+				this.$emit('getImage', type);
 			},
 			// 选择图片发送
 			chooseImage(){

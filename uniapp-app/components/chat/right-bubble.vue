@@ -14,15 +14,15 @@
 			<!-- 左-消息 -->
 			<view class="left">
 				<!-- 文字消息 -->
-				<view @longtap="rClickId = row.id" v-if="row.msgType==0" class="bubble text">
+				<view @longtap="openRight(row)" v-if="row.msgType==0" class="bubble text">
 					<rich-text :nodes="transformFace(row.msgContext)"></rich-text>
 				</view>
 				<!-- 图片消息 -->
-				<view @longtap="rClickId = row.id" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
+				<view @longtap="openRight(row)" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
 					<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 语言消息 -->
-				<view @longtap="rClickId = row.id" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgId == row.id?'play':''">
+				<view @longtap="openRight(row)" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgId == row.id?'play':''">
 					<view class="length">{{recordToJson(row.msgContext).length}}</view>
 					<view class="icon my-voice"></view>
 				</view>
@@ -63,8 +63,8 @@
 				}
 			},
 			rClickId: {
-				type: Boolean,
-				default: false
+				type: Number,
+				default: 0
 			},
 			playMsgId: {
 				type: String,
@@ -116,6 +116,10 @@
 			}
 		},
 		methods:{
+			openRight(row){
+				//this.rClickId = row.id
+				this.$emit('openRight', row);
+			},
 			//收藏表情
 			collectFunc({msgContext}){
 				this.$socket.addEmoticon(this._user_info.id, msgContext, res => {
