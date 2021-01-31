@@ -6,16 +6,31 @@
 			<view class="mask" @touchmove.stop.prevent="discard" @tap="closeRedEnvelope"></view>
 			<view class="layer" @touchmove.stop.prevent="discard">
 				<view class="open-redenvelope">
-					<view class="from"><image :src="this.$url + packet.userAvatar"></image> {{ packet.userName }} 的红包</view>
+					<view class="from">
+						<image :src="this.$url + packet.userAvatar"></image>  
+						{{ packet.userName }} 的红包
+					</view>
+					<template v-for="(r,index) in packet.Records">
+						<view class="money" v-if="r.robUid===_user_info.id">
+							{{r.money}}
+						</view>
+					</template>
 					<view class="blessing">恭喜发财，大吉大利</view>
 					<view class="top">
 						<view class="close-btn">
 							<view class="icon close" @tap="closeRedEnvelope"></view>
 						</view>
-						<view class="img" @tap="toDetails">开</view>
+						<template v-for="(r,index) in packet.Records">
+							<view v-if="r.robUid===_user_info.id">
+							</view>
+							<view v-else class="img" @tap="robRed">开</view>
+						</template>
+						<template v-if="packet.Records.length===0">
+							<view class="img" @tap="robRed">开</view>
+						</template>
 					</view>
 					<view class="showDetails" @tap="toDetails">
-						      查看领取详情
+						查看领取详情
 					</view>
 				</view>
 			</view>
@@ -28,7 +43,6 @@
 		name:'red-card',
 		data() {
 			return {
-				
 			};
 		},
 		props: {
@@ -56,6 +70,9 @@
 				uni.navigateTo({
 					url:'./detail'
 				})
+			},
+			robRed(){
+				this.$emit('robRed',true);
 			},
 			// 关闭红包弹窗
 			closeRedEnvelope(){

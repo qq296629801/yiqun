@@ -25,7 +25,7 @@
 		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
-		<red-card @closeRedEnvelope="closeRedEnvelope" :windowsState="windowsState" :packet="packet"></red-card>
+		<red-card @robRed="robRed" @closeRedEnvelope="closeRedEnvelope" :windowsState="windowsState" :packet="packet"></red-card>
 		
 		<!-- 发红包弹窗 -->
 		<u-popup v-model="redenvelopeFlag" mode="bottom" length="50%">
@@ -112,7 +112,8 @@
 					description:'红包异常',
 					money:0,
 					number:0,
-					userAvatar:'defalut.jpg'
+					userAvatar:'defalut.jpg',
+					Records:[]
 				},
 				message:{},
 				sel: '' ,
@@ -280,10 +281,12 @@
 				this.windowsState = 'show'
 				//获取最新的message
 				this.message = msg
-				// 从服务器获取最新包
-				this.sendMsg(8, msg.id);
 				// 解析红包数据
 				this.packet = this.redenvelopeProcess(msg.msgContext)
+			},
+			robRed(){
+				// 开始抢红包
+				this.sendMsg(8, this.message.id);
 			},
 			//处理红包数据
 			redenvelopeProcess(msgContext){
