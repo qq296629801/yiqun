@@ -19,7 +19,9 @@
 				 @touchmove.stop.prevent="voiceIng" @touchend="voiceEnd" @touchcancel="voiceCancel">{{voiceTis}}</view>
 				<view class="text-mode" :class="isVoice?'hidden':''">
 					<view class="box">
-						 <textarea :confirm-type="'send'" :confirm-hold="true" @confirm="sendMsg(0,textMsg)" auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" />
+						 <textarea :confirm-type="'send'" :confirm-hold="true" @confirm="sendMsg(0, textMsg)"
+						  auto-height="true" :disabled="disabledSay===1"
+						   v-model="textMsg" @focus="textareaFocus" />
 					</view>
 					<view class="em" @tap="chooseEmoji">
 						<view class="iconfont iconbiaoqing"></view>
@@ -48,14 +50,6 @@
 	export default {
 		name:'footer-input',
 		props: {
-			recordTis:{
-				type: String,
-				default: ''
-			},
-			willStop:{
-				type: Boolean,
-				default: false
-			},
 			inputOffsetBottom: {
 				type: Number,
 				default: 0
@@ -64,23 +58,11 @@
 				type: Boolean,
 				default: false
 			},
-			recording: {
-				type: Boolean,
-				default: false
-			},
 			disabledSay: {
 				type: Number,
 				default: 0
 			},
-			textMsg: {
-				type: String,
-				default: ''
-			},
 			popupLayerClass: {
-				type: String,
-				default: ''
-			},
-			voiceTis: {
 				type: String,
 				default: ''
 			},
@@ -88,14 +70,26 @@
 		data() {
 			return {
 				placeholder: '',
+				initPoint:{identifier:0,Y:0},
+				//播放语音相关参数
+				AUDIO:uni.createInnerAudioContext(),
+				//录音相关参数
+				// #ifndef H5
+				//H5不能录音
+				RECORDER:uni.getRecorderManager(),
+				// #endif
+				recordTis:"手指上滑 取消发送",
+				voiceTis:'按住 说话',
+				recording:false,
+				willStop:false,
+				recordTimer:null,
+				recordLength:0,
+				textMsg:''
 			};
 		},
-		methods:{
-			discard(){
-				return;
-			},
-			//监听输入框
-			Input(e){
+		watch:{
+			textMsg:function(v){
+				this.$emit('textMsgFunc',v)
 				if(this.textMsg.indexOf('@')!=-1){
 				  if (this.chatObj.chatType==1){
 					  this.$u.route({
@@ -104,6 +98,25 @@
 					  });	
 				  }
 				}
+			}
+		},
+		onLoad(option) {
+			//语音自然播放结束
+			this.AUDIO.onEnded((res)=>{
+			});
+			// #ifndef H5
+			this.RECORDER.onStart((e)=>{
+				this.recordBegin(e);
+			})
+			//录音结束事件
+			this.RECORDER.onStop((e)=>{
+				this.recordEnd(e);
+			})
+			// #endif
+		},
+		methods:{
+			discard(){
+				return;
 			},
 			sendMsg(index,textMsg){
 				this.$emit('sendMsg', index,textMsg);
@@ -117,8 +130,7 @@
 			},
 			// 切换语音/文字输入
 			switchVoice(){
-				this.hideDrawer();
-				this.isVoice = this.isVoice?false:true;
+				this.$emit('switchVoice', true);
 			},
 			// 录音开始
 			voiceBegin(e){

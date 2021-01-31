@@ -18,17 +18,17 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @addEmoji="addEmoji" :textMsg="textMsg" @sendMsg="sendMsg" @getImage="getImage" @redShow="redenvelopeFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @addEmoji="addEmoji" @textMsgFunc="textMsgFunc" @sendMsg="sendMsg" @getImage="getImage" @redShow="redFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
-		<footer-input @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer" :voiceTis="voiceTis"
-		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice" :recording="recording"></footer-input>
+		<footer-input @switchVoice="switchVoice" @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer"
+		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
-		<red-card @robRed="robRed" @closeRedEnvelope="closeRedEnvelope" :windowsState="windowsState" :packet="packet"></red-card>
+		<red-card @robRed="robRed" @closeRedEnvelope="closeRed" :windowsState="windowsState" :packet="packet"></red-card>
 		
 		<!-- 发红包弹窗 -->
-		<u-popup v-model="redenvelopeFlag" mode="bottom" length="50%">
+		<u-popup v-model="redFlag" mode="bottom" length="50%">
 			<red-envelope @redenvelopeFunc="redenvelopeFunc">
 			</red-envelope>
 		</u-popup>
@@ -62,8 +62,7 @@
 			return {
                 isHistoryLoading:false,
 				textMsg: '',
-				redenvelopeFlag: false,
-				//@功能数据集
+				redFlag: false,
 				calls:[],
 				myGroupInfo:{},
 				memberFlag: false,
@@ -73,31 +72,20 @@
 				rClickId:0,
 				lClickId:0,
 				pageNum:1,
-				disabledSay:0,//禁止聊天 1
+				//禁止聊天 1
+				disabledSay:0,
 				rightClickFlag: false,
 				scrollAnimation:false,
 				scrollTop:0,
 				scrollToView:'',
-				msgList:[],//信息列表
+				//信息列表
+				msgList:[],
 				msgImgList:[],
 				//录音相关参数
-				// #ifndef H5
-				//H5不能录音
-				RECORDER:uni.getRecorderManager(),
-				// #endif
 				isVoice:false,
-				voiceTis:'按住 说话',
-				recordTis:"手指上滑 取消发送",
-				recording:false,
-				willStop:false,
-				initPoint:{identifier:0,Y:0},
-				recordTimer:null,
-				recordLength:0,
                 groupInfo:{},
 				//播放语音相关参数
-				AUDIO:uni.createInnerAudioContext(),
 				playMsgid:null,
-				VoiceTimer:null,
 				// 抽屉参数
 				popupLayerClass:'',
 				// more参数
@@ -125,7 +113,6 @@
 		onNavigationBarButtonTap({ index }) {
 			if (index == 0) {
 				let url = this.chatObj.chatType==1?'groupDetail':'userDetail'
-				//console.log(index,url)
 				this.$u.route({
 					url: 'pages/chat/' + url
 				});
@@ -143,19 +130,6 @@
 		onHide(){
 		},
 		onLoad(option) {
-			//语音自然播放结束
-			this.AUDIO.onEnded((res)=>{
-				this.playMsgid=null;
-			});
-			// #ifndef H5
-			this.RECORDER.onStart((e)=>{
-				this.recordBegin(e);
-			})
-			//录音结束事件
-			this.RECORDER.onStop((e)=>{
-				this.recordEnd(e);
-			})
-			// #endif
 			this.emojiList =emojiData.imgArr[1].emojiList;
 		},
 		onShow(){
@@ -216,6 +190,14 @@
 			}
 		},
 		methods:{
+			textMsgFunc(t){
+				this.textMsg = t;
+			},
+			// 切换语音/文字输入
+			switchVoice(){
+				this.hideDrawer();
+				this.isVoice = this.isVoice?false:true;
+			},
 			//添加表情
 			addEmoji(em, del){
 				if (em.emoticonFlag){
@@ -270,7 +252,7 @@
 				this.rClickId = row.id;
 			},
 			// 关闭红包弹窗
-			closeRedEnvelope(){
+			closeRed(){
 				this.windowsState = 'hide';
 				setTimeout(()=>{
 					this.windowsState = '';
@@ -302,7 +284,7 @@
 				return packets[0];
 			},
 			hideRed(){
-				this.redenvelopeFlag = false;
+				this.redFlag = false;
 			},
 			//更多功能(点击+弹出)
 			showMore(){
@@ -368,7 +350,7 @@
 			//发送红包
 			redenvelopeFunc(packet){
 				this.sendMsg(7, packet)
-				this.redenvelopeFlag = false;
+				this.redFlag = false;
 			},
 			//暂时不适配微信小程序，正在解决此bug
 			bindScroll(sel, duration = 0) {
