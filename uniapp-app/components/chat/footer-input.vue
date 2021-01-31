@@ -19,18 +19,7 @@
 				 @touchmove.stop.prevent="voiceIng" @touchend="voiceEnd" @touchcancel="voiceCancel">{{voiceTis}}</view>
 				<view class="text-mode" :class="isVoice?'hidden':''">
 					<view class="box">
-						<!-- <textarea auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" /> -->
-						<input
-							type="text"
-							v-model="textMsg"
-							:adjust-position="false"
-							:confirm-type="'send'"
-							:confirm-hold="true"
-							placeholder-style="color:#DDD;"
-							:cursor-spacing="6"
-							@focus="textareaFocus"
-							@confirm="sendMsg(0,textMsg)"
-						/>
+						 <textarea :confirm-type="'send'" :confirm-hold="true" @confirm="sendMsg(0,textMsg)" auto-height="true" v-on:change="Input" :disabled="disabledSay===1" v-model="textMsg" @focus="textareaFocus" />
 					</view>
 					<view class="em" @tap="chooseEmoji">
 						<view class="iconfont iconbiaoqing"></view>
