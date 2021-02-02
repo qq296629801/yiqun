@@ -23,6 +23,9 @@
 - `https://gitee.com/lele-666/V-IM.git` 
 - `https://gitee.com/xiaowang0482/wechat.git`
 - `https://github.com/mengjava/easy-im.git`
+- `https://gitee.com/crazymaker/crazy_tourist_circle__im.git`
+
+参考实战Netty集群 - CrazyIM 分布式聊天实战
 #### 联系
 `QQ群 1025293030 
 微信 18767176707`
