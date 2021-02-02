@@ -12,11 +12,12 @@
 
 #### 目录
 
-- uni-app 可以发布h5 ios android
+- uni-app 可以发布app版本
 - vue-admin 后台管理系统
-- vue-pc 可以发布 window linux mac
-- vue-h5 原始的老版本h5 目前已经改用uni-app
-- easy-im java demo版本 完整版联系作者获取
+- vue-pc 可以发布pc版
+- vue-h5 原始的老版本h5 目前已经改用uni-app 不建议使用
+- java代码 联系作者有偿获取
+
 
 #### 感谢
 - `https://gitee.com/lele-666/V-IM.git` 
