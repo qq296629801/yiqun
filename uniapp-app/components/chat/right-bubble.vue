@@ -221,7 +221,10 @@
 				    }
 				});
 			},
-			//名片
+			sendMsg(index, msg){
+				this.$emit('sendMsg',index,msg);
+			},
+			//名片	
 			linkToCard(id){
 				this.$u.route({
 					url: 'pages/businessCard/businessCard',

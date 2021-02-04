@@ -12,7 +12,7 @@
 					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<right-bubble @openRight="openRight" :rClickId="rClickId"  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
+					<right-bubble @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
