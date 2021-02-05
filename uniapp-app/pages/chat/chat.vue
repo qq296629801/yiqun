@@ -9,10 +9,12 @@
 					<system-bubble :row="row"></system-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc"></left-bubble>
+					<left-bubble :msgImgList="msgImgList" @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index"
+					 @openRedEnvelopeFunc="openRedEnvelopeFunc"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<right-bubble @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
+					<right-bubble :msgImgList="msgImgList" @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"
+					  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
@@ -444,6 +446,7 @@
 			        if (res.success) {
 			          let data = res.response.data
 					  if(data.length>0){
+						  this.msgImgList = []
 						  data.forEach(msg=>{
 							  if(msg.msgType==1){
 								  let url = this.$url+msg.msgContext
@@ -492,6 +495,11 @@
 					  message.forEach(m=>{
 						  if (!this.msgList.map(v => v.id).includes(m.id)) {
 							this.msgList.push(m)
+							if(m.msgType==1){
+							   let url = this.$url+m.msgContext
+							   this.msgImgList.filter(msg=>{msg.msgContext == m.msgContext})
+							   this.msgImgList.push(url)
+							}
 						  }  
 					  })
 					this.msgList.sort((a, b) => { return a.id - b.id })
