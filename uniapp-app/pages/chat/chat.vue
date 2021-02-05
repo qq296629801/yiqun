@@ -9,7 +9,7 @@
 					<system-bubble :row="row"></system-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid"></left-bubble>
+					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
 					<right-bubble @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>

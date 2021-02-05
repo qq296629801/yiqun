@@ -69,6 +69,10 @@
 				type: String,
 				default: ''
 			},
+			index:{
+				type:Number,
+				defalut:0
+			}
 		},
 		data() {
 			return {
@@ -127,14 +131,8 @@
 				  });
 			},
 			// 打开红包
-			openRedEnvelopeFunc(msg,index){
-				this.windowsState = 'show'
-				//获取最新的message
-				this.message = msg
-				// 从服务器获取最新包
-				this.sendMsg(8, msg.id);
-				// 解析红包数据
-				this.packet = this.redenvelopeProcess(msg.msgContext)
+			openRedEnvelopeFunc(msg){
+				this.$emit('openRedEnvelopeFunc',msg);
 			},
 			//处理红包数据
 			redenvelopeProcess(msgContext){
