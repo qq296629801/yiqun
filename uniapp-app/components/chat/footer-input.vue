@@ -118,8 +118,9 @@
 			discard(){
 				return;
 			},
-			sendMsg(index,textMsg){
-				this.$emit('sendMsg', index,textMsg);
+			sendMsg(index, msg){
+				this.$emit('sendMsg', index,msg);
+				this.textMsg = ''
 			},
 			textareaFocus(){
 				this.$emit('textareaFocus', true);
