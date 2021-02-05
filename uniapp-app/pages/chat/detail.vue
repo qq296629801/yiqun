@@ -13,6 +13,7 @@
 			<view class="username">
 				{{_redenvelope.userName}}的红包
 			</view>
+			
 		</view>
 		<view class="info">
 			已领{{_redenvelope.number-_redenvelope.surplusNumber}}个，共{{_redenvelope.number}}个
@@ -74,6 +75,7 @@
 		width: 100%;
 		background-color: #EC624F;
 		flex-wrap: wrap;
+		border-bottom: 20rpx solid #f6f7f8;
 		.blessing,.money{
 			width: 100%;
 			color: #f8d757;
@@ -104,18 +106,17 @@
 			width: 100%;
 			justify-content: center;
 			background-color: #fff;
-			margin-top: -50upx;
 			font-size: 38upx;
+			font-weight: 600;
 		}
 	}
 	.info{
-		margin-top: 30upx;
-		width: 96%;
-		height: 50upx;
+		width: 100%;
+		height: 100upx;
+		line-height: 100upx;
 		padding-left: 4%;
 		font-size: 28upx;
 		color: #999;
-		border-bottom: solid 1upx #dfdfdf;
 	}
 	.list{
 		width: 100%;
@@ -123,7 +124,7 @@
 			width: 92%;
 			padding: 0 4%;
 			height: 120upx;
-			border-bottom: solid 1upx #dfdfdf;
+			border-bottom: solid 1upx #ececec;
 			justify-content:flex-start;
 			flex-wrap: nowrap;
 			.left{
@@ -141,13 +142,15 @@
 			.right{
 				width: 100%;
 				height: 100upx;
-				
 				.r1{
 					width: 100%;
 					height: 70upx;
 					justify-content: space-between;
 					align-items: center;
 					font-size: 34upx;
+					.username{
+						font-weight: 600;
+					}
 				}
 				.r2{
 					width: 100%;

@@ -210,8 +210,11 @@ export default {
 <style>
 	.content .grid-text {
 		text-align: center;
-		width: 80rpx;
-		height:40rpx;
 		overflow: hidden;
+		width: 80rpx;
+	}
+	.img-cache{
+		width: 80rpx;
+		height: 80rpx;
 	}
 </style>
