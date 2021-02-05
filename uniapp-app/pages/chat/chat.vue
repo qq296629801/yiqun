@@ -20,11 +20,14 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @addEmoji="addEmoji" @textMsgFunc="textMsgFunc" @sendMsg="sendMsg" @getImage="getImage" @redShow="redFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
+		<im-drawer @addEmoji="addEmoji" @textMsgFunc="textMsgFunc" @sendMsg="sendMsg" @getImage="getImage"
+				   @redShow="redFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
-		<footer-input @switchVoice="switchVoice" @chooseEmoji="chooseEmoji" @sendMsg="sendMsg" @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer"
-		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass" :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice"></footer-input>
+		<footer-input @switchVoice="switchVoice" @chooseEmoji="chooseEmoji" @sendMsg="sendMsg"
+					  @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer"
+		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass"
+					  :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
 		<red-card @robRed="robRed" @closeRedEnvelope="closeRed" :windowsState="windowsState" :packet="packet"></red-card>
@@ -37,12 +40,10 @@
 	</view>
 </template>
 <script>
-	import Map from '@/js_sdk/ms-openMap/openMap.js'
 	import ImDrawer from '@/components/chat/im-drawer.vue'
 	import RedCard from '@/components/chat/red-card.vue'
 	import RedEnvelope from "@/components/redenvelope"
 	import emojiData from "../../static/emoji/emojiData.js"
-	import { transform } from "../../static/emoji/ChatUtils.js"
 	import ImgCache from '@/components/img-cache/img-cache.vue'
 	import RightBubble from '@/components/chat/right-bubble.vue'
 	import LeftBubble from '@/components/chat/left-bubble.vue'
