@@ -1,7 +1,7 @@
 <template>
   <view class="content">
     <view class="header">
-      <image src="../../static/shilu-login/logo.png"></image>
+      <image :src="logo"></image>
     </view>
     <view class="list">
       <view class="list-call">
@@ -11,7 +11,7 @@
       <view class="list-call">
         <view class="iconfont iconmima1" style="font-size: 20px;color: #E4E6F3;"></view>
         <input class="sl-input" v-model="password" type="text" maxlength="32" placeholder="输入密码" password="true" />
-		 <image class="img" :src="showPassword?'/static/shilu-login/op.png':'/static/shilu-login/cl.png'" @tap="display"></image>
+		<image class="img" :src="showPassword?op:cl" @tap="display"></image>
       </view>
     </view>
     <view class="button-login" hover-class="button-hover" @tap="doLogin()">
@@ -30,6 +30,9 @@
   export default {
     data() {
       return {
+		op:'/static/shilu-login/op.png',
+		cl:'/static/shilu-login/cl.png',
+		logo:'../../static/shilu-login/logo.png',
         phone: '',
         password: '',
 		showPassword: false,
@@ -61,7 +64,6 @@
 								addFSQL(o,this._user_info.id).then();
 							})
 						})
-						
 						// #endif
 						this.$u.vuex('firendList', res.response.data)
 					})
@@ -69,13 +71,6 @@
 					this.$socket.getLinks(this._user_info.id, res=>{
 						this.$u.vuex('links',res.response.data)
 					});
-					// 批量进入房间
-					// this.$socket.getGroups('', this._user_info.id, res => {
-					// 	let list = res.response.data;
-					// 	let groupIds = [];
-					// 	list.forEach(group=>groupIds.push(group.chatId));
-					// 	this.$socket.joinRoom(groupIds,res=>{})
-					// });
 					// 跳转到消息列表
 					this.$u.route({
 						url: 'pages/home/home',
@@ -89,43 +84,6 @@
 				}
 			})
 		},
-      bindLogin() {
-        if (this.phone.length != 11) {
-          uni.showToast({
-            icon: 'none',
-            title: '手机号不正确'
-          });
-          return;
-        }
-        if (this.password.length < 6) {
-          uni.showToast({
-            icon: 'none',
-            title: '密码不正确'
-          });
-          return;
-        }
-        uni.request({
-          url: 'http://***/login.html',
-          data: {
-            phone: this.phone,
-            password: this.password
-          },
-          method: 'POST',
-          dataType: 'json',
-          success: (res) => {
-            if (res.data.code != 200) {
-              uni.showToast({
-                title: res.data.msg,
-                icon: 'none'
-              });
-            } else {
-              //成功后的逻辑
-              uni.navigateBack();
-            }
-          }
-        });
-
-      }
     }
   }
 </script>
@@ -203,7 +161,6 @@
   }
 
   .button-hover {
-    background: linear-gradient(-90deg, rgba(63, 205, 235, 0.8), rgba(188, 226, 158, 0.8));
   }
 
   .agreenment {
