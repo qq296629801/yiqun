@@ -20,13 +20,13 @@
 		</view>
 		
 		<!-- 抽屉栏 -->
-		<im-drawer @addEmoji="addEmoji" @textMsgFunc="textMsgFunc" @sendMsg="sendMsg" @getImage="getImage"
+		<im-drawer @addEmoji="addEmoji" @sendMsg="sendMsg" @getImage="getImage"
 				   @redShow="redFlag = true" :hideMore="hideMore" :hideEmoji="hideEmoji" :popupLayerClass="popupLayerClass"></im-drawer>
 		
 		<!-- 底部输入框 -->
-		<footer-input @switchVoice="switchVoice" @chooseEmoji="chooseEmoji" @sendMsg="sendMsg"
+		<footer-input @textMsgFunc="textMsgFunc" @switchVoice="switchVoice" @chooseEmoji="chooseEmoji" @sendMsg="sendMsg"
 					  @showMore="showMore" @textareaFocus="textareaFocus" @hideDrawer="hideDrawer" @openDrawer="openDrawer"
-		 :disabledSay="disabledSay" :textMsg="textMsg" :popupLayerClass="popupLayerClass"
+		 :disabledSay="disabledSay" :textMsg2="textMsg" :popupLayerClass="popupLayerClass"
 					  :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
@@ -229,6 +229,7 @@
 					if(!em.minEmoji){
 						this.sendBigEmoji(em.emojiItem.url)
 					}else{
+						console.log(em.emojiItem.alt)
 					  this.textMsg+=em.emojiItem.alt;
 					}
 				}

@@ -66,6 +66,10 @@
 				type: String,
 				default: ''
 			},
+			textMsg2:{
+				type:String,
+				default:''
+			}
 		},
 		data() {
 			return {
@@ -98,6 +102,9 @@
 					  });	
 				  }
 				}
+			},
+			textMsg2:function(v){
+				this.textMsg = v
 			}
 		},
 		onLoad(option) {

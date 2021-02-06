@@ -1,13 +1,14 @@
 <template>
 	<view class="emotion-wrap">
 		<view class="emotion-btn">
-			<u-icon class="emotion-del" size="40" name="arrow-left" @tap="handleRemoveEmoji"></u-icon>
+			<image src="../../static/img/clear.png" 
+			style="width: 64rpx;height: 64rpx;" @tap="handleRemoveEmoji"></image>
 		</view>
 		<swiper class="swiper-wrap" indicator-dots="true" duration="150">
 			<swiper-item v-for="(page,pid) in list" :key="pid">
 				<view class="emotion-box">
 					<view v-for="(em,eid) in page" :key="eid" @tap="handleClikEmoji(em)">
-						<u-image class="emotion" width="70rpx" height="70rpx" :src="`/static/img/face/${em.url}`"></u-image>
+						<u-image class="emotion" width="80rpx" height="80rpx" :src="`/static/img/face/${em.url}`"></u-image>
 					</view>
 				</view>
 			</swiper-item>
@@ -16,9 +17,7 @@
 </template>
 
 <script>
-	import {
-		emojiList
-	} from "@/static/emoji/emoji.js"
+	import { emojiList } from "@/static/emoji/emoji.js"
 	export default {
 		name:'u-emotion',
 		data() {
