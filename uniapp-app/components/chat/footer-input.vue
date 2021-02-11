@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 底部输入栏 -->
-		<view :style="{ bottom: inputOffsetBottom > 0 ?  '20rpx' : '0rpx' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
+		<view :style="{ bottom: inputOffsetBottom > 0 ?  '8rpx' : '0rpx' }" class="input-box" :class="popupLayerClass" @touchmove.stop.prevent="discard">
 			<!-- H5下不能录音，输入栏布局改动一下 -->
 			<!-- #ifndef H5 -->
 			<view class="voice">
@@ -88,7 +88,7 @@
 				willStop:false,
 				recordTimer:null,
 				recordLength:0,
-				textMsg:''
+				textMsg:'',
 			};
 		},
 		watch:{
