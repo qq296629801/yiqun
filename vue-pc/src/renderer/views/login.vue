@@ -185,7 +185,7 @@ export default {
                     this.$store.commit('setHost', self.host);
                     // 后台改版返回
                     this.$store.commit('setUser', res.response.data);
-                    this.$socket.getGroups('', this.user.id, (result) => {
+                    this.$socket.getGroups('', res.response.data.id, (result) => {
                         if (result.response.success){
                             let list = result.response.data;
                             let groupIds = [];

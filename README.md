@@ -64,11 +64,13 @@
 
 后台: [后台 地址](http://120.27.95.106/index.html) 
 
-PC : [EXE 下载](http://39.100.14.171/yiqun2.exe)
+PC : [EXE 下载](http://120.27.95.106/yiqunSetup1.0.0.exe)
 
-APP: [APK 下载](http://39.100.14.171/yiqun2.apk)
+APP: [APK 下载](http://120.27.95.106/__UNI__54ED11E_20210219133358.apk)
 
-MAC H5 Linux: 暂未发布 
+IOS: [IPA 下载](http://120.27.95.106/__UNI__54ED11E_0219133515.ipa)
+
+H5 Linux: 暂未发布 
 
 
 
