@@ -343,7 +343,7 @@ export default {
 		keyboardheightchange(res) {
 		},
 		//模拟数据 可通过接口获取
-		getData() {
+		getData(freshFlag) {
 			this.$socket.queryPostsReq(this._user_info.id, this.pageNum, res => {
 				if (res.response.success) {
 					const circleData3 = this.circleData;
@@ -363,6 +363,9 @@ export default {
 					if (circleData2.length==0){
 						this.showNoMore = true
 					}
+				}
+				if(freshFlag){
+					uni.stopPullDownRefresh();
 				}
 			});
 		},
@@ -398,15 +401,15 @@ export default {
 		});
 	},
 	onShow() {
-		this.getData()
+		this.getData(false)
 	},
 	//下拉刷新
 	async onPullDownRefresh() {
-	   await this.getData();
+	   await this.getData(true);
 		uni.stopPullDownRefresh();
 	},
 	async onReachBottom(){
-		await this.getData();
+		await this.getData(false);
 	}
 };
 </script>

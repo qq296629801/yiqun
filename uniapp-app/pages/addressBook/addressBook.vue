@@ -16,38 +16,44 @@ export default {
 		};
 	},
 	onShow() {
-	    this.getFriends()
+	    this.getFriends(false)
 	},
 	onPageScroll(e) {
 		this.scrollTop = e.scrollTop;
 	},
+	onPullDownRefresh() {
+		this.getFriends(true)
+	},
 	methods: {
-		getFriendsByDb(){
-			var list = []
-			selectFSQL(this._user_info.id).then(res=>{
-				this.indexList.forEach(name=>{
-					var members = []
-					res.forEach(f=>{
-						if(f.name===name){
-							members.push(f);
-						}
-					})
-					let obj = {
-						name:name,
-						members:members
-					}
-					list.push(obj);
-				})
-				this.$u.vuex('firendList', list)
-			});
-		},
-		getFriends () {
+		getFriends (freshFlag) {
 		  // #ifndef H5
-		  this.getFriendsByDb()
+		  var list = []
+		  selectFSQL(this._user_info.id).then(res=>{
+		  	this.indexList.forEach(name=>{
+		  		var members = []
+		  		res.forEach(f=>{
+		  			if(f.name===name){
+		  				members.push(f);
+		  			}
+		  		})
+		  		let obj = {
+		  			name:name,
+		  			members:members
+		  		}
+		  		list.push(obj);
+		  	})
+		  	this.$u.vuex('firendList', list)
+			if(freshFlag){
+				uni.stopPullDownRefresh();
+			}
+		  });
 		  // #endif	
 		  // #ifndef APP-PLUS
 		  this.$socket.listGuests(this._user_info.id, res => {
 			this.$u.vuex('firendList', res.response.data)
+			if(freshFlag){
+				uni.stopPullDownRefresh();
+			}
 		  })
 		  // #endif
 		},

@@ -42,20 +42,17 @@ export default {
 	},
 	watch:{
         message_flush: function(value){
-			this.getChats()
+			this.getChats(false)
 		}
 	},
 	onShow() {
-		this.getChats()
+		this.getChats(false)
 	},
 	onLoad(){
 	},
 	onPullDownRefresh() {
-	        console.log('refresh');
-	        setTimeout(function () {
-	            uni.stopPullDownRefresh();
-	        }, 100);
-	    },
+		this.getChats(true)
+	},
 	methods: {
 		linkTo(item){
 			this.$u.vuex('chatObj', item)
@@ -64,10 +61,13 @@ export default {
 				params: {}
 			});
 		},
-		getChats(){
+		getChats(freshFlag){
 			this.$socket.queryChats('', this._user_info.id,(res) => {
 				if (res.success) {
 				  this.$u.vuex('chatList', res.chats)
+				}
+				if(freshFlag){
+					uni.stopPullDownRefresh();
 				}
 			});
 		},

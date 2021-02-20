@@ -31,7 +31,10 @@ export default {
 		this.type = type;
 	},
 	onShow() {
-		this.type==1?this.getNewFriend():this.getGroups();
+		this.type==1?this.getNewFriend(false):this.getGroups(false);
+	},
+	onPullDownRefresh() {
+		this.type==1?this.getNewFriend(true):this.getGroups(true);
 	},
 	methods: {
 		linkTo(item) {
@@ -42,14 +45,20 @@ export default {
 				this.$u.route({url: 'pages/chat/chat'});
 			}
 		},
-		getNewFriend() {
+		getNewFriend(freshFlag) {
 			this.$socket.queryFriendRequestList(this._user_info.id, res => {
 				this.list = res.userList;
+				if(freshFlag){
+					uni.stopPullDownRefresh();
+				}
 			});
 		},
-		getGroups() {
+		getGroups(freshFlag) {
 			this.$socket.getGroups('', this._user_info.id, res => {
 				this.list = res.response.data;
+				if(freshFlag){
+					uni.stopPullDownRefresh();
+				}
 			});
 		}
 	}

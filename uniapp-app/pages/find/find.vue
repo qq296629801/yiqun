@@ -29,11 +29,20 @@ export default {
 		};
 	},
 	onShow() {
-		this.$socket.getLinks(this._user_info.id, res=>{
-			this.$u.vuex('links',res.response.data)
-		});
+		this.getLinks(false)
+	},
+	onPullDownRefresh() {
+		this.getLinks(true)
 	},
 	methods: {
+		getLinks(freshFlag){
+			this.$socket.getLinks(this._user_info.id, res=>{
+				this.$u.vuex('links',res.response.data)
+				if(freshFlag){
+					uni.stopPullDownRefresh();
+				}
+			});
+		},
 		linkToMoment(){
 			this.$u.route({
 				url:'pages/firendCircle/firendCircle'
