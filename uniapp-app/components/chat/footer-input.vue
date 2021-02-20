@@ -37,6 +37,7 @@
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
 		</view>
+		
 		<!-- 录音UI效果 -->
 		<view class="record" :class="recording?'':'hidden'">
 			<view class="ing" :class="willStop?'hidden':''"><view class="icon luyin2" ></view></view>

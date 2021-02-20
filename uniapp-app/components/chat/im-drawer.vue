@@ -16,7 +16,7 @@
 					<view class="box" @tap="redShow">
 						<image class="box-xx" src="../../static/img/more/hongbao.png"></image>
 					</view>
-					<view class="box" @tap="weizhi">
+					<!-- <view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/weizhi.png"></image>
 					</view>
 					<view class="box" @tap="weizhi">
@@ -30,7 +30,7 @@
 					</view>
 					<view class="box" @tap="weizhi">
 						<image class="box-xx" src="../../static/img/more/userinfo.png"></image>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>

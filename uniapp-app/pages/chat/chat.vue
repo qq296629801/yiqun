@@ -138,25 +138,19 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			// #ifndef APP-PLUS
+			//// #ifndef APP-PLUS
 			this.getMsgList();
-			//#endif
+			////#endif
 			this.sendMsg(0,'');
 			//this.openConver();
 			//this.queryMembers();
 			this.hideDrawer();
-			// 每次加入房间通道 群聊有效
-			if(this.chatObj.chatType===1){
-				var groupIds = [];
-				groupIds.push(this.chatObj.chatId);
-				this.$socket.joinRoom(groupIds,res=>{});
-			}
-			// #ifndef H5
-			openMsgSqlite().then(res=>{
-			});
-			createMsgSQL(this.chatObj.chatId).then(res=>{}).catch(res=>{});
-			this.getMsgList2()
-			// #endif
+			//// #ifndef H5
+			//openMsgSqlite().then(res=>{
+			//});
+			//createMsgSQL(this.chatObj.chatId).then(res=>{}).catch(res=>{});
+			//this.getMsgList2()
+			//// #endif
 		},
 		onReady() {
             // #ifdef H5

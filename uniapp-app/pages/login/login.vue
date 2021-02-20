@@ -54,6 +54,16 @@
 					// 缓存用户
 					this.$u.vuex('_user_info', res.response.data)
 					this.$u.vuex('_login',this._login)
+					
+					// 加入群组
+					this.$socket.getGroups('', this._user_info.id, res => {
+						var groupIds = [];
+						res.response.data.forEach(g=>{
+							groupIds.push(g.id);
+						});
+						this.$socket.joinRoom(groupIds,res=>{});
+					});
+					
 					// 	缓存通讯录
 					this.$socket.listGuests(this._user_info.id, res => {
 						// #ifndef H5
