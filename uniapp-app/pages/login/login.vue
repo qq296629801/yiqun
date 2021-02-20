@@ -32,7 +32,7 @@
       return {
 		op:'/static/shilu-login/op.png',
 		cl:'/static/shilu-login/cl.png',
-		logo:'../../static/shilu-login/logo.png',
+		logo:'../../static/1.png',
         phone: '',
         password: '',
 		showPassword: false,
@@ -57,11 +57,11 @@
 					
 					// 加入群组
 					this.$socket.getGroups('', this._user_info.id, res => {
-						var groupIds = [];
+						var chatIds = [];
 						res.response.data.forEach(g=>{
-							groupIds.push(g.id);
+							chatIds.push(g.chatId);
 						});
-						this.$socket.joinRoom(groupIds,res=>{});
+						this.$socket.joinRoom(chatIds,res=>{});
 					});
 					
 					// 	缓存通讯录

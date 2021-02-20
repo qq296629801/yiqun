@@ -55,6 +55,11 @@
 				],
 			};
 		},
+		onPullDownRefresh() {
+			 setTimeout(function () {
+				 wx.stopPullDownRefresh()
+			 }, 500)
+		},
 		methods: {
 			linkTo(index) {
 				const url = index == 1 ? 'pages/my/face' : 'pages/my/photo'

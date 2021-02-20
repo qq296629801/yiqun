@@ -138,19 +138,10 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			//// #ifndef APP-PLUS
 			this.getMsgList();
-			////#endif
 			this.sendMsg(0,'');
-			//this.openConver();
-			//this.queryMembers();
+			this.openConver();
 			this.hideDrawer();
-			//// #ifndef H5
-			//openMsgSqlite().then(res=>{
-			//});
-			//createMsgSQL(this.chatObj.chatId).then(res=>{}).catch(res=>{});
-			//this.getMsgList2()
-			//// #endif
 		},
 		onReady() {
             // #ifdef H5
