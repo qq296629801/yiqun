@@ -3,11 +3,11 @@
 		<u-index-list :scrollTop="scrollTop" :index-list="indexList" :active-color="'#3CC51F'">
 			<view v-if="isShowMenu">
 				<u-index-anchor index="#" />
-				<view class="list-cell" hover-class="message-hover-class" @click="showList(1)">
+				<view class="list-cell" hover-class="message-hover-class" @click="linkToNewFriend">
 					<u-image width="70rpx" height="70rpx" src="/static/image/friend_1.png"></u-image>
 					<view class="list-cell-name">新的朋友</view>
 				</view>
-				<view class="list-cell " hover-class="message-hover-class"  @click="showList(2)">
+				<view class="list-cell " hover-class="message-hover-class"  @click="linkToGroupItem">
 					<u-image width="70rpx" height="70rpx" src="/static/image/group_1.png"></u-image>
 					<view  class="list-cell-name">我的群聊</view>
 				</view>
@@ -91,12 +91,16 @@
 			linkToCard(user){
 				this.$emit('linkTo',user);
 			},
-			showList(type){
+			linkToNewFriend(){
 				this.$u.route({
-					url: 'pages/addressBook/list',
-					params: {type:type}
+					url: 'pages/newFriend/newFriend'
 				});
 			},
+			linkToGroupItem(){
+				this.$u.route({
+					url: 'pages/groupItem/groupItem'
+				});
+			}
 		}
 	}
 </script>

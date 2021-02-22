@@ -18,10 +18,7 @@
 						<view class="right_top_time ">{{value.lastOperTime || value.lastOpenTime | format}}</view>
 					</view>
 					<view class="right_btm ">
-						<view class="u-line-1">{{value.msgType==0?value.content:message[value.msgType]}}</view>
-						<view class="" v-show="voiceIcon">
-							<u-icon color="#c4c7cf" v-if="index%2==0" name="bell" size="22"></u-icon>
-						</view>
+						<view class="u-line-1">{{value.desc}}</view>
 					</view>
 				</view>
 			</view>
@@ -41,14 +38,13 @@ export default {
 			type: 0
 		};
 	},
-	onLoad({ type }) {
-		this.type = type;
+	onLoad() {
 	},
 	onShow() {
-		this.type==1?this.getNewFriend(false):this.getGroups(false);
+		this.getGroups(false);
 	},
 	onPullDownRefresh() {
-		this.type==1?this.getNewFriend(true):this.getGroups(true);
+		this.getGroups(true)
 	},
 	methods: {
 		linkTo(item) {
@@ -58,14 +54,6 @@ export default {
 				this.$u.vuex('chatObj', item);
 				this.$u.route({url: 'pages/chat/chat'});
 			}
-		},
-		getNewFriend(freshFlag) {
-			this.$socket.queryFriendRequestList(this._user_info.id, res => {
-				this.list = res.userList;
-				if(freshFlag){
-					uni.stopPullDownRefresh();
-				}
-			});
 		},
 		getGroups(freshFlag) {
 			this.$socket.getGroups('', this._user_info.id, res => {

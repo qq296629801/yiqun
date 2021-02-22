@@ -287,17 +287,8 @@
 					"titleView": false
 				}
 			}
-		}, {
-			"path": "pages/addressBook/list",
-			"style": {
-				"enablePullDownRefresh": true ,
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleView": false
-				}
-			}
-		}, {
+		},
+		{
 			"path": "pages/chat/detail",
 			"style": {
 				"enablePullDownRefresh": true ,

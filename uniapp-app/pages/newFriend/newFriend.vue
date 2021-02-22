@@ -20,7 +20,7 @@
 					<view class="right_btm ">
 						<view class="u-line-1">{{value.msgType==0?value.content:message[value.msgType]}}</view>
 						<view class="" v-show="voiceIcon">
-							<u-icon color="#c4c7cf" v-if="index%2==0" name="bell" size="22"></u-icon>
+							<u-button>同意</u-button>
 						</view>
 					</view>
 				</view>
@@ -38,17 +38,15 @@ export default {
 	data() {
 		return {
 			list: [],
-			type: 0
 		};
 	},
-	onLoad({ type }) {
-		this.type = type;
+	onLoad() {
 	},
 	onShow() {
-		this.type==1?this.getNewFriend(false):this.getGroups(false);
+		this.getNewFriend(false)
 	},
 	onPullDownRefresh() {
-		this.type==1?this.getNewFriend(true):this.getGroups(true);
+		this.getNewFriend(true)
 	},
 	methods: {
 		linkTo(item) {
@@ -62,14 +60,6 @@ export default {
 		getNewFriend(freshFlag) {
 			this.$socket.queryFriendRequestList(this._user_info.id, res => {
 				this.list = res.userList;
-				if(freshFlag){
-					uni.stopPullDownRefresh();
-				}
-			});
-		},
-		getGroups(freshFlag) {
-			this.$socket.getGroups('', this._user_info.id, res => {
-				this.list = res.response.data;
 				if(freshFlag){
 					uni.stopPullDownRefresh();
 				}
