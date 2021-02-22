@@ -382,7 +382,7 @@
             "path" : "pages/newFriend/newFriend",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "新的朋友",
                 "enablePullDownRefresh": false
             }
             
@@ -391,7 +391,7 @@
             "path" : "pages/groupItem/groupItem",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的群组",
                 "enablePullDownRefresh": false
             }
             

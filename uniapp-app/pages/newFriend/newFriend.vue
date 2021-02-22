@@ -1,13 +1,5 @@
 <template>
 	<view class="content">
-		<u-navbar
-			:is-back="true"
-			title="新的朋友"
-			:background="{ background: '#F6F7F8' }"
-			title-color="#404133"
-			:border-bottom="false"
-			z-index="1001"
-		></u-navbar>
 		<view v-for="(value, index) in list">
 			<view class="item u-border-bottom" hover-class="message-hover-class">
 				<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
