@@ -387,6 +387,24 @@
 				"navigationBarTitleText": "用户协议"
 			}
 		}
+        ,{
+            "path" : "pages/newFriend/newFriend",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/groupItem/groupItem",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#7B8AA0",
