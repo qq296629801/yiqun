@@ -28,15 +28,12 @@
 </template>
 
 <script>
-import chatItem from '@/components/chatItem.vue';
 export default {
 	components: {
-		chatItem
 	},
 	data() {
 		return {
-			list: [],
-			offset:[10,810],
+			list: []
 		};
 	},
 	onLoad() {
@@ -107,53 +104,53 @@ export default {
 <style lang="scss">
 	.content{
 		background-color: #fff;
-	}
-	.item {
-			width: 750rpx;
-			height: 140rpx;
-			display: flex;
-			align-items: center;
-			image {
-				width: 96rpx;
-				height: 96rpx;
-				margin: 20rpx;
-				border-radius: 12rpx;
-				flex: 0 0 96rpx;
-			}
-			.right {
-				overflow: hidden;
-				flex: 1 0;
-				padding: 20rpx 20rpx 40rpx 0;
-				&_top {
-					display: flex;
-					justify-content: space-between;
-					&_name {
-						font-size: 28rpx;
-						font-weight: 800;
-						color: $u-main-color;
-						flex: 0 0 450rpx;
-						overflow: hidden;
+		.item {
+				width: 750rpx;
+				height: 140rpx;
+				display: flex;
+				align-items: center;
+				image {
+					width: 96rpx;
+					height: 96rpx;
+					margin: 20rpx;
+					border-radius: 12rpx;
+					flex: 0 0 96rpx;
+				}
+				.right {
+					overflow: hidden;
+					flex: 1 0;
+					padding: 20rpx 20rpx 40rpx 0;
+					&_top {
+						display: flex;
+						justify-content: space-between;
+						&_name {
+							font-size: 28rpx;
+							font-weight: 800;
+							color: $u-main-color;
+							flex: 0 0 450rpx;
+							overflow: hidden;
+						}
+						&_time {
+							font-size: 22rpx;
+							color: $u-light-color;
+						}
 					}
-					&_time {
+					&_btm {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
 						font-size: 22rpx;
-						color: $u-light-color;
+						color: $u-tips-color;
 					}
 				}
-				&_btm {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					font-size: 22rpx;
-					color: $u-tips-color;
-				}
 			}
-		}
-		.bg_view {
-			background-color: #fafafa;
-		}
-		.slot-wrap {
-			display: flex;
-			align-items: center;
-			padding: 0 30rpx; 
-		}
+			.bg_view {
+				background-color: #fafafa;
+			}
+			.slot-wrap {
+				display: flex;
+				align-items: center;
+				padding: 0 30rpx; 
+			}
+	}
 </style>
