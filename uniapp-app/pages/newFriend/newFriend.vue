@@ -9,18 +9,16 @@
 			z-index="1001"
 		></u-navbar>
 		<view v-for="(value, index) in list">
-			<view class="item u-border-bottom" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
+			<view class="item u-border-bottom" hover-class="message-hover-class">
 				<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
-				<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
 				<view class="right title-wrap">
 					<view class="right_top">
-						<view class="right_top_name u-line-1">{{ value.chatName }}</view>
-						<view class="right_top_time ">{{value.lastOperTime || value.lastOpenTime | format}}</view>
+						<view class="right_top_name u-line-1">{{ value.nickName }}</view>
+						<view class="right_top_time ">{{value.lastOperTime | format}}</view>
 					</view>
-					<view class="right_btm ">
-						<view class="u-line-1">{{value.msgType==0?value.content:message[value.msgType]}}</view>
-						<view class="" v-show="voiceIcon">
-							<u-button>同意</u-button>
+					<view class="right_btm">
+						<view class="u-line-1" v-show="value.status==0">
+							<u-button @tap="handleOn(value.id)" type="success" size="mini">同意</u-button>
 						</view>
 					</view>
 				</view>
@@ -50,13 +48,13 @@ export default {
 		this.getNewFriend(true)
 	},
 	methods: {
-		linkTo(item) {
-			if (1 == this.type) {
-				console.log('新的朋友')
-			} else {
-				this.$u.vuex('chatObj', item);
-				this.$u.route({url: 'pages/chat/chat'});
-			}
+		handleOn(fid){
+			this.$socket.AcceptFriendRequest(fid,this._user_info.id,res=>{
+				uni.showToast({
+				title: '添加好友',
+				duration: 2000
+				});
+			})
 		},
 		getNewFriend(freshFlag) {
 			this.$socket.queryFriendRequestList(this._user_info.id, res => {
@@ -147,7 +145,6 @@ export default {
 					align-items: center;
 					font-size: 22rpx;
 					color: $u-tips-color;
-					padding-top: 10rpx;
 				}
 			}
 		}
