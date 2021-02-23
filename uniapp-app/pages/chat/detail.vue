@@ -77,7 +77,6 @@
 		width: 100%;
 		background-color: #EC624F;
 		flex-wrap: wrap;
-		border-bottom: 20rpx solid #f6f7f8;
 		.blessing,.money{
 			width: 100%;
 			color: #f8d757;
@@ -127,6 +126,7 @@
 		padding-left: 4%;
 		font-size: 28upx;
 		color: #999;
+		border-bottom: 2rpx solid #ededee;
 	}
 	.list{
 		width: 100%;
