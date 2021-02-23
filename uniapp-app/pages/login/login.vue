@@ -32,7 +32,7 @@
       return {
 		op:'/static/shilu-login/op.png',
 		cl:'/static/shilu-login/cl.png',
-		logo:'../../static/1.png',
+        logo:'../../static/shilu-login/logo.png',
         phone: '',
         password: '',
 		showPassword: false,
