@@ -10,10 +10,12 @@
 			<view class="face" :style="{'border-radius':radius}">
 				<image :src="$url + _redenvelope.userAvatar"></image>
 			</view>
-			<view class="username">
+			<view class="desc">
 				{{_redenvelope.userName}}的红包
 			</view>
-			
+			<view class="username">
+				恭喜发财，大吉大利
+			</view>
 		</view>
 		<view class="info">
 			已领{{_redenvelope.number-_redenvelope.surplusNumber}}个，共{{_redenvelope.number}}个
@@ -106,8 +108,16 @@
 			width: 100%;
 			justify-content: center;
 			background-color: #fff;
-			font-size: 38upx;
+			font-size: 16rpx;
+			padding-bottom: 60rpx;
+		}
+		.desc{
+			width: 100%;
+			justify-content: center;
+			background-color: #fff;
+			font-size: 32rpx;
 			font-weight: 600;
+			padding-bottom: 30rpx;
 		}
 	}
 	.info{

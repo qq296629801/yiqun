@@ -8,7 +8,7 @@
 				<view class="open-redenvelope">
 					<view class="from">
 						<image :src="this.$url + packet.userAvatar"></image>  
-						{{ packet.userName }} 的红包
+						{{ packet.userName }}的红包
 					</view>
 					<template v-for="(r,index) in packet.Records">
 						<view class="money" v-if="r.robUid===_user_info.id">
