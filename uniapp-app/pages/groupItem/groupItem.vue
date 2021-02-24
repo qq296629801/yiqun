@@ -46,6 +46,9 @@ export default {
 		getGroups(freshFlag) {
 			this.$socket.getGroups('', this._user_info.id, res => {
 				this.list = res.response.data;
+				var chatIds = [];
+				this.list.forEach(g=>chatIds.push(g.chatId));
+				this.$socket.joinRoom(chatIds,res=>{});
 				if(freshFlag){
 					uni.stopPullDownRefresh();
 				}
