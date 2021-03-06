@@ -34,7 +34,6 @@ const WEBIM = {
 		WEBIM.isReconnection = isReconnection;
 		WEBIM.serverUrl = serverUrl;
 		WEBIM.options = {
-			//url:'ws://www.qm11.co:9999/chat',
 			url: serverUrl,
 			success(res) {},
 			fail() {}
@@ -52,14 +51,17 @@ const WEBIM = {
 			let command = packet.command;
 			eventDispatcher.dispatchEvent(command, toJSON(packet))
 			eventDispatcher.removeListener(command, toJSON(packet))
-			let name = 'message_flush'
-			let value = packet
-			if (command === 16 || command === 4) {
-				store.commit('$uStore', {
-					name,
-					value
-				})
+			if(command==-5){
+				console.log(packet);
 			}
+			// let name = 'message_flush'
+			// let value = packet
+			// if (command === 16 || command === 4) {
+			// 	store.commit('$uStore', {
+			// 		name,
+			// 		value
+			// 	})
+			// }
 		});
 		WEBIM.server.onNetworkChange(WEBIM.options);
 		WEBIM.server.onSocketClosed(WEBIM.options)
@@ -832,9 +834,10 @@ EventDispatcher.prototype.dispatchEvent = function(eventKey, event) {
 	}
 }
 
-let send = (packet) => {
+let send = (p) => {
+	p.token = store.state.userData.token;
 	WEBIM.server.sendWebSocketMsg({
-		data: packet,
+		data: p,
 		success(res) {
 			//console.log('【websocket】发送成功')
 		},

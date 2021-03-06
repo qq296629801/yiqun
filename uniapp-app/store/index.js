@@ -12,7 +12,7 @@ try {
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-let saveStateKeys = ['_user_info', '_token','_login','chatlist','firendList'];
+let saveStateKeys = ['_user_info', '_token','_login','chatlist','firendList','userData'];
 
 // 保存变量到本地存储中
 const saveLifeData = function(key, value) {
@@ -49,6 +49,7 @@ const store = new Vuex.Store({
 			address: "河南郑州",
 			password:''
 		},
+		userData:lifeData.userData?lifeData.userData:{},
 		_textMsg:'',
 		//@功能数据存储
 		_call_selected:{},

@@ -50,10 +50,12 @@
 		},
 		doLogin() {
 			this.$socket.login(this.phone, this.password, null,res=>{
+				console.log(res)
 				if (res.success) {
 					// 缓存用户
-					this.$u.vuex('_user_info', res.response.data)
-					this.$u.vuex('_login',this._login)
+					this.$u.vuex('_user_info', res.response.data.user);
+					this.$u.vuex("userData",res.response.data);
+					this.$u.vuex('_login',this._login);
 					
 					// 加入群组
 					this.$socket.getGroups('', this._user_info.id, res => {

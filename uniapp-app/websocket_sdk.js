@@ -1,4 +1,5 @@
 import packetCode from './PacketCodeC.js'
+import store from './store/index.js'
 export default class Websocket {
     constructor({
         heartCheck,
@@ -153,15 +154,16 @@ export default class Websocket {
     sendHeartbeatData() {
 		let packet = {
 		  version: 1,
-		  command: 17
+		  command: 17,
+		  token: store.state.userData.token
 		}
         this.sendBinary(99, {
             data: packet,
             success(res) {
-               // console.log('【websocket】心跳连接成功')
+              // console.log('【websocket】心跳连接成功');
             },
             fail(err) {
-                console.log('【websocket】心跳连接失败')
+                console.log('【websocket】心跳连接失败');
                 console.log(err)
 				//开启重连
 				
