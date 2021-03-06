@@ -28,18 +28,18 @@ export default {
 		getFriends (freshFlag) {
 		  // #ifndef H5
 		  var list = []
-		  selectFSQL(this._user_info.id).then(res=>{
+		  selectFSQL(this.userData.user.operId).then(res=>{
 		  	this.indexList.forEach(name=>{
 		  		var members = []
 		  		res.forEach(f=>{
 		  			if(f.name===name){
 		  				members.push(f);
 		  			}
-		  		})
+		  		});
 		  		let obj = {
-		  			name:name,
-		  			members:members
-		  		}
+		  			name: name,
+		  			members: members
+		  		};
 		  		list.push(obj);
 		  	})
 		  	this.$u.vuex('firendList', list)
@@ -49,7 +49,7 @@ export default {
 		  });
 		  // #endif	
 		  // #ifndef APP-PLUS
-		  this.$socket.listGuests(this._user_info.id, res => {
+		  this.$socket.listGuests(this.userData.user.operId, res => {
 			this.$u.vuex('firendList', res.response.data)
 			if(freshFlag){
 				uni.stopPullDownRefresh();

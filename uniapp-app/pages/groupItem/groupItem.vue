@@ -44,7 +44,7 @@ export default {
 			}
 		},
 		getGroups(freshFlag) {
-			this.$socket.getGroups('', this._user_info.id, res => {
+			this.$socket.getGroups('', this._user_info.operId, res => {
 				this.list = res.response.data;
 				var chatIds = [];
 				this.list.forEach(g=>chatIds.push(g.chatId));

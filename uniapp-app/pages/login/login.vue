@@ -50,37 +50,24 @@
 		},
 		doLogin() {
 			this.$socket.login(this.phone, this.password, null,res=>{
-				console.log(res)
 				if (res.success) {
 					// 缓存用户
-					this.$u.vuex('_user_info', res.response.data.user);
 					this.$u.vuex("userData",res.response.data);
-					this.$u.vuex('_login',this._login);
-					
-					// 加入群组
-					this.$socket.getGroups('', this._user_info.id, res => {
-						var chatIds = [];
-						res.response.data.forEach(g=>{
-							chatIds.push(g.chatId);
-						});
-						this.$socket.joinRoom(chatIds,res=>{});
-					});
-					
 					// 	缓存通讯录
-					this.$socket.listGuests(this._user_info.id, res => {
+					this.$socket.listGuests(this.userData.user.operId, res => {
 						// #ifndef H5
-						createFSQL(this._user_info.id).then();
+						createFSQL(this.userData.user.operId).then();
 						res.response.data.forEach(f=>{
 							f.members.forEach(o=>{
 								o.name = f.name;
-								addFSQL(o,this._user_info.id).then();
+								addFSQL(o,this.userData.user.operId).then();
 							})
 						})
 						// #endif
 						this.$u.vuex('firendList', res.response.data)
 					})
 					//	缓存链接
-					this.$socket.getLinks(this._user_info.id, res=>{
+					this.$socket.getLinks(this.userData.user.operId, res=>{
 						this.$u.vuex('links',res.response.data)
 					});
 					// 跳转到消息列表

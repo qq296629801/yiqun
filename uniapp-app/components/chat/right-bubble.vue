@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 自己发出的消息 -->
-		<view class="my" v-if="row.sendUid==_user_info.id">
+		<view class="my" v-if="row.sendUid==userData.user.operId">
 			<!-- 右键 -->
 			<view class="right-click" v-show="row.id==rClickId">
 				<view @tap="copyFunc(row.msgContext)">复制</view>
@@ -126,7 +126,7 @@
 			},
 			//收藏表情
 			collectFunc({msgContext}){
-				this.$socket.addEmoticon(this._user_info.id, msgContext, res => {
+				this.$socket.addEmoticon(this.userData.user.operId, msgContext, res => {
 					if(res.success){
 						uni.showToast({
 							icon:'none',
@@ -213,7 +213,7 @@
 				        if(res.tapIndex==0){
 							let type = _this.chatObj.chatType;
 							let arr = ['deleteFriendMsg','deleteGroupMsg']
-							_this.$socket[arr[type]](_this._user_info.id, id, _this.chatObj.chatId, res => {
+							_this.$socket[arr[type]](this.userData.user.operId, id, _this.chatObj.chatId, res => {
 								if (res.success) {
 								  _this.sendMsg(6, id)
 								}

@@ -62,7 +62,7 @@ export default {
 			});
 		},
 		getChats(freshFlag){
-			this.$socket.queryChats('', this._user_info.id,(res) => {
+			this.$socket.queryChats('', this.userData.user.operId,(res) => {
 				if (res.success) {
 				  this.$u.vuex('chatList', res.chats)
 				}
@@ -78,7 +78,7 @@ export default {
 		//action 点击事件
 		click(index, id) {
 			this.chatList.splice(index, 1);
-			this.$socket.delChat(this._user_info.id, id, (res) => {})
+			this.$socket.delChat(this.userData.user.operId, id, (res) => {})
 		},
 		//action 打开事件
 		open(index) {

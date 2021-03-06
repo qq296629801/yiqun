@@ -8,10 +8,10 @@
 		<!-- #endif -->
 		<view class="header">
 			<view class="header_left">
-				<u-avatar @tap="previewImage" :src="`${$url}/${_user_info.avatar}`" mode="square" size="100"></u-avatar>
+				<u-avatar @tap="previewImage" :src="`${$url}/${userData.user.avatar}`" mode="square" size="100"></u-avatar>
 				<view class="header_left_content">
-					<view class="header_left_content_name">{{_user_info.nickName}}</view>
-					<view class="header_left_content_number">{{_user_info.money}}</view>
+					<view class="header_left_content_name">{{userData.user.realname}}</view>
+					<view class="header_left_content_number">{{userData.user.money}}</view>
 				</view>
 			</view>
 			<view class="header_right" @tap="linkToPerson">
@@ -78,7 +78,7 @@
 				});
 			},
 			previewImage() {
-				let current = this.$url + this._user_info.avatar
+				let current = this.$url + this.userData.user.avatar
 				uni.previewImage({
 					current,
 					urls: [current],

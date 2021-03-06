@@ -398,7 +398,7 @@
 			//获取群成员
             queryMembers () {
                 if (this.chatObj.chatType == 1) {
-                 this.$socket.queryMembers(this.chatObj.chatId, this._user_info.id, (res) => {
+                 this.$socket.queryMembers(this.chatObj.chatId, this.userData.user.operId, (res) => {
 					 this.$u.vuex('_members', res.memberResponse);
 					 this.myGroupInfo = {
 					 	groupUser: res.groupUser,
@@ -410,7 +410,7 @@
 			//消费消息
 			openConver () {
 			  let _this = this
-			  this.$socket.openChat(this.chatObj.chatId, this._user_info.id, this.chatObj.chatType, res => {
+			  this.$socket.openChat(this.chatObj.chatId, this.userData.user.operId, this.chatObj.chatType, res => {
 				if (res.success) {
 				  if (_this.chatObj.chatType == 1) {
 					if (res.groupUser === undefined) {
@@ -429,7 +429,7 @@
 				  this.scrollAnimation = false;
 				  let arr = ['queryFriendMessages','queryGroupMessages'];
 				  let type = this.chatObj.chatType
-			      this.$socket[arr[type]](this.chatObj.chatId, this._user_info.id, this.pageNum, (res) => {
+			      this.$socket[arr[type]](this.chatObj.chatId, this.userData.user.operId, this.pageNum, (res) => {
 			        if (res.success) {
 			          let data = res.response.data
 					  if(data.length>0){
@@ -476,7 +476,7 @@
 			//关闭滑动动画
 			let arr = ['queryFriendMessages','queryGroupMessages'];
 			let i = this.chatObj.chatType
-			  this.$socket[arr[i]](this.chatObj.chatId, this._user_info.id, this.pageNum, res => { 
+			  this.$socket[arr[i]](this.chatObj.chatId, this.userData.user.operId, this.pageNum, res => { 
 				  let message = res.response.data;
 				  if(message.length>0){
 					  message.forEach(m=>{
@@ -586,7 +586,7 @@
 			 
 			  let arr = ['send2Friend','send2Group']
 			  let _this = this
-			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this._user_info.id, text, msgType, res => {
+			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this.userData.user.operId, text, msgType, res => {
 				if (res.success) {
 					if (res.response!==undefined) {
 						const data = res.response.data
@@ -609,7 +609,7 @@
 				}
 			  });
 			  if (text !== '') {
-			  	this.$socket.createChatList(this._user_info.id, this.chatObj.chatId, text, msgType, res => {})
+			  	this.$socket.createChatList(this.userData.user.operId, this.chatObj.chatId, text, msgType, res => {})
 			  }
 			  this.textMsg = ''
 			},

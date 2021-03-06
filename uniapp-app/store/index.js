@@ -12,7 +12,7 @@ try {
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-let saveStateKeys = ['_user_info', '_token','_login','chatlist','firendList','userData'];
+let saveStateKeys = ['_user_info','chatlist','firendList','userData'];
 
 // 保存变量到本地存储中
 const saveLifeData = function(key, value) {
@@ -30,25 +30,7 @@ const saveLifeData = function(key, value) {
 const store = new Vuex.Store({
 	state: {
 		links:[],
-		// isShowNickName:'',
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
-		_login:lifeData._login?lifeData._login:{
-			userName:'',
-			passWord:''
-		},
-		_user_info: lifeData._user_info ? lifeData._user_info : {
-			avatar: require('@/static/image/huge.jpg'), //头像
-			id: '', //id
-			money:100,
-			userName: 'DR', //昵称
-			nickName: 'October', //微信号
-			signature: 'who do you want to meet.', //个性签名
-			phone: '13535351112', //手机号
-			pictureBanner: require('@/static/image/circleBanner/3.jpg'), //相册背景图
-			chatBgImg: require('@/static/image/Ran.jpg'), //聊天背景图
-			address: "河南郑州",
-			password:''
-		},
 		userData:lifeData.userData?lifeData.userData:{},
 		_textMsg:'',
 		//@功能数据存储
@@ -65,8 +47,6 @@ const store = new Vuex.Store({
 		  chatType:0,
 		  chatName:'测试'
 		},
-        message_flush:{},
-		_token: lifeData._token ? lifeData._token : '',
 		// 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
 		vuex_version: '1.0.1',
 		//朋友圈展示信息
