@@ -38,7 +38,7 @@ export default {
 	},
 	methods: {
 		handleOn(fid){
-			this.$socket.AcceptFriendRequest(fid,this._user_info.id,res=>{
+			this.$socket.AcceptFriendRequest(fid,this.userData.user.operId,res=>{
 				uni.showToast({
 				title: '添加好友',
 				duration: 2000
@@ -46,7 +46,7 @@ export default {
 			})
 		},
 		getNewFriend(freshFlag) {
-			this.$socket.queryFriendRequestList(this._user_info.id, res => {
+			this.$socket.queryFriendRequestList(this.userData.user.operId, res => {
 				this.list = res.userList;
 				if(freshFlag){
 					uni.stopPullDownRefresh();

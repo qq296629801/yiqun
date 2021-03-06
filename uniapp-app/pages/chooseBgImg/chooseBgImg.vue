@@ -7,7 +7,6 @@
 		<u-cell-group>
 			<u-cell-item title="通过手机选择" :title-style="{ marginLeft: '10rpx' }" @click="chooseImg"></u-cell-item>
 		</u-cell-group>
-
 		<u-toast ref="uToast" />
 	</view>
 </template>
@@ -32,7 +31,6 @@ export default {
 			this.$u.route('pages/builtinBgImg/builtinBgImg');
 		},
 		emitVuex(path) {
-			this.$u.vuex('_user_info.pictureBanner', path);
 			this.$u.route({ type: 'back' });
 			uni.$off('uAvatarCropper', this.emitVuex);
 		}

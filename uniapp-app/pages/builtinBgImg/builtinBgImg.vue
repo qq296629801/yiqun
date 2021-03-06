@@ -40,7 +40,7 @@ export default {
 		handleLink(){
 			const item = this.bgList.find(it=>it.isCheck);
 			if(item){
-				this.$u.vuex('_user_info.pictureBanner', item.src);
+				this.$u.vuex('userData.user.pictureBanner', item.src);
 				this.$u.route({ type: 'back',delta:2});
 			}
 		},

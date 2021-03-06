@@ -93,7 +93,7 @@ export default {
 				if (urls.length > 0) {
 					urls.substring(0, urls.length - 1);
 				}
-				this.$socket.createPostReq(this._user_info.id, this.content, urls, res => {
+				this.$socket.createPostReq(this.userData.user.operId, this.content, urls, res => {
 					if (res.response.success) {
 						uni.hideLoading();
 						this.$u.route({ type: 'back' });

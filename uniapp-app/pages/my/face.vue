@@ -33,7 +33,7 @@
 		watch:{},
 		methods:{
 			addFaceUser(faceId){
-				this.$socket.addFaceUser(this._user_info.id, faceId, res=>{
+				this.$socket.addFaceUser(this.userData.user.operId, faceId, res=>{
 					if(res.success){
 						uni.showToast({
 							title:'添加成功',

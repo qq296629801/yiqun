@@ -18,7 +18,7 @@
 			};
 		},
 		onShow(){
-			this.$socket.queryChats('', this._user_info.id,(res) => {
+			this.$socket.queryChats('', this.userData.user.operId,(res) => {
 				if (res.success) {
 					this.$u.vuex('chatList', res.chats)
 				}
@@ -31,13 +31,13 @@
 		methods:{
 			linkToForward({chatId,chatType}){
 				let action = chatType ==1 ? 'send2Group' : 'send2Friend'
-				this.$socket[action](chatId, this._user_info.id, this.msgContext, this.msgType, res => {
+				this.$socket[action](chatId, this.userData.user.operId, this.msgContext, this.msgType, res => {
 					if (res.success) {
 						uni.showToast({
 							icon:'success',
 							title:'转发成功'
 						})
-						this.$socket.createChatList(this._user_info.id, chatId, this.msgContext, this.msgType, res => {})
+						this.$socket.createChatList(this.userData.user.operId, chatId, this.msgContext, this.msgType, res => {})
 					}
 				});
 			}

@@ -36,8 +36,8 @@
 		<u-cell-group>
 			<u-cell-item
 				title="我在本群的昵称"
-				@click="showUpdate(group.id, mine.groupNickName || _user_info.nickName, 3)"
-				:value="mine.groupNickName || _user_info.nickName"
+				@click="showUpdate(group.id, mine.groupNickName || userData.user.realname, 3)"
+				:value="mine.groupNickName || userData.user.realname"
 				:title-style="{ marginLeft: '10rpx' }"
 			></u-cell-item>
 		</u-cell-group>
@@ -101,7 +101,7 @@ export default {
 		},
 		showAddGroupUser(){
 			//管理员也可以修改
-			if (this._user_info.userName != this.group.operUser) {
+			if (this.userData.user.username != this.group.operUser) {
 				uni.showModal({
 					title: '无权限修改',
 					showCancel: false
@@ -113,7 +113,7 @@ export default {
 			});
 		},
 		removeGroupUser() {
-			this.$socket.removeGroupUser([this._user_info.id], this.chatObj.chatId, res => {
+			this.$socket.removeGroupUser([this.userData.user.operId], this.chatObj.chatId, res => {
 				if (res.success) {
 					this.$u.route({
 						url: 'pages/home/home',
@@ -123,7 +123,7 @@ export default {
 			});
 		},
 		showUpdate(groupId, context, type) {
-			if (this._user_info.userName != this.group.operUser && 3 != type) {
+			if (this.userData.user.username != this.group.operUser && 3 != type) {
 				uni.showModal({
 					title: '无权限修改',
 					showCancel: false
@@ -136,7 +136,7 @@ export default {
 			});
 		},
 		clearGroupMsg() {
-			this.$socket.clearGroupMsg(this._user_info.id, this.chatObj.chatId, res => {
+			this.$socket.clearGroupMsg(this.userData.user.operId, this.chatObj.chatId, res => {
 				console.log(res);
 				if (res.success) {
 					uni.showModal({
@@ -163,15 +163,15 @@ export default {
 		},
 		swichShowNickName(status) {
 			this.isShowNickName = status;
-			let storeKey = 'isShowNickName' + this._user_info.id + '_' + this.chatObj.chatId;
+			let storeKey = 'isShowNickName' + this.userData.user.operId + '_' + this.chatObj.chatId;
 			uni.setStorageSync(storeKey, this.isShowNickName);
 		},
 		getShowNickName() {
-			let storeKey = 'isShowNickName' + this._user_info.id + '_' + this.chatObj.chatId;
+			let storeKey = 'isShowNickName' + userData.user.operId + '_' + this.chatObj.chatId;
 			this.isShowNickName = uni.getStorageSync(storeKey)? uni.getStorageSync(storeKey): false;
 		},
 		queryGroupUser() {
-			this.$socket.queryMembers(this.chatObj.chatId, this._user_info.id, res => {
+			this.$socket.queryMembers(this.chatObj.chatId, userData.user.operId, res => {
 				if (res.success) {
 					this.members = res.members;
 					this.$u.vuex('_membersNoneIndex',res.members)
@@ -185,7 +185,7 @@ export default {
 					});
 				}
 			});
-			this.$socket.queryNotice(this._user_info.id, this.chatObj.chatId, res => {
+			this.$socket.queryNotice(this.userData.user.operId, this.chatObj.chatId, res => {
 				if (res.success) {
 					this.context = res.context;
 				} else {

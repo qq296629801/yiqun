@@ -7,9 +7,9 @@
 		<view class="status_bar"></view>
 		<!-- #endif -->
 		<u-cell-group>
-			<u-cell-item title="微信号" :value="_user_info.userName" :title-style="{ marginLeft: '10rpx' }">
+			<u-cell-item title="微信号" :value="userData.user.username" :title-style="{ marginLeft: '10rpx' }">
 			</u-cell-item>
-			<u-cell-item title="手机号" :value="_user_info.phone" :title-style="{ marginLeft: '10rpx' }">
+			<u-cell-item title="手机号" :value="userData.user.mobile" :title-style="{ marginLeft: '10rpx' }">
 			</u-cell-item>
 		</u-cell-group>
 		<!--<view  style="height: 10rpx;"></view>

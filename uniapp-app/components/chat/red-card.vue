@@ -11,7 +11,7 @@
 						{{ packet.userName }}的红包
 					</view>
 					<template v-for="(r,index) in packet.Records">
-						<view class="money" v-if="r.robUid===_user_info.id">
+						<view class="money" v-if="r.robUid===userData.user.operId">
 							{{r.money}}
 						</view>
 					</template>
@@ -21,7 +21,7 @@
 							<view class="icon close" @tap="closeRedEnvelope"></view>
 						</view>
 						<template v-for="(r,index) in packet.Records">
-							<view v-if="r.robUid===_user_info.id">
+							<view v-if="r.robUid===userData.user.operId">
 							</view>
 							<view v-else class="img" @tap="robRed">开</view>
 						</template>

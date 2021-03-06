@@ -33,7 +33,7 @@
 		},
 		methods:{
 			getPhotos(){
-				this.$socket.queryPostsReq(this._user_info.id, this.pageNum, res => {
+				this.$socket.queryPostsReq(this.userData.user.operId, this.pageNum, res => {
 					this.posts = res.response.data.filter(p=>p.urls!='');
 				});
 			},

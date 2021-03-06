@@ -114,7 +114,7 @@ export default {
 						uni.vibrateLong();
 						// console.log('条码内容：' + res.result);
 						let uId = res.result
-						if (uId==t._user_info.id){
+						if (uId==t.userData.user.operId){
 							uni.showToast({
 								icon:'none',
 								title:'不能添加自己为好友'

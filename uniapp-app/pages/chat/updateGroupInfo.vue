@@ -59,9 +59,8 @@ export default {
 			}
 		},
 		updateNickName () {
-			this.$socket.updateNickName(this._user_info.id, this.context, (res) => {
+			this.$socket.updateNickName(this.userData.user.operId, this.context, (res) => {
 			  if (res.success) {
-				 this.$u.vuex('_user_info', res.user)
 				 uni.showToast({
 				 	title: '成功',
 				 	duration: 2000,
@@ -70,7 +69,7 @@ export default {
 			})
 		},
 		updateGroupName(){
-			this.$socket.updateGroupName(this._user_info.id, this.groupId, this.context, res => {
+			this.$socket.updateGroupName(this.userData.user.operId, this.groupId, this.context, res => {
 				if(res.success){
 					uni.showToast({
 						title: '成功',
@@ -85,7 +84,7 @@ export default {
 			})
 		},
 		updateNotice(){
-			this.$socket.updateNotice(this._user_info.id, this.groupId, this.context, res => {
+			this.$socket.updateNotice(this.userData.user.operId, this.groupId, this.context, res => {
 				if(res.success){
 					uni.showToast({
 						title: '成功',
@@ -100,7 +99,7 @@ export default {
 			})
 		},
 		updateGroupNick(){
-			this.$socket.updateGroupNick(this._user_info.id, this.groupId, this.context, res => {
+			this.$socket.updateGroupNick(this.userData.user.operId, this.groupId, this.context, res => {
 				if(res.success){
 					uni.showToast({
 						title: '成功',

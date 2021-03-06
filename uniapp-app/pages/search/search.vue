@@ -107,7 +107,7 @@ export default {
 					}
 				});
 			} else if (1 == that.searchType) {
-				that.$socket.queryChats(keyword, that._user_info.id, res => {
+				that.$socket.queryChats(keyword, that.userData.user.operId, res => {
 					if (res.success) {
 						that.list = res.chats;
 					}
@@ -127,13 +127,13 @@ export default {
 					return flag
 				})
 			} else if (3 == that.searchType) {
-				that.$socket.getFriendMessageByCondition(this.chatId, that._user_info.id, this.pageNum, keyword, res => {
+				that.$socket.getFriendMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
 					if (res.success) {
 						that.list = res.response.data;
 					}
 				});
 			}else if (4 == that.searchType) {
-				that.$socket.getGroupMessageByCondition(this.chatId, that._user_info.id, this.pageNum, keyword, res => {
+				that.$socket.getGroupMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
 					console.log(res)
 					if (res.success) {
 						that.list = res.response.data;

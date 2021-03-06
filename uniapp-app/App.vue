@@ -4,11 +4,11 @@
 			this.$socket.initWebIM(this.$ws, true, true)
 		},
 		onShow: function() {
-		    if(this._user_info.id==''){
-                this.$u.route({
-                    url: 'pages/login/login'
-                });
-            }
+			if(this.userData.token==undefined){
+				this.$u.route({
+				    url: 'pages/login/login'
+				});
+			}
 		},
 		onHide: function() {
 		}

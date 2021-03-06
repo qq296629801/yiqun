@@ -72,7 +72,7 @@
 				});
 			},
 			deleteFriendMsg(){
-				this.$socket.deleteFriendMsg(this._user_info.id, this.chatId, res=> {
+				this.$socket.deleteFriendMsg(this.userData.user.operId, this.chatId, res=> {
 					if (res.success) {
 						uni.showModal({
 							title: '成功',

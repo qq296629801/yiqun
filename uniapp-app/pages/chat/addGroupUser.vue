@@ -71,7 +71,7 @@
 				let type = this.$route.query.type
 				if (type === '1') {
 					let defaultGroupName = this.userNames.length > 8 ? this.userNames.substr(0, 8) + '...' : this.userNames
-					this.$socket.createGroup(this.ids, defaultGroupName, this._user_info.id, res => {
+					this.$socket.createGroup(this.ids, defaultGroupName, this.userData.user.operId, res => {
 						if (res.success) {
 							this.$u.route({
 								url: 'pages/home/home'
@@ -80,7 +80,7 @@
 					});
 				}
 				if (type === '2') {
-					this.$socket.joinGroup(this.chatObj.chatId, this.ids, this._user_info.userName, res => {
+					this.$socket.joinGroup(this.chatObj.chatId, this.ids, this.userData.user.username, res => {
 						if (res.success) {
 							this.$u.route({
 								url: 'pages/chat/groupDetail'

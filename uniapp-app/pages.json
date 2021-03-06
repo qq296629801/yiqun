@@ -4,13 +4,6 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationBarBackgroundColor":"#F6F7F8"
-			}
-		},
-		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "消息",
@@ -29,7 +22,13 @@
 				}
 			}
 		},
-
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#F6F7F8"
+			}
+		},
 		{
 			"path": "pages/addressBook/addressBook",
 			"style": {

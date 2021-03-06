@@ -61,7 +61,7 @@
 				})
 			},
 			toAddUser(){
-				this.$socket.insertFriend(this._user_info.id, this.userInfo.id, res => {
+				this.$socket.insertFriend(this.userData.user.operId, this.userInfo.id, res => {
 					if (res.success) {
 						uni.showModal({
 							title: '请求已发送',
@@ -91,9 +91,9 @@
 					this.url = this.$url + res.user.avatar
 				})
 			} else {
-				if(id == this._user_info.id){
-					this.userInfo = this._user_info;
-					this.url = this.$url + this._user_info.avatar
+				if(id == userData.user.operId){
+					this.userInfo = this.userData.user;
+					this.url = this.$url + this.userData.user.avatar
 					this.isItMe = true;
 					return;
 				}

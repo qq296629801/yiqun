@@ -36,7 +36,7 @@ export default {
 	},
 	methods: {
 		getLinks(freshFlag){
-			this.$socket.getLinks(this._user_info.id, res=>{
+			this.$socket.getLinks(this.userData.user.operId, res=>{
 				this.$u.vuex('links',res.response.data)
 				if(freshFlag){
 					uni.stopPullDownRefresh();
@@ -53,7 +53,7 @@ export default {
 				success: function(res) {
 					uni.vibrateLong();
 					let uId = res.result
-					if (uId==t._user_info.id){
+					if (uId==t.userData.user.operId){
 						uni.showToast({
 							icon:'none',
 							title:'暂不支持添加自己'

@@ -10,13 +10,13 @@
 			<u-cell-item title="头像" :title-style="{ marginLeft: '10rpx' }">
 				<u-upload :showUploadList="false" style="display: inline;" :custom-btn="true" @on-uploaded="onUploaded" :action="action">
 					<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-						<u-icon :name="`${$url}/${_user_info.avatar}`" size="60" :color="$u.color['lightColor']"></u-icon>
+						<u-icon :name="`${$url}/${userData.user.avatar}`" size="60" :color="$u.color['lightColor']"></u-icon>
 					</view>
 				</u-upload>
 			</u-cell-item>
-			<u-cell-item title="名字" @tap="linkTo(_user_info.nickName,0)" :value="_user_info.nickName" :title-style="{ marginLeft: '10rpx' }">
+			<u-cell-item title="名字" @tap="linkTo(userData.user.realname,0)" :value="userData.user.realname" :title-style="{ marginLeft: '10rpx' }">
 			</u-cell-item>
-			<u-cell-item title="用户名" :arrow="false" :value="_user_info.userName" :title-style="{ marginLeft: '10rpx' }">
+			<u-cell-item title="用户名" :arrow="false" :value="userData.user.username" :title-style="{ marginLeft: '10rpx' }">
 			</u-cell-item>
 			<u-cell-item @tap="linkToQrcode" title="二维码" :title-style="{ marginLeft: '10rpx' }">
 				<u-icon :name="src1" size="40" :color="$u.color['lightColor']"></u-icon>
@@ -50,10 +50,7 @@
 						icon:'none'
 					})
 				}
-				this.$socket.updateAvatar(this._user_info.id, res.response.data, res => {
-					if (res.success) {
-						this.$u.vuex('_user_info',res.user);
-					}
+				this.$socket.updateAvatar(this.userData.user.operId, res.response.data, res => {
 				  })
 			},
 			linkToQrcode(){

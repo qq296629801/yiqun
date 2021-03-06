@@ -7,11 +7,11 @@
 		<!-- #endif -->
 		<view class="content-imgbox">
 			<image class="bgimg" :src="require('@/static/image/circleBanner/3.jpg')" mode="scaleToFill"></image>
-			<image class="headimg" :src="`${$url}/${_user_info.avatar}`" @tap="linkToBusinessCard(_user_info.id)"></image>
-			<text class="nickname">{{ _user_info.nickName }}</text>
+			<image class="headimg" :src="`${$url}/${userData.user.avatar}`" @tap="linkToBusinessCard(userData.user.operId)"></image>
+			<text class="nickname">{{ userData.user.realname }}</text>
 		</view>
 		<view class="signature">
-			<view class="">{{ _user_info.signature }}</view>
+			<view class="">{{ userData.user.description }}</view>
 		</view>
 		<!-- 朋友圈列表 -->
 		<view class="content-circle">
@@ -67,7 +67,7 @@
 								:id="`comment-${item.circleMegId}-${commenIndex}`"
 							>
 								<text class="comment-box-name">{{ comment.nickName }}：{{ comment.comment }}</text>
-								<u-icon  name="trash-fill" color="#9a9a9a" style="position: absolute;right: 50rpx;padding-top: 9rpx;" size="35" @click="deleteComment(index, commenIndex)" v-if="comment.userId == _user_info.id"></u-icon>
+								<u-icon  name="trash-fill" color="#9a9a9a" style="position: absolute;right: 50rpx;padding-top: 9rpx;" size="35" @click="deleteComment(index, commenIndex)" v-if="comment.userId == userData.user.operId"></u-icon>
 							</view> 
 						 </view>
 					</view>
@@ -191,7 +191,7 @@ export default {
 	},
 	methods: {
 		isFabulous(item){
-			let fabulous = item.fabulousList.filter(l=>l.userId==this._user_info.id)[0];
+			let fabulous = item.fabulousList.filter(l=>l.userId==this.userData.user.operId)[0];
 			return fabulous?true:false
 		},
 		//自定义标题栏按钮
@@ -210,18 +210,18 @@ export default {
 		},
 		//点赞
 		clickThumb(item) {
-			let fabulous = item.fabulousList.filter(l=>l.userId==this._user_info.id)[0];
-			this.$socket.toFabulousRes(fabulous?fabulous.id:'',this._user_info.id, item.id, res => {
+			let fabulous = item.fabulousList.filter(l=>l.userId==this.userData.user.operId)[0];
+			this.$socket.toFabulousRes(fabulous?fabulous.id:'',this.userData.user.operId, item.id, res => {
 				if (res.response.success) {
 					// jiazai
 					if(res.response.data){
 						item.fabulousList.push({
 							id: res.response.data,
-							nickName: this._user_info.nickName,
-							userId: this._user_info.id
+							nickName: this.userData.user.realname,
+							userId: this.userData.user.operId
 						})
 					}else{
-						let index = item.fabulousList.findIndex((m)=>m.userId==this._user_info.id);
+						let index = item.fabulousList.findIndex((m)=>m.userId==this.userData.user.operId);
 						item.fabulousList.splice(index, 1)
 					}
 				}
@@ -248,7 +248,7 @@ export default {
 			    itemList: ['确认'],
 			    success: function (res) {
 			        if(res.tapIndex==0){
-						this.$socket.toCommentReqPacket(this.circleData[postIndex].commentList[commentIndex].id,this._user_info.id, this.circleData[postIndex].id, '', res => {
+						this.$socket.toCommentReqPacket(this.circleData[postIndex].commentList[commentIndex].id,this.userData.user.operId, this.circleData[postIndex].id, '', res => {
 							if (res.response.success) {
 								this.circleData[postIndex].commentList.splice(commentIndex, 1)
 							}
@@ -266,14 +266,14 @@ export default {
 				return;
 			}
 			const post = this.circleData[this.postIndex];
-			const {id, nickName} = this._user_info
+			const {id, realname} = this.userData.user
 			this.$socket.toCommentReqPacket('',id, post.id, this.content, res => {
 				if (res.response.success) {
 					const commentId = res.response.data;
 					if(res.response.data){
 						post.commentList.push({
 							id: commentId,
-							nickName: nickName,
+							nickName: realname,
 							userId: id,
 							comment: this.content
 						})
@@ -344,7 +344,7 @@ export default {
 		},
 		//模拟数据 可通过接口获取
 		getData(freshFlag) {
-			this.$socket.queryPostsReq(this._user_info.id, this.pageNum, res => {
+			this.$socket.queryPostsReq(this.userData.user.operId, this.pageNum, res => {
 				if (res.response.success) {
 					const circleData3 = this.circleData;
 					const circleData2 = res.response.data;
