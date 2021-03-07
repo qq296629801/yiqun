@@ -12,17 +12,16 @@
 
 #### 目录
 
-- uni-app 可以发布app版本
-- vue-admin 后台管理系统
-- vue-pc 可以发布pc版
-- vue-h5 原始的老版本h5 目前已经改用uni-app 不建议使用
-- java代码 联系作者有偿获取
+- uni-app app版本代码
+- vue-pc pc版代码
+- vue-admin 后台管理系统前端代码
+
+- java代码 联系作者有偿获取接口代码
 
 
 #### 感谢
 - `https://gitee.com/lele-666/V-IM.git` 
 - `https://gitee.com/xiaowang0482/wechat.git`
-- `https://github.com/mengjava/easy-im.git`
 - `https://gitee.com/crazymaker/crazy_tourist_circle__im.git`
 
 参考实战Netty集群 - CrazyIM 分布式聊天实战
