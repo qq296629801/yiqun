@@ -12,7 +12,7 @@
 
 #### 目录
 
-- 1.  uni-app代码 苹果 安卓 h5 我们免费
+- 1.  vue-app代码 苹果 安卓 h5 我们免费
 - 2.  vue-pc代码 window linux mac 我们免费
 - 3.  vue-admin web管理界面 我们免费
 - 4.  api 接口代码 联系作者有偿获取
