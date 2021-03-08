@@ -21,12 +21,12 @@ const store = new Vuex.Store({
         userData:{}
     },
     mutations:{
-        setUserData(state,userData){
-            window.sessionStorage.setItem('userData',userData);
-            state.userData=userData
-        },
         setUser(state,user){
             state.user=user
+        },
+        setUserData(state,userData){
+            localStorage.setItem("userData", JSON.stringify(userData));
+            state.userData=userData
         },
         setMember(state,mem){
             state.member=mem
@@ -68,9 +68,13 @@ const store = new Vuex.Store({
     actions:{
     },
     getters:{
+        getUser(state){
+            return state.user;
+        },
         getUserData(state){
-            let data = window.sessionStorage.getItem('userData');
-            return data?data:state.userData;
+            let ud = localStorage.getItem("userData");
+            ud = JSON.parse(ud);
+            return ud?ud:state.userData;
         },
         getMembers(state){
             return state.members

@@ -58,8 +58,9 @@
 </template>
 
 <script>
-import Top from './im/components/top.vue';
-export default {
+    import Top from './im/components/top.vue';
+
+    export default {
     name: 'login',
     data() {
         return {
@@ -135,6 +136,9 @@ export default {
     components: {
         Top
     },
+    mounted(){
+        this.$socket.initWebIM(this.$ws, true, true);
+    },
     methods: {
         clickUser() {
             location.reload();
@@ -165,9 +169,8 @@ export default {
             let self = this;
             this.$socket.login(this.telephone, this.password, this.checkCode, res => {
                 if (res.success) {
-                    window.sessionStorage.setItem('userData', res.response.data);
+                    this.$store.commit('setUserData', res.response.data);
                     this.$store.commit('setUser', res.response.data.user);
-                    console.log(this.$store.state.user);
                     self.$router.push({
                         path: '/index/chatBox',
                         params: {}
@@ -178,9 +181,6 @@ export default {
             });
         }
     },
-    created: function () {
-        this.$socket.initWebIM(this.$ws, true, true);
-    }
 };
 </script>
 

@@ -57,40 +57,6 @@ const WEBIM = {
     isConnect: function() {
         return WEBIM.server._isLogin;
     },
-  close: function () {
-    if (client !== undefined && client.readyState === WebSocket.OPEN) {
-      client.close()
-    }
-  },
-  open: function () {
-    if (!webim.isConnected){
-        eventDispatcher = new EventDispatcher()
-
-        client = new WebSocket('ws://120.27.95.106:9999/chat')
-
-        client.binaryType = 'arraybuffer'
-
-        client.onmessage = function (event) {
-            let packet = packetCode.decode(event.data)
-            eventDispatcher.dispatchEvent(packet.command, toJSON(packet))
-            eventDispatcher.removeListener(packet.command, toJSON(packet))
-            if (packet.command == 101){
-                store.state.message = packet
-            }
-        }
-
-        client.onopen = function (event) {
-        }
-
-        client.onclose = function (event) {
-            webim.isConnected = false
-        }
-
-        client.onerror = function (event) {
-            webim.isConnected = false
-        }
-    }
-  },
 
   register: (packet, func) => {
     packet.version = 1
@@ -98,7 +64,6 @@ const WEBIM = {
     send(packet)
     eventDispatcher.addListener('50', func)
   },
-
   login: (username, password, code, func) => {
     let requestPacket = {
       username,
@@ -797,7 +762,6 @@ let send = (packet) => {
     alert('当前浏览器不支持WebSocket')
     return
   }
-  packet.token = store.state.userData.token;
   WEBIM.server.sendWebSocketMsg({
       data: packet,
       success(res) {},

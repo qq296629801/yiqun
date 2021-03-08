@@ -31,7 +31,6 @@ export default class Websocket {
     _start() {
         let _this = this;
         this._timeoutObj = setInterval(() => {
-            //发送心跳
             _this.sendHeartbeatData();
         }, this._timeout);
     }
@@ -97,7 +96,6 @@ export default class Websocket {
 		let packet = {
 		  version: 1,
 		  command: 17,
-          token: store.state.userData.token,
 		}
         this.sendBinary(99, {
             data: packet,
@@ -117,13 +115,6 @@ export default class Websocket {
             fail(err) {
             }
         });
-        // this.sendBinary(99, {});
-        // socket.sendSocketMessage({
-        //  // 这里是第一次建立连接所发送的信息，应由前后端商量后决定
-        //  data: JSON.stringify({
-        //      "key": 'value'
-        //  })
-        // })
     }
 
     // 重连方法，会根据时间频率越来越慢
