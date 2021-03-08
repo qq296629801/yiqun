@@ -394,6 +394,14 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/login/denglu6",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"tabBar": {
