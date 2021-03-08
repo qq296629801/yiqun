@@ -52,9 +52,6 @@ export default {
     search (val) {
       const list = this.$store.state.chatList
       this.items = val ? list.filter(item => item.chatName.includes(val)) : list
-    },
-    message_flush:function(){
-        this.findChatList()
     }
   },
   computed: {
@@ -95,7 +92,7 @@ export default {
     },
     delChat(chatId) {
         let self = this
-        this.$socket.deleteChatById(this.user.id, chatId, (res) => {
+        this.$socket.deleteChatById(this.user.operId, chatId, (res) => {
             if(res.success)
               self.findChatList()
         })
@@ -105,7 +102,10 @@ export default {
     },
     findChatList(){
         let self = this
-        this.$socket.chats('', this.user.id, (res) => {
+        console.log(this.user,'-----1----')
+        this.$socket.chats('', this.user.operId, (res) => {
+            console.log(res)
+            console.log(this.user,'----2-----')
             if (res.success) {
                 let arr = res.chats
                 let total = 0
@@ -117,7 +117,7 @@ export default {
                 }
                 this.listLength = total
             }
-        })
+        });
     }
   },
   filters: {

@@ -455,7 +455,7 @@ export default {
                 return;
             }
             this.$socket.groupDisEnable(this.chat.chatId, status ? 1 : 0, res => {
-                let storeKey = 'isGroupDisEnable' + this.user.id + '_' + this.chat.chatId;
+                let storeKey = 'isGroupDisEnable' + this.user.operId + '_' + this.chat.chatId;
                 window.sessionStorage.setItem(storeKey, status)
             });
         },
@@ -463,7 +463,7 @@ export default {
             console.warn('handleToRemarks', item)
         },
         getDisEnable() {
-            let storeKey = 'isGroupDisEnable' + this.user.id + '_' + this.chat.chatId;
+            let storeKey = 'isGroupDisEnable' + this.user.operId + '_' + this.chat.chatId;
             let store = window.sessionStorage.getItem(storeKey, this.isDisEnable)
             this.isDisEnable = store ? store : false
         },
@@ -471,7 +471,7 @@ export default {
         showTransmit(item) {
             this.transmitModal = true
             this.transmitInfo = item
-            this.$socket.chats('', this.user.id, (res) => {
+            this.$socket.chats('', this.user.operId, (res) => {
                 if (res.success) {
                     this.transmitList = res.chats
                 }
@@ -481,10 +481,10 @@ export default {
             for (let index of this.transmits) {
                 let chatId = this.transmitList[index].chatId
                 let action = this.transmitList[index].chatType == 1 ? 'send2Group' : 'send2Friend'
-                this.$socket[action](chatId, this.user.id, this.transmitInfo.msgContext, this.transmitInfo.msgType, res => {
+                this.$socket[action](chatId, this.user.operId, this.transmitInfo.msgContext, this.transmitInfo.msgType, res => {
                     if (res.success) {
                         this.$Message.success('转发成功');
-                        this.$socket.createChatList(this.user.id, chatId, this.transmitInfo.msgContext, this.transmitInfo.msgType, res => {})
+                        this.$socket.createChatList(this.user.operId, chatId, this.transmitInfo.msgContext, this.transmitInfo.msgType, res => {})
                     }
                 });
             }
@@ -502,7 +502,7 @@ export default {
         collectFunc({
             msgContext
         }) {
-            this.$socket.addEmoticon(this.user.id, msgContext, res => {
+            this.$socket.addEmoticon(this.user.operId, msgContext, res => {
                 if (res.success) {
                     this.$Message.success('添加成功');
                 }
@@ -519,17 +519,17 @@ export default {
         },
         swichShowNickName(status) {
             this.isShowNickName = status;
-            let storeKey = 'isShowNickName' + this.user.id + '_' + this.chat.chatId;
+            let storeKey = 'isShowNickName' + this.user.operId + '_' + this.chat.chatId;
             // this.$u.vuex(storeKey, this.isShowNickName)
             window.sessionStorage.setItem(storeKey, this.isShowNickName)
         },
         getShowNickName() {
-            let storeKey = 'isShowNickName' + this.user.id + '_' + this.chat.chatId;
+            let storeKey = 'isShowNickName' + this.user.operId + '_' + this.chat.chatId;
             let store = window.sessionStorage.getItem(storeKey, this.isShowNickName)
             this.isShowNickName = store ? store : false
         },
         clearGroupMsg() {
-            this.$socket.clearGroupMsg(this.user.id, this.chat.chatId, res => {
+            this.$socket.clearGroupMsg(this.user.operId, this.chat.chatId, res => {
                 if (res.success) {
                     this.$message.success('成功');
                 } else {
@@ -538,7 +538,7 @@ export default {
             });
         },
         removeGroupUser() {
-            this.$socket.removeGroupUser([this.user.id], this.chat.chatId, res => {
+            this.$socket.removeGroupUser([this.user.operId], this.chat.chatId, res => {
                 if (res.success) {
                     self.$router.push({
                         path: '../index/chatBox',
@@ -557,7 +557,7 @@ export default {
             this.newNickName = ''
         },
         updateGroupName() {
-            this.$socket.updateGroupName(this.user.id, this.chat.chatId, this.newGroupName, (res) => {
+            this.$socket.updateGroupName(this.user.operId, this.chat.chatId, this.newGroupName, (res) => {
                 this.groupInfo.group.groupName = this.newGroupName
                 this.clearInfo();
                 if (res.success) {
@@ -574,7 +574,7 @@ export default {
             })
         },
         updateNotice() {
-            this.$socket.updateNotice(this.user.id, this.chat.chatId, this.newGroupNotice, (res) => {
+            this.$socket.updateNotice(this.user.operId, this.chat.chatId, this.newGroupNotice, (res) => {
                 this.groupNotice = this.newGroupNotice
                 this.clearInfo();
                 if (res.success) {
@@ -591,7 +591,7 @@ export default {
             })
         },
         updateGroupNick() {
-            this.$socket.updateGroupNick(this.user.id, this.chat.chatId, this.newNickName, (res) => {
+            this.$socket.updateGroupNick(this.user.operId, this.chat.chatId, this.newNickName, (res) => {
                 this.groupInfo.groupUser.groupNickName = this.newNickName
                 this.clearInfo();
                 if (res.success) {
@@ -609,7 +609,7 @@ export default {
         },
         getGroupInfo() {
             if (this.chatType === 1) {
-                this.$socket.queryGroupUser(this.user.id, this.chat.chatId, res => {
+                this.$socket.queryGroupUser(this.user.operId, this.chat.chatId, res => {
                     this.getShowNickName();
                     this.getDisEnable();
                     this.groupInfo = {
@@ -620,7 +620,7 @@ export default {
             }
         },
         openChat() {
-            this.$socket.openChat(this.chat.chatId, this.user.id, this.chatType, res => {
+            this.$socket.openChat(this.chat.chatId, this.user.operId, this.chatType, res => {
                 if (res.success) {
                     if (this.chatType === 1) {
                         if (res.groupUser === undefined) {
@@ -773,7 +773,7 @@ export default {
             }
             self.showHistory = true
             let str = this.chatType === 1 ? 'queryGroupMessages' : 'queryFriendMessages'
-            this.$socket[str](this.chat.chatId, this.user.id, pageNo, res => {
+            this.$socket[str](this.chat.chatId, this.user.operId, pageNo, res => {
                 this.count = res.totalSize
                 this.historyResponse(res.response.data)
             });
@@ -795,7 +795,7 @@ export default {
             this.send2(0, '')
         },
         queryMembers() {
-            this.$socket.queryMembers(this.chat.chatId, this.user.id, (res) => {
+            this.$socket.queryMembers(this.chat.chatId, this.user.operId, (res) => {
                 this.members = res.members
             })
         },
@@ -814,7 +814,7 @@ export default {
             })
         },
         queryNotice() {
-            this.$socket.queryNotice(this.user.id, this.chat.chatId, res => {
+            this.$socket.queryNotice(this.user.operId, this.chat.chatId, res => {
                 if (res.success) {
                     this.groupNotice = res.context;
                 } else {
@@ -949,14 +949,14 @@ export default {
             this.showVideo = false;
         },
         setUserCache() {
-            this.$socket.getUserById(this.user.id, res => {
+            this.$socket.getUserById(this.user.operId, res => {
                 localStorage.setItem('user', JSON.stringify(res.user))
             })
         },
         redpacketRespon(res) {
             this.msgList.forEach(m => {
                 if (m.id === res.msgId) {
-                    if (res.userId === this.user.id || this.redPacketItem.id === m.id || this.popupRobVisible === false) {
+                    if (res.userId === this.user.operId || this.redPacketItem.id === m.id || this.popupRobVisible === false) {
                         m.msgContext = res.message
                         this.changeStatusRob(m)
                         this.redPacketItem = m
@@ -997,7 +997,7 @@ export default {
                     break;
             }
             //非自己的消息震动
-            if (msg.sendUid != this.user.id) {
+            if (msg.sendUid != this.user.operId) {
                 this.vibrateLong()
             } else {
                 this.openChat();
@@ -1085,7 +1085,7 @@ export default {
         select2(msgType, text) {
             let _this = this
             let arr = ['send2Friend','send2Group']
-            this.$socket[arr[this.chatType]](this.chat.chatId, _this.user.id, text, msgType, res => {
+            this.$socket[arr[this.chatType]](this.chat.chatId, _this.user.operId, text, msgType, res => {
                 console.log(res)
                 if (res.success) {
                     if (res.response != undefined) {
@@ -1108,14 +1108,14 @@ export default {
             }
             this.select2(msgType, text)
             if (this.messageContent !== '' && this.chatType === 1) {
-                this.$socket.createChatList(this.user.id, this.chat.chatId, text, msgType, res => {})
+                this.$socket.createChatList(this.user.operId, this.chat.chatId, text, msgType, res => {})
             }
             this.messageContent = ''
         },
         handleRollback(item) {
             let self = this
             let del = self.chatType === 0 ? 'deleteFriendMsg' : 'deleteGroupMsg'
-            self.$socket[del](this.user.id, item.id, self.groupInfo.group.id, res => {
+            self.$socket[del](this.user.operId, item.id, self.groupInfo.group.id, res => {
                 if (res.success) {
                     self.send2(6, item.id)
                 }
@@ -1137,7 +1137,7 @@ export default {
                 if (packet.surplusNumber === 0 && packet.surplusMoney === 0) {
                     m.status = 2
                 }
-                if (r.robUid === this.user.id) {
+                if (r.robUid === this.user.operId) {
                     m.status = 2
                 }
             })
@@ -1150,7 +1150,7 @@ export default {
                         this.changeStatusRob(m)
                     }
                     self.msgList.push(m)
-                    if (m.sendUid === this.user.id) {
+                    if (m.sendUid === this.user.operId) {
                         self.$nextTick(() => {
                             imageLoad('message-box');
                         });

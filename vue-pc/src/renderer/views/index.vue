@@ -109,7 +109,7 @@ export default {
                         this.$Message.error('密码不一致');
                         return
                     }
-                    this.$socket.updatePassword(this.user.id, this.user.userName, this.updateFrom.newPassWord, res => {
+                    this.$socket.updatePassword(this.user.operId, this.user.userName, this.updateFrom.newPassWord, res => {
                         if (res.success) {
                             this.$store.state.modalMine = true
                             this.$Message.success('修改成功');

@@ -93,7 +93,7 @@ export default {
         }
     },
     created() {
-        this.$socket.listGuests(this.user.id, res => {
+        this.$socket.listGuests(this.user.operId, res => {
             if (res.response.success) {
                 this.friends = res.response.data
             }

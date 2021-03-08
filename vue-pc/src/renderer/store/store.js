@@ -18,12 +18,12 @@ const store = new Vuex.Store({
         friends:[],
         modalMine:false,
         user:{},
-        host:'',
-        message_flush:{}
+        userData:{}
     },
     mutations:{
-        setHost(state,host){
-            state.host=host
+        setUserData(state,userData){
+            window.sessionStorage.setItem('userData',userData);
+            state.userData=userData
         },
         setUser(state,user){
             state.user=user
@@ -66,9 +66,12 @@ const store = new Vuex.Store({
         }
     },
     actions:{
-
     },
     getters:{
+        getUserData(state){
+            let data = window.sessionStorage.getItem('userData');
+            return data?data:state.userData;
+        },
         getMembers(state){
             return state.members
         },
@@ -77,9 +80,6 @@ const store = new Vuex.Store({
         },
         getChat(state){
             return state.chat;
-        },
-        getToken (state) {
-            return state.token
         },
         getCard (state) {
             return state.card

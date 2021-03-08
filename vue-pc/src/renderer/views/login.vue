@@ -15,10 +15,6 @@
                 <div class="item">
                     <Input clearable prefix="ios-lock-outline" type="password" v-model="password" placeholder="密码" class="item-input" />
                 </div>
-                <!--<div class="item">
-        <label>服务：</label>
-        <Input clearable prefix="ios-settings-outline" v-model="host" placeholder="服务" class="item-input" />
-      </div>-->
                 <div class="btn item">
                     <Button type="primary" @click="login()" icon="md-contact">登录</Button>
                 </div>
@@ -33,13 +29,6 @@
 
     <Modal :transfer="false" closable class="user-model" v-model="showRegister" footer-hide title="注册新用户" width="400">
         <Form ref="formValidate" :model="registerForm" :rules="ruleValidate" :label-width="80">
-            <!-- <Upload action="selectImg()">
-          <Button icon="ios-cloud-upload-outline">Upload files</Button>
-        </Upload>-->
-            <!-- <img src="../../../static/img/lu.png" @click="selectImg" v-if="isdefultImg" alt style="width:100%;height:100px">
-      <img :src="img" v-if="ifshow" alt style="width:100%;height:100px"> -->
-            <!-- <div v-else  style="width:100%;height:200px"></div> -->
-            <!-- <input id="photoImg" accept="image/*" @change="imgChange" ref="img" type="file" style="display: none;"> -->
             <FormItem label="手机" prop="registerPhone">
                 <Input clearable class="my-ipt" v-model="registerForm.registerPhone" placeholder="请输入手机号" @on-blur="verifyTelephone"></Input>
             </FormItem>
@@ -176,24 +165,9 @@ export default {
             let self = this;
             this.$socket.login(this.telephone, this.password, this.checkCode, res => {
                 if (res.success) {
-                    let login = {
-                        username: this.username,
-                        password: this.password
-                    };
-                    window.sessionStorage.setItem('login', JSON.stringify(login));
-                    window.sessionStorage.setItem('token', res.token);
-                    this.$store.commit('setHost', self.host);
-                    // 后台改版返回
-                    this.$store.commit('setUser', res.response.data);
-                    this.$socket.getGroups('', res.response.data.id, (result) => {
-                        if (result.response.success){
-                            let list = result.response.data;
-                            let groupIds = [];
-                            list.forEach(group=>groupIds.push(group.chatId));
-                            this.$socket.joinRoom(groupIds,res=>{})
-                        }
-                    })
-
+                    window.sessionStorage.setItem('userData', res.response.data);
+                    this.$store.commit('setUser', res.response.data.user);
+                    console.log(this.$store.state.user);
                     self.$router.push({
                         path: '/index/chatBox',
                         params: {}

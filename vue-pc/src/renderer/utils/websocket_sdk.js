@@ -96,15 +96,14 @@ export default class Websocket {
     sendHeartbeatData() {
 		let packet = {
 		  version: 1,
-		  command: 17
+		  command: 17,
+          token: store.state.userData.token,
 		}
         this.sendBinary(99, {
             data: packet,
             success(res) {
             },
             fail(err) {
-				//开启重连
-				
             }
         });
     }

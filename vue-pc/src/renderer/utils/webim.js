@@ -45,8 +45,8 @@ const WEBIM = {
             let command = packet.command;
             eventDispatcher.dispatchEvent(command, toJSON(packet))
             eventDispatcher.removeListener(command, toJSON(packet))
-            if (packet.command === 16 || packet.command === 4){
-                store.state.message_flush = packet
+            if (command === -5){
+              console.log(packet);
             }
         });
         WEBIM.server.onSocketClosed(WEBIM.options)
@@ -797,6 +797,7 @@ let send = (packet) => {
     alert('当前浏览器不支持WebSocket')
     return
   }
+  packet.token = store.state.userData.token;
   WEBIM.server.sendWebSocketMsg({
       data: packet,
       success(res) {},

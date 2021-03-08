@@ -84,7 +84,7 @@ export default {
     }
   },
   created() {
-      this.$socket.getGroups('', this.user.id, (result) => {
+      this.$socket.getGroups('', this.user.operId, (result) => {
           if (result.response.success){
               this.groups = result.response.data
           }
