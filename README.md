@@ -1,7 +1,7 @@
 # 易群1.0
 
 #### 官网
-[https://bzghost.com](https://bzghost.com) 
+[http://bzghost.com](http://bzghost.com/index.html) 
 
 > 打造一款百万级并发且跨平台即时通信软件
 
