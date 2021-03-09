@@ -8,7 +8,7 @@
 			<swiper-item v-for="(page,pid) in list" :key="pid">
 				<view class="emotion-box">
 					<view v-for="(em,eid) in page" :key="eid" @tap="handleClikEmoji(em)">
-						<u-image class="emotion" width="80rpx" height="80rpx" :src="`/static/img/face/${em.url}`"></u-image>
+						<u-image class="emotion" width="70rpx" height="70rpx" :src="`/static/img/face/${em.url}`"></u-image>
 					</view>
 				</view>
 			</swiper-item>
