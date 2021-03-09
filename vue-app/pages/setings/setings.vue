@@ -61,7 +61,7 @@
 			logout(){
 				uni.clearStorageSync();
 				this.$u.route({
-					url: 'pages/login/denglu6'
+					url: 'pages/login/loginV2'
 				});
 			},
 			upApp(){

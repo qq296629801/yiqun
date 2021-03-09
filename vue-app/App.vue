@@ -6,7 +6,7 @@
 		onShow: function() {
 			if(this.userData.token==undefined){
 				this.$u.route({
-				    url: 'pages/login/denglu6'
+				    url: 'pages/login/loginV2'
 				});
 			}
 		},

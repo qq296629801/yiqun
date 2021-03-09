@@ -393,12 +393,12 @@
                 "navigationBarTitleText": "我的群组",
                 "enablePullDownRefresh": false
             }
-            
-        },{
-            "path" : "pages/login/denglu6",
+        }
+        ,{
+            "path" : "pages/login/loginV2",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "登录",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
