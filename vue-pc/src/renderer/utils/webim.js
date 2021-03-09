@@ -762,6 +762,11 @@ let send = (packet) => {
     alert('当前浏览器不支持WebSocket')
     return
   }
+
+  if(store.state.userData.token!=undefined){
+      packet.token = store.state.userData.token
+  }
+
   WEBIM.server.sendWebSocketMsg({
       data: packet,
       success(res) {},
