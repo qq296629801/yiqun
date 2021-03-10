@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<u-navbar :is-back="true" title="聊天详情" :background="{ background: '#F6F7F8'  }" title-color="#404133" :border-bottom="false" z-index="1001">
+		<u-navbar :is-back="true" title="好友聊天详情" :background="{ background: '#F6F7F8'  }" title-color="#404133" :border-bottom="false" z-index="1001">
 		</u-navbar>
 		<view style="background-color: #FFFFFF;padding-left: 30rpx;">
 			<u-grid :col="6" :border="false">
@@ -20,7 +20,7 @@
 		</u-cell-group>
 		<view style="height: 10rpx;"></view>
 		<u-cell-group>
-			<u-cell-item title="设置当前聊天背景" :title-style="{ marginLeft: '10rpx' }" @click="chooseImg">
+			<u-cell-item title="设置聊天背景" :title-style="{ marginLeft: '10rpx' }" @click="chooseImg">
 			</u-cell-item>
 		</u-cell-group>
 		<view style="height: 10rpx;"></view>

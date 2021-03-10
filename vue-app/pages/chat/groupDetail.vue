@@ -2,7 +2,7 @@
 	<view class="content">
 		<u-navbar
 			:is-back="true"
-			:title="'聊天信息(' + members.length + ')'"
+			:title="'群聊天信息(' + members.length + ')'"
 			:background="{ background: '#F6F7F8' }"
 			title-color="#404133"
 			:border-bottom="false"
@@ -53,7 +53,7 @@
 		</u-cell-group>
 		<view style="height: 10rpx;"></view>
 		<u-cell-group><u-cell-item title="查看聊天内容" @click="showSearch" :title-style="{ marginLeft: '10rpx' }"></u-cell-item></u-cell-group>
-		<u-cell-group><u-cell-item title="设置当前聊天背景" :title-style="{ marginLeft: '10rpx' }" @click="chooseImg"></u-cell-item></u-cell-group>
+		<u-cell-group><u-cell-item title="设置聊天背景" :title-style="{ marginLeft: '10rpx' }" @click="chooseImg"></u-cell-item></u-cell-group>
 		<view style="height: 10rpx;"></view>
 		<u-cell-group>
 			<u-cell-item :title-style="{ marginLeft: '10rpx' }" @click="clearGroupMsg" :arrow="false">
