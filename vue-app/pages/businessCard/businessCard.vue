@@ -4,7 +4,7 @@
 			<u-avatar :src="url" mode="square" size="110" @tap="previewImg(url)"></u-avatar>
 			<view class="userinfo-desc">
 				<view class="userinfo-desc-name">{{userInfo.nickName}}</view>
-				<view class="userinfo-desc-gray">{{userInfo.money}}</view>
+				<view class="userinfo-desc-gray">积分：{{userInfo.money}}</view>
 			</view>
 		</view>
 		<view  class="perch"></view>
@@ -91,7 +91,7 @@
 					this.url = this.$url + res.user.avatar
 				})
 			} else {
-				if(id == userData.user.operId){
+				if(id == this.userData.user.operId){
 					this.userInfo = this.userData.user;
 					this.url = this.$url + this.userData.user.avatar
 					this.isItMe = true;
