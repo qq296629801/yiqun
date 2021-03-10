@@ -12,7 +12,7 @@ try {
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-let saveStateKeys = ['_user_info','chatlist','firendList','userData'];
+let saveStateKeys = ['firendItem','userData'];
 
 // 保存变量到本地存储中
 const saveLifeData = function(key, value) {
@@ -32,35 +32,36 @@ const store = new Vuex.Store({
 		links:[],
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
 		userData:lifeData.userData?lifeData.userData:{},
-		_textMsg:'',
-		//@功能数据存储
-		_call_selected:{},
-		_call_s:lifeData._call_s ? lifeData._call_s : [],
 		//群成员 有索引A~Z
-		_members:lifeData.members ? lifeData.members : [],
+		_members:[],
 		//群成员 没有索引
 		_membersNoneIndex:[],
-		chatList:lifeData.chatList ? lifeData.chatList :[],
-		_redenvelope:lifeData._redenvelope ? lifeData._redenvelope : {},
+		// 消息列表
+		chatItem:[],
+		//我的朋友
+		firendItem: [],
+		// 红包
+		_redenvelope:{},
+		// 消息体
 		chatObj:{
 		  chatId:'',
 		  chatType:0,
 		  chatName:'测试'
 		},
-		// 如果vuex_version无需保存到本地永久存储，无需lifeData.vuex_version方式
+		// 版本
 		vuex_version: '1.0.1',
 		//朋友圈展示信息
 		circleData: [
 		],
-		//我的朋友
-		firendList: lifeData.firendList?lifeData.firendList:[],
+		
 		//内置朋友圈相册banner图
 		circleBgList:[
-			{ src:require('@/static/image/circleBanner/1.jpg'),isCheck:false },
-			{ src:require('@/static/image/circleBanner/2.jpg'),isCheck:false },
-			{ src:require('@/static/image/circleBanner/3.jpg'),isCheck:false },
-			{ src:require('@/static/image/circleBanner/4.jpg'),isCheck:false },
+			{ src:require('@/static/image/circleBanner/1.jpg'), isCheck:false },
+			{ src:require('@/static/image/circleBanner/2.jpg'), isCheck:false },
+			{ src:require('@/static/image/circleBanner/3.jpg'), isCheck:false },
+			{ src:require('@/static/image/circleBanner/4.jpg'), isCheck:false },
 		],
+
 	},
 	mutations: {
 		$uStore(state, payload) {

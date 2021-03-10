@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<searchInput :searchType="2"/>
-		<addressBook :list="this.firendList" :scrollTop="scrollTop" :isShowMenu="true" @linkTo="linkToCard"></addressBook>
+		<addressBook :list="firendItem" :scrollTop="scrollTop" :isShowMenu="true" @linkTo="linkToCard"></addressBook>
 	</view>
 </template>
 <script>
@@ -27,10 +27,10 @@ export default {
 	methods: {
 		getFriends (freshFlag) {
 		  // #ifndef H5
-		  var list = []
+		  var list = [];
 		  selectFSQL(this.userData.user.operId).then(res=>{
 		  	this.indexList.forEach(name=>{
-		  		var members = []
+		  		var members = [];
 		  		res.forEach(f=>{
 		  			if(f.name===name){
 		  				members.push(f);
@@ -41,8 +41,8 @@ export default {
 		  			members: members
 		  		};
 		  		list.push(obj);
-		  	})
-		  	this.$u.vuex('firendList', list)
+		  	});
+		  	this.$u.vuex('firendItem', list);
 			if(freshFlag){
 				uni.stopPullDownRefresh();
 			}
@@ -50,7 +50,7 @@ export default {
 		  // #endif	
 		  // #ifndef APP-PLUS
 		  this.$socket.listGuests(this.userData.user.operId, res => {
-			this.$u.vuex('firendList', res.response.data)
+			this.$u.vuex('firendItem', res.response.data)
 			if(freshFlag){
 				uni.stopPullDownRefresh();
 			}
@@ -61,7 +61,7 @@ export default {
 			this.$u.route({
 				url: 'pages/businessCard/businessCard',
 				params:{ id: id, source: 1}
-			})
+			});
 		}
 	}
 };

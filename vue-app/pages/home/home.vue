@@ -9,7 +9,7 @@
 		<!-- #endif -->
 		<selectInput :list="selectList" :list-key="'name'" :show.sync="selectShow" @on-select="checkSelect" @close="closeSelect" />
 		<searchInput :searchType="1"/>
-		<u-swipe-action style="margin-right: 1px;" :show="item.show" v-for="(item, index) in chatList" :index="index" btn-width="160" :key="item.id" @click="click(index,item.id)" @open="open" :options="options">
+		<u-swipe-action style="margin-right: 1px;" :show="item.show" v-for="(item, index) in chatItem" :index="index" btn-width="160" :key="item.id" @click="click(index,item.id)" @open="open" :options="options">
 			<chatItem @linkTo="linkTo" :value="item" :index="index" :voiceIcon="true"></chatItem>
 		</u-swipe-action>
 	</view>
@@ -36,7 +36,7 @@ export default {
 			selectList: [
 				{ id: '1', name: '添加朋友', icon: 'man-add-fill' },
 				{ id: '2', name: '扫一扫', icon: 'scan' },
-				/* , { id: '3', name: '收付款', icon: 'fingerprint' } */
+				{ id: '3', name: '收付款', icon: 'fingerprint' }
 				]
 		};
 	},
@@ -64,7 +64,7 @@ export default {
 		getChats(freshFlag){
 			this.$socket.queryChats('', this.userData.user.operId,(res) => {
 				if (res.success) {
-				  this.$u.vuex('chatList', res.chats)
+				  this.$u.vuex('chatItem', res.chats)
 				}
 				if(freshFlag){
 					uni.stopPullDownRefresh();
@@ -77,14 +77,14 @@ export default {
 		},
 		//action 点击事件
 		click(index, id) {
-			this.chatList.splice(index, 1);
+			this.chatItem.splice(index, 1);
 			this.$socket.delChat(this.userData.user.operId, id, (res) => {})
 		},
 		//action 打开事件
 		open(index) {
-			this.chatList[index].show = true;
-			this.chatList.map((val, idx) => {
-				if (index != idx) this.chatList[idx].show = false;
+			this.chatItem[index].show = true;
+			this.chatItem.map((val, idx) => {
+				if (index != idx) this.chatItem[idx].show = false;
 			});
 		},
 		//点击导航栏自定义按钮
