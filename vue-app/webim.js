@@ -51,7 +51,7 @@ const WEBIM = {
 			let command = packet.command;
 			eventDispatcher.dispatchEvent(command, toJSON(packet))
 			eventDispatcher.removeListener(command, toJSON(packet))
-			if(command==-5){
+			if(command===-5){
 				console.log(packet);
 			}
 			// let name = 'message_flush'

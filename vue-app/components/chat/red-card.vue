@@ -63,9 +63,6 @@
 			},
 			//领取详情
 			toDetails(){
-				// 获取最新红包情况
-				//TODO 从服务器上获取红包列表
-				//let packet = this.redenvelopeProcess(this.message.msgContext)
 				this.$u.vuex('_redenvelope',this.packet)
 				uni.navigateTo({
 					url:'./detail'

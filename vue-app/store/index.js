@@ -8,7 +8,6 @@ try {
 	// 尝试获取本地是否存在lifeData变量，第一次启动APP时是不存在的
 	lifeData = uni.getStorageSync('lifeData');
 } catch (e) {
-
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
@@ -31,17 +30,17 @@ const store = new Vuex.Store({
 	state: {
 		links:[],
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
-		userData:lifeData.userData?lifeData.userData:{},
+		userData: lifeData.userData?lifeData.userData: {},
 		//群成员 有索引A~Z
-		_members:[],
+		memberItem:[],
 		//群成员 没有索引
-		_membersNoneIndex:[],
+		memberItemIndex: [],
 		// 消息列表
 		chatItem:[],
 		//我的朋友
 		firendItem: [],
 		// 红包
-		_redenvelope:{},
+		_redenvelope: {},
 		// 消息体
 		chatObj:{
 		  chatId:'',
@@ -51,9 +50,7 @@ const store = new Vuex.Store({
 		// 版本
 		vuex_version: '1.0.1',
 		//朋友圈展示信息
-		circleData: [
-		],
-		
+		circleData: [],
 		//内置朋友圈相册banner图
 		circleBgList:[
 			{ src:require('@/static/image/circleBanner/1.jpg'), isCheck:false },
@@ -61,7 +58,6 @@ const store = new Vuex.Store({
 			{ src:require('@/static/image/circleBanner/3.jpg'), isCheck:false },
 			{ src:require('@/static/image/circleBanner/4.jpg'), isCheck:false },
 		],
-
 	},
 	mutations: {
 		$uStore(state, payload) {

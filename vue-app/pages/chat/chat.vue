@@ -399,7 +399,7 @@
             queryMembers () {
                 if (this.chatObj.chatType == 1) {
                  this.$socket.queryMembers(this.chatObj.chatId, this.userData.user.operId, (res) => {
-					 this.$u.vuex('_members', res.memberResponse);
+					 this.$u.vuex('memberItem', res.memberResponse);
 					 this.myGroupInfo = {
 					 	groupUser: res.groupUser,
 					 	group: res.group
@@ -632,7 +632,7 @@
 					default:
 				}
 				// #ifndef H5
-				addMsgSQL(msg).then(res=>{}).catch(res=>{})
+				addMsgSQL(msg).then(res=>{}).catch(res=>{});
 				// #endif
 				this.scrollAnimation = false
 				this.$nextTick(() => {
@@ -640,11 +640,11 @@
 					this.scrollAnimation = true;
 				});
 				//非自己的消息震动
-				// if(msg.sendUid!=this._user_info.id){
-				// 	uni.vibrateLong();
-				// } else {
-				// 	this.openConver();
-				// }
+				if(msg.sendUid!=this.userData.user.operId){
+					uni.vibrateLong();
+				} else {
+					this.openConver();
+				}
 			},
 			//增加撤销
 			addRevoke(res){
