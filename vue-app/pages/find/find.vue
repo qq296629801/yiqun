@@ -12,13 +12,13 @@
 			</u-cell-item>
 		</u-cell-group>	
 		<view style="height: 10rpx;"></view>
-		<view class="" v-for="(item,index) in links" :key="index">
+		<view class="" v-for="(item,index) in linkItem" :key="index">
 			<u-cell-group>
 				<u-cell-item  :title="item.title" :title-style="{marginLeft:'30rpx',fontWeight:'800'}"  @tap="linkTo(item,index)">
 					<u-icon slot="icon" :name="item.icon" :color="item.color" size="40"></u-icon> 
 				</u-cell-item>
 			</u-cell-group>
-			<view v-if="index!=links.length" class="" style="height: 10rpx;"></view>
+			<view v-if="index!=linkItem.length" class="" style="height: 10rpx;"></view>
 		</view>
 	</view>
 </template>
@@ -29,15 +29,15 @@ export default {
 		};
 	},
 	onShow() {
-		this.getLinks(false)
+		this.querylinkItem(false)
 	},
 	onPullDownRefresh() {
-		this.getLinks(true)
+		this.querylinkItem(true)
 	},
 	methods: {
-		getLinks(freshFlag){
+		querylinkItem(freshFlag){
 			this.$socket.getLinks(this.userData.user.operId, res=>{
-				this.$u.vuex('links',res.response.data)
+				this.$u.vuex('linkItem',res.response.data)
 				if(freshFlag){
 					uni.stopPullDownRefresh();
 				}

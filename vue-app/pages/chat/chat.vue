@@ -50,6 +50,7 @@
 	import FooterInput from '@/components/chat/footer-input.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
+	import { queryData, upData } from '../../util/dbUtil.js'
 	export default {
 		components: {
 			ImDrawer,
@@ -138,8 +139,8 @@
 		onShow(){
 			this.disabledSay = 0
 			this.scrollTop = 9999999;
-			this.getMsgList();
 			this.sendMsg(0,'');
+			this.getMsgItem();
 			this.openConver();
 			this.hideDrawer();
 		},
@@ -422,6 +423,17 @@
 				}
 			  })
 			},
+			
+			getMsgItem(){
+				this.scrollAnimation = false;
+				queryData(this.chatObj.chatId).then(res=>{
+					this.msgList = res;
+					this.$nextTick(function() {
+						this.scrollTop = 9999;
+						this.scrollAnimation = true;
+					});
+				});
+			},
 			//获取消息记录
 			getMsgList () {
 			      this.pageNum = 1
@@ -442,7 +454,7 @@
 						  })
 					  }
 					  this.msgList = data
-			          this.msgList.sort((a, b) => { return a.id - b.id })
+			          this.msgList.sort((a, b) => { return a.id - b.id });
 					  this.$nextTick(function() {
 					  	this.scrollTop = 9999;
 					  	this.$nextTick(function() {
@@ -590,6 +602,9 @@
 				if (res.success) {
 					if (res.response!==undefined) {
 						const data = res.response.data
+						// 获取最新消息
+                        upData(data);
+
 						if(res.msgType===8){
 							_this.addRobEnvelope(res);
 						}else if(res.msgType===6){

@@ -25,6 +25,7 @@
 
 <script>
 	import { openFSqlite, createFSQL, selectFSQL, addFSQL } from '../../util/f.js'
+	import { queryData, upData, initData } from '../../util/dbUtil.js'
 	export default {
 		components:{},
 		data() {
@@ -37,7 +38,6 @@
 		},
 		methods:{
 			hanleLogin(){
-				console.log("111");
 				this.$socket.login(this.phone, this.pass, null, res=>{
 					if (res.success) {
 						// 缓存用户
@@ -54,11 +54,25 @@
 								})
 							})
 							// #endif
-							this.$u.vuex('firendList', res.response.data)
+							this.$u.vuex('firendItem', res.response.data)
 						});
+						
+						// 缓存消息列表
+						this.$socket.getGroups('', this.userData.user.operId, res => {
+							let groupItem = res.response.data;
+							groupItem.forEach(group=>{
+								this.$socket['queryGroupMessages'](group.chatId, this.userData.user.operId, 1, (res) => {
+								  if (res.success) {
+								    let msgList = res.response.data
+									initData(msgList, group.chatId);
+								  }
+								});
+							});
+						});
+						
 						//	缓存链接
 						this.$socket.getLinks(this.userData.user.operId, res=>{
-							this.$u.vuex('links',res.response.data)
+							this.$u.vuex('linkItem',res.response.data)
 						});
 						// 跳转到消息列表
 						this.$u.route({

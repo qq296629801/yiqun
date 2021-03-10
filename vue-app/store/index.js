@@ -28,7 +28,7 @@ const saveLifeData = function(key, value) {
 }
 const store = new Vuex.Store({
 	state: {
-		links:[],
+		linkItem:[],
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
 		userData: lifeData.userData?lifeData.userData: {},
 		//群成员 有索引A~Z
@@ -38,7 +38,7 @@ const store = new Vuex.Store({
 		// 消息列表
 		chatItem:[],
 		//我的朋友
-		firendItem: [],
+		firendItem: lifeData.firendItem?lifeData.firendItem: {},
 		// 红包
 		_redenvelope: {},
 		// 消息体
