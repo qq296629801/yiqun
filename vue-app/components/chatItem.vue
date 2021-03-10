@@ -1,5 +1,5 @@
 <template>
-	<view class="item u-border-bottom" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
+	<view class="item u-border-bottom" :class="currIndex === index ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
 		<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
 		<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
 		<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
@@ -34,7 +34,7 @@
 			},
 			index: {
 				type: Number,
-				default: 0
+				default: -1
 			},
 			voiceIcon:{
 				type: Boolean,
@@ -46,6 +46,7 @@
 		data() {
 			return {
 				offset:[10,810],
+				currIndex: -1,
 				message:['文字', '图片', '表情', '语音', '视频', '签到', '撤销', '发红包', '抢红包']
 			};
 		},

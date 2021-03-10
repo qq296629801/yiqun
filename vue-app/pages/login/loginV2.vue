@@ -43,17 +43,18 @@
 						this.$u.vuex("userData",res.response.data);
 						// 	缓存通讯录
 						this.$socket.listGuests(this.userData.user.operId, res => {
-							// #ifndef H5
+							// #ifdef APP-PLUS
 							createFSQL(this.userData.user.operId).then();
-							res.response.data.forEach(f=>{
-								f.members.forEach(o=>{
-									o.name = f.name;
-									addFSQL(o,this.userData.user.operId).then();
+							let contact = res.response.data;
+							contact.forEach(c=>{
+								c.members.forEach(m=>{
+									m.name = c.name;
+									addFSQL(m,this.userData.user.operId).then();
 								})
 							})
 							// #endif
 							this.$u.vuex('firendList', res.response.data)
-						})
+						});
 						//	缓存链接
 						this.$socket.getLinks(this.userData.user.operId, res=>{
 							this.$u.vuex('links',res.response.data)

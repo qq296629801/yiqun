@@ -1,7 +1,8 @@
 <template>
 	<view class="content">
 		<view v-for="(value, index) in list">
-			<view class="item u-border-bottom" :class="value.isTop ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
+			<view class="item u-border-bottom" :class="currIndex ===index ? 'bg_view' : ''" hover-class="message-hover-class" 
+			@tap="link(value)">
 				<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
 				<view class="right title-wrap">
 					<view class="right_top">
@@ -23,32 +24,27 @@ export default {
 	},
 	data() {
 		return {
-			list: []
+			list: [],
+			currIndex: -1
 		};
 	},
 	onLoad() {
 	},
 	onShow() {
-		this.getGroups(false);
+		this.query(false);
 	},
 	onPullDownRefresh() {
-		this.getGroups(true)
+		this.query(true)
 	},
 	methods: {
-		linkTo(item) {
-			if (1 == this.type) {
-				console.log('新的朋友')
-			} else {
-				this.$u.vuex('chatObj', item);
-				this.$u.route({url: 'pages/chat/chat'});
-			}
+		link(item,index) {
+			this.currIndex = index;
+			this.$u.vuex('chatObj', item);
+			this.$u.route({url: 'pages/chat/chat'});
 		},
-		getGroups(freshFlag) {
+		query(freshFlag) {
 			this.$socket.getGroups('', this.userData.user.operId, res => {
 				this.list = res.response.data;
-				var chatIds = [];
-				this.list.forEach(g=>chatIds.push(g.chatId));
-				this.$socket.joinRoom(chatIds,res=>{});
 				if(freshFlag){
 					uni.stopPullDownRefresh();
 				}

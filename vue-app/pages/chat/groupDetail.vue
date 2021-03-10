@@ -14,7 +14,7 @@
 					<img-cache :src="$url + item.avatar"></img-cache>
 					<view class="grid-text">{{ item.groupNickName||item.nickName }}</view>
 				</u-grid-item>
-				<u-grid-item @click="showAddGroupUser">
+				<u-grid-item @click="hanldleLinkMore">
 					<view style="padding-bottom: 40rpx;">
 						<u-icon name="plus" size="40"></u-icon>
 					</view>
@@ -27,7 +27,7 @@
 			<u-cell-item title="群名称" @click="showUpdate(group.id, group.groupName, 1)" :value="group.groupName" :title-style="{ marginLeft: '10rpx' }"></u-cell-item>
 		</u-cell-group>
 		<u-cell-group>
-			<u-cell-item title="群二维码" :title-style="{ marginLeft: '10rpx' }"><u-avatar :src="src1" size="40"></u-avatar></u-cell-item>
+			<u-cell-item title="群二维码" :title-style="{ marginLeft: '10rpx' }"><u-avatar :src="src1" size="50"></u-avatar></u-cell-item>
 		</u-cell-group>
 		<u-cell-group>
 			<u-cell-item title="群公告" @click="showUpdate(group.id, context, 2)" :value="context ? context : '暂无公告'" :title-style="{ marginLeft: '10rpx' }"></u-cell-item>
@@ -35,15 +35,20 @@
 		<view style="height: 10rpx;"></view>
 		<u-cell-group>
 			<u-cell-item
-				title="我在本群的昵称"
+				title="群昵称"
 				@click="showUpdate(group.id, mine.groupNickName || userData.user.realname, 3)"
 				:value="mine.groupNickName || userData.user.realname"
 				:title-style="{ marginLeft: '10rpx' }"
 			></u-cell-item>
 		</u-cell-group>
 		<u-cell-group>
-			<u-cell-item title="显示成员昵称" :title-style="{ marginLeft: '10rpx' }" :arrow="false">
+			<u-cell-item title="显示昵称" :title-style="{ marginLeft: '10rpx' }" :arrow="false">
 				<u-switch active-color="rgb(25, 190, 107)" v-model="isShowNickName" v-on:change="swichShowNickName"></u-switch>
+			</u-cell-item>
+		</u-cell-group>
+		<u-cell-group>
+			<u-cell-item title="全体禁言" :title-style="{ marginLeft: '10rpx' }" :arrow="false">
+				<u-switch active-color="rgb(25, 190, 107)" v-model="anyDisnable"></u-switch>
 			</u-cell-item>
 		</u-cell-group>
 		<view style="height: 10rpx;"></view>
@@ -78,7 +83,8 @@ export default {
 			},
 			context: '',
 			mine: '',
-			isShowNickName: false
+			isShowNickName: false,
+			anyDisnable:false,
 		};
 	},
 	methods: {
@@ -99,8 +105,7 @@ export default {
 				params: {searchType: 4, chatId: this.chatObj.chatId}
 			})
 		},
-		showAddGroupUser(){
-			//管理员也可以修改
+		hanldleLinkMore(){
 			if (this.userData.user.username != this.group.operUser) {
 				uni.showModal({
 					title: '无权限修改',
@@ -208,10 +213,12 @@ export default {
 </script>
 
 <style>
-	.content .grid-text {
-		text-align: center;
-		overflow: hidden;
+	.grid-text {
 		width: 80rpx;
+		height: 40rpx;
+		overflow: hidden;
+		text-align: center;
+		color: #c7c7c7;
 	}
 	.img-cache{
 		width: 80rpx;
