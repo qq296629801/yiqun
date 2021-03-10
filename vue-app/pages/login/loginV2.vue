@@ -24,6 +24,7 @@
 </template>
 
 <script>
+	import { openFSqlite, createFSQL, selectFSQL, addFSQL } from '../../util/f.js'
 	export default {
 		components:{},
 		data() {
