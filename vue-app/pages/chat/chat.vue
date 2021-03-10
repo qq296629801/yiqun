@@ -50,7 +50,7 @@
 	import FooterInput from '@/components/chat/footer-input.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
-	import { queryData, upData } from '../../util/dbUtil.js'
+	import { queryData, upData, initData } from '../../util/dbUtil.js'
 	export default {
 		components: {
 			ImDrawer,
@@ -602,8 +602,9 @@
 				if (res.success) {
 					if (res.response!==undefined) {
 						const data = res.response.data
-						// 获取最新消息
-                        upData(data);
+						
+						// 缓存最后一条消息
+                        upData(data, this.chatObj.chatId);
 
 						if(res.msgType===8){
 							_this.addRobEnvelope(res);
