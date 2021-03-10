@@ -167,11 +167,11 @@ export default {
 			uni.setStorageSync(storeKey, this.isShowNickName);
 		},
 		getShowNickName() {
-			let storeKey = 'isShowNickName' + userData.user.operId + '_' + this.chatObj.chatId;
+			let storeKey = 'isShowNickName' + this.userData.user.operId + '_' + this.chatObj.chatId;
 			this.isShowNickName = uni.getStorageSync(storeKey)? uni.getStorageSync(storeKey): false;
 		},
 		queryGroupUser() {
-			this.$socket.queryMembers(this.chatObj.chatId, userData.user.operId, res => {
+			this.$socket.queryMembers(this.chatObj.chatId, this.userData.user.operId, res => {
 				if (res.success) {
 					this.members = res.members;
 					this.$u.vuex('_membersNoneIndex',res.members)
