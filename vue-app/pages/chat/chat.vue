@@ -598,6 +598,8 @@
 			 
 			  let arr = ['send2Friend','send2Group']
 			  let _this = this
+			  this.scrollAnimation = false
+			  
 			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this.userData.user.operId, text, msgType, res => {
 				if (res.success) {
 					if (res.response!==undefined) {
@@ -647,16 +649,14 @@
 						break;
 					default:
 				}
-				// #ifndef H5
-				addMsgSQL(msg).then(res=>{}).catch(res=>{});
-				// #endif
-				this.scrollAnimation = false
+				
 				this.$nextTick(() => {
+					this.scrollTop = 9999;
 					this.scrollToView = 'msg' + this.msgList[this.msgList.length-1].id
 					this.scrollAnimation = true;
 				});
 				//非自己的消息震动
-				if(msg.sendUid!=this.userData.user.operId){
+				if(msg.sendUid!==this.userData.user.operId){
 					uni.vibrateLong();
 				} else {
 					this.openConver();
