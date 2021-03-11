@@ -1,11 +1,11 @@
 <template>
-	<view class="item u-border-bottom" :class="currIndex === index ? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
+	<view class="item u-border-bottom" :class="value.isTop? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
 		<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
 		<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
 		<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 		<view class="right title-wrap">
 			<view class="right_top">
-				<view class="right_top_name u-line-1">{{ value.chatName }}</view>
+				<view class="right_top_name u-line-1">{{ value.chatName || value.nickName}}</view>
 				<view class="right_top_time ">{{value.lastOperTime || value.lastOpenTime | format}}</view>
 			</view>
 			<view class="right_btm ">
@@ -45,9 +45,9 @@
 		},
 		data() {
 			return {
-				offset:[10,810],
-				currIndex: -1,
-				message:['文字', '图片', '表情', '语音', '视频', '签到', '撤销', '发红包', '抢红包']
+				offset:[10, 810],
+				message:['文字', '图片', '表情', '语音', '视频',
+				 '签到', '撤销', '发红包', '抢红包']
 			};
 		},
 		filters: {

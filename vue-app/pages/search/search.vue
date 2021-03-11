@@ -100,45 +100,51 @@ export default {
 		toSearch(v) {
 			let that = this;
 			const keyword = v
-			if (0 == that.searchType) {
-				that.$socket.findFriendRequestList(keyword, res => {
-					if (res.success) {
-						that.list = res.userList;
-					}
-				});
-			} else if (1 == that.searchType) {
-				that.$socket.queryChats(keyword, that.userData.user.operId, res => {
-					if (res.success) {
-						that.list = res.chats;
-					}
-				});
-			} else if (2 == that.searchType) {
-				that.list = that.firendList.filter(v => {
-					let flag = false
-					if(v.members.length>0){
-						v.members.forEach(m=>{
-							if(m.groupNickName.includes(keyword)
-							||pinyin.getCamelChars(m.groupNickName).includes(keyword)
-							||pinyin.getFullChars(m.groupNickName).includes(keyword)){
-								flag = true
-							}
-						})
-					}
-					return flag
-				})
-			} else if (3 == that.searchType) {
-				that.$socket.getFriendMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
-					if (res.success) {
-						that.list = res.response.data;
-					}
-				});
-			}else if (4 == that.searchType) {
-				that.$socket.getGroupMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
-					console.log(res)
-					if (res.success) {
-						that.list = res.response.data;
-					}
-				});
+			switch(that.searchType){
+				case 0:
+					that.$socket.findFriendRequestList(keyword, res => {
+						if (res.success) {
+							that.list = res.userList;
+						}
+					});
+					break;
+				case 1:
+					that.$socket.queryChats(keyword, that.userData.user.operId, res => {
+						if (res.success) {
+							that.list = res.chats;
+						}
+					});
+					break;
+				case 2:
+					that.list = that.firendList.filter(v => {
+						let flag = false
+						if(v.members.length>0){
+							v.members.forEach(m=>{
+								if(m.groupNickName.includes(keyword)
+								||pinyin.getCamelChars(m.groupNickName).includes(keyword)
+								||pinyin.getFullChars(m.groupNickName).includes(keyword)){
+									flag = true
+								}
+							})
+						}
+						return flag
+					});
+					break;
+				case 3:
+					that.$socket.getFriendMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
+						if (res.success) {
+							that.list = res.response.data;
+						}
+					});
+				case 4:
+					that.$socket.getGroupMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
+						console.log(res)
+						if (res.success) {
+							that.list = res.response.data;
+						}
+					});
+					break;
+				default:{}
 			}
 		},
 		linkTo(chat) {

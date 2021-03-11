@@ -45,6 +45,8 @@ export default {
 			this.getChats(false)
 		}
 	},
+	mounted() {
+	},
 	onShow() {
 		this.getChats(false)
 	},
