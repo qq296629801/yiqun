@@ -457,9 +457,7 @@
 			          this.msgList.sort((a, b) => { return a.id - b.id });
 					  this.$nextTick(function() {
 					  	this.scrollTop = 9999;
-					  	this.$nextTick(function() {
-					  		this.scrollAnimation = true;
-					  	});
+					  	this.scrollAnimation = true;
 					  });
 			        }
 			      });

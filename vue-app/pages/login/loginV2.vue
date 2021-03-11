@@ -33,15 +33,16 @@
 				title: '欢迎回来',
 				url:'https://ext.dcloud.net.cn/plugin?id=3335',
 				pass:'123456',
-				phone:'admin'
+				phone:'admin',
 			};
 		},
+
 		methods:{
 			hanleLogin(){
 				this.$socket.login(this.phone, this.pass, null, res=>{
 					if (res.success) {
 						// 缓存用户
-						this.$u.vuex("userData",res.response.data);
+						this.$u.vuex("userData", res.response.data);
 						// 	缓存通讯录
 						this.$socket.listGuests(this.userData.user.operId, res => {
 							// #ifdef APP-PLUS
@@ -50,7 +51,7 @@
 							contact.forEach(c=>{
 								c.members.forEach(m=>{
 									m.name = c.name;
-									addFSQL(m,this.userData.user.operId).then();
+									addFSQL(m, this.userData.user.operId).then();
 								})
 							})
 							// #endif
@@ -58,17 +59,14 @@
 						});
 						
 						// 缓存消息列表
-						this.$socket.getGroups('', this.userData.user.operId, res => {
-							let groupItem = res.response.data;
-							groupItem.forEach(group=>{
-								this.$socket['queryGroupMessages'](group.chatId, this.userData.user.operId, 1, (res) => {
-								  if (res.success) {
-								    let msgList = res.response.data
-									initData(msgList, group.chatId);
-								  }
-								});
-							});
-						});
+						
+						
+						this.$socket.queryOnlineMessage(this.userData.user.operId,q =>{
+							let data = q.response.data;
+							for(var i in data){
+								initData(data[i].groupMsg.list, data[i].groupInfo.chatId);
+							}
+						})
 						
 						//	缓存链接
 						this.$socket.getLinks(this.userData.user.operId, res=>{
