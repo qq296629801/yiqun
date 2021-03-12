@@ -34,7 +34,7 @@
 		<!-- #endif -->
 		<view class="content1" v-if="'0' == searchType">
 			<view v-for="(item, index) in list" :key="index">
-				<chatItem @linkTo="linkToCard" :value="item" :index="index"></chatItem>
+				<chatItem @linkTo="toUserInfo" :value="item" :index="index"></chatItem>
 			</view>
 		</view>
 		<view class="content" v-else-if="'1' == searchType">
@@ -82,7 +82,7 @@ export default {
 		toUserInfo(userInfo){
 			this.$u.route({
 				url: 'pages/businessCard/businessCard',
-				params:{ id: userInfo.id, nickName:userInfo.nickName, source: 0}
+				params:{ ...userInfo, source: 0}
 			})
 		},
 		clickCancel() {
@@ -93,7 +93,7 @@ export default {
 		linkToCard({ id }) {
 			this.$u.route({
 				url: 'pages/businessCard/businessCard',
-				params:{ id: id, source: 1}
+				params:{ id: id, source: 0}
 			});
 		},
 		toSearch(v) {

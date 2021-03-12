@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="userinfo">
-			<u-avatar :src="url" mode="square" size="110" @tap="previewImg(url)"></u-avatar>
+			<u-avatar :src="$url + userInfo.avatar" mode="square" size="110" @tap="previewImg(url)"></u-avatar>
 			<view class="userinfo-desc">
 				<view class="userinfo-desc-name">{{userInfo.nickName}}</view>
 				<view class="userinfo-desc-gray">积分：{{userInfo.money}}</view>
@@ -15,7 +15,7 @@
 		<view class="" v-if="!isItMe">
 			<view  class="perch"></view>
 			<u-cell-group v-if="0 == source || 2 == source">
-				<u-cell-item title="" :arrow="false" :center="true" :title-style="{ marginLeft: '10rpx' }" @click="toAddUser">
+				<u-cell-item title="" @click="toAddUser" :arrow="false" :center="true" :title-style="{ marginLeft: '10rpx' }">
 					<view style="text-align: center;">添加到通讯录</view>
 				</u-cell-item>
 			</u-cell-group>
@@ -34,7 +34,6 @@
 			return {
 				userInfo:{
 				},
-				url: require('@/static/image/huge.jpg'),
 				isItMe:false,
 				source:''
 			}
@@ -80,20 +79,17 @@
 						res.userList.forEach(function(element) {
 							if(element.id == id){
 								_this.userInfo = element
-								this.url = this.$url + element.avatar
 							}
 						});
 					}
 				});
 			}else if(2 == source){
-				this.$socket.getUserById(id,res=>{
+				this.$socket.getUserById(id, res=>{
 					this.userInfo = res.user
-					this.url = this.$url + res.user.avatar
 				})
 			} else {
 				if(id == this.userData.user.operId){
 					this.userInfo = this.userData.user;
-					this.url = this.$url + this.userData.user.avatar
 					this.isItMe = true;
 					return;
 				}
@@ -102,7 +98,6 @@
 					for(let j in members){
 						if (members[j].id==id){
 							this.userInfo = members[j]
-							this.url = this.$url + members[j].avatar
 						}
 					}
 				}
