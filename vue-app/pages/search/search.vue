@@ -115,13 +115,13 @@ export default {
 					});
 					break;
 				case '2':
-					that.list = that.firendList.filter(v => {
+					that.list = that.firendItem.filter(v => {
 						let flag = false
 						if(v.members.length>0){
 							v.members.forEach(m=>{
-								if(m.groupNickName.includes(keyword)
-								||pinyin.getCamelChars(m.groupNickName).includes(keyword)
-								||pinyin.getFullChars(m.groupNickName).includes(keyword)){
+								if(m.nickName.includes(keyword)
+								||pinyin.getCamelChars(m.nickName).includes(keyword)
+								||pinyin.getFullChars(m.nickName).includes(keyword)){
 									flag = true
 								}
 							})
