@@ -93,8 +93,8 @@
 					this.isItMe = true;
 					return;
 				}
-				for(let i in this.firendList){
-					let members = this.firendList[i].members
+				for(let i in this.firendItem){
+					let members = this.firendItem[i].members
 					for(let j in members){
 						if (members[j].id==id){
 							this.userInfo = members[j]

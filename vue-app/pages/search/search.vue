@@ -82,7 +82,7 @@ export default {
 		toUserInfo(userInfo){
 			this.$u.route({
 				url: 'pages/businessCard/businessCard',
-				params:{ ...userInfo, source: 0}
+				params:{ ...userInfo, source: 2}
 			})
 		},
 		clickCancel() {
