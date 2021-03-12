@@ -423,7 +423,7 @@
 				}
 			  })
 			},
-			
+			// localStorage版本获取消息列表
 			getMsgItem(){
 				this.scrollAnimation = false;
 				queryData(this.chatObj.chatId).then(res=>{
@@ -433,36 +433,16 @@
 						this.scrollAnimation = true;
 					});
 				});
+				if(this.chatObj.chatType==0){
+					this.scrollAnimation = false;
+					 this.$socket.queryFriendMessages(this.chatObj.chatId, this.userData.user.operId,1, (res) => {
+						 this.msgList = res.response.data;
+						 this.scrollTop = 9999;
+						 this.scrollAnimation = true;
+					 });
+				}
 			},
-			//获取消息记录
-			getMsgList () {
-			      this.pageNum = 1
-				  //关闭滑动动画
-				  this.scrollAnimation = false;
-				  let arr = ['queryFriendMessages','queryGroupMessages'];
-				  let type = this.chatObj.chatType
-			      this.$socket[arr[type]](this.chatObj.chatId, this.userData.user.operId, this.pageNum, (res) => {
-			        if (res.success) {
-			          let data = res.response.data
-					  if(data.length>0){
-						  this.msgImgList = []
-						  data.forEach(msg=>{
-							  if(msg.msgType==1){
-								  let url = this.$url+msg.msgContext
-								  this.msgImgList.push(url)
-							  }
-						  })
-					  }
-					  this.msgList = data
-			          this.msgList.sort((a, b) => { return a.id - b.id });
-					  this.$nextTick(function() {
-					  	this.scrollTop = 9999;
-					  	this.scrollAnimation = true;
-					  });
-			        }
-			      });
-			},
-			// 本地化获取消息记录
+			// sqlite版本获取消息列表
 			getMsgList2(){
 				this.scrollAnimation = false;
 				selectMsgSQL(this.chatObj.chatId).then(res=>{
@@ -480,7 +460,6 @@
 			uni.showLoading({
 				title:"加载中..."
 			})
-
 			//参数作为进入请求标识，防止重复请求
 			this.scrollAnimation = false;
 			//关闭滑动动画
