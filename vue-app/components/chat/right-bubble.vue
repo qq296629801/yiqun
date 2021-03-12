@@ -49,7 +49,8 @@
 
 <script>
 	import ImgCache from '@/components/img-cache/img-cache.vue';
-	import { transform } from "../../static/emoji/ChatUtils.js"
+	import { transform } from "../../static/emoji/ChatUtils.js";
+	
 	export default {
 		name: 'right-bubble',
 		components:{
@@ -121,8 +122,10 @@
 		},
 		methods:{
 			openRight(row){
-				//this.rClickId = row.id
 				this.$emit('openRight', row);
+			},
+			deleteFunc(id,index){
+				this.$emit('deleteF', id, index);
 			},
 			//收藏表情
 			collectFunc({msgContext}){
@@ -143,12 +146,12 @@
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-						description:'好友暂不支持发红包',
-						money:0,
-						number:0,
-						userAvatar:'defalut.jpg'
-					}
-				if(packets===undefined)
+					description:'好友暂不支持发红包',
+					money:0,
+					number:0,
+					userAvatar:'defalut.jpg'
+				}
+				if(packets==undefined)
 					return msg;
 				return packets[0];
 			},
@@ -213,7 +216,7 @@
 				        if(res.tapIndex==0){
 							let type = _this.chatObj.chatType;
 							let arr = ['deleteFriendMsg','deleteGroupMsg']
-							_this.$socket[arr[type]](this.userData.user.operId, id, _this.chatObj.chatId, res => {
+							_this.$socket[arr[type]](_this.userData.user.operId, id, _this.chatObj.chatId, res => {
 								if (res.success) {
 								  _this.sendMsg(6, id)
 								}

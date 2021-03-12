@@ -32,20 +32,20 @@
 			></u-search>
 		</view>
 		<!-- #endif -->
-		<view class="content1" v-if="0 == searchType">
+		<view class="content1" v-if="'0' == searchType">
 			<view v-for="(item, index) in list" :key="index">
 				<chatItem @linkTo="linkToCard" :value="item" :index="index"></chatItem>
 			</view>
 		</view>
-		<view class="content" v-else-if="1 == searchType">
+		<view class="content" v-else-if="'1' == searchType">
 			<template v-for="(item,index) in list">
 				<chatItem @linkTo="linkTo" :value="item" :index="index"></chatItem>
 			</template>
 		</view>
-		<view class="content1" v-else-if="2 == searchType">
+		<view class="content1" v-else-if="'2' == searchType">
 			<addressBook :list="list" :scrollTop="scrollTop" @linkTo="linkToCard"></addressBook>
 		</view>
-		<view class="content" v-else-if="3 == searchType || 4 == searchType">
+		<view class="content" v-else-if="'3' == searchType || '4' == searchType">
 			<template v-for="(item, index) in list">
 				<chatItem :value="item" :index="index"></chatItem>
 			</template>
@@ -80,7 +80,6 @@ export default {
 	},
 	methods: {
 		toUserInfo(userInfo){
-			console.log(userInfo)
 			this.$u.route({
 				url: 'pages/businessCard/businessCard',
 				params:{ id: userInfo.id, nickName:userInfo.nickName, source: 0}
@@ -101,21 +100,21 @@ export default {
 			let that = this;
 			const keyword = v
 			switch(that.searchType){
-				case 0:
+				case '0':
 					that.$socket.findFriendRequestList(keyword, res => {
 						if (res.success) {
 							that.list = res.userList;
 						}
 					});
 					break;
-				case 1:
+				case '1':
 					that.$socket.queryChats(keyword, that.userData.user.operId, res => {
 						if (res.success) {
 							that.list = res.chats;
 						}
 					});
 					break;
-				case 2:
+				case '2':
 					that.list = that.firendList.filter(v => {
 						let flag = false
 						if(v.members.length>0){
@@ -130,21 +129,20 @@ export default {
 						return flag
 					});
 					break;
-				case 3:
+				case '3':
 					that.$socket.getFriendMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
 						if (res.success) {
 							that.list = res.response.data;
 						}
 					});
-				case 4:
+				case '4':
 					that.$socket.getGroupMessageByCondition(this.chatId, that.userData.user.operId, this.pageNum, keyword, res => {
-						console.log(res)
 						if (res.success) {
 							that.list = res.response.data;
 						}
 					});
 					break;
-				default:{}
+				default:
 			}
 		},
 		linkTo(chat) {

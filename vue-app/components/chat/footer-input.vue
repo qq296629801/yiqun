@@ -34,7 +34,7 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
-			<view class="send" @tap="sendMsg(0,textMsg)" :class="isVoice?'hidden':''">
+			<view class="send" @tap="sendMsg(0, textMsg)" :class="isVoice?'hidden':''">
 				<view class="iconfont icontuiguang-weixuan"></view>
 			</view>
 			<!-- #endif -->

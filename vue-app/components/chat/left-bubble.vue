@@ -123,6 +123,13 @@
 			openLeft(row){
 				this.$emit('openLeft', row);
 			},
+			deleteFunc(id,index){
+				this.$emit('deleteF', id, index);
+			},
+			// 打开红包
+			openRedEnvelopeFunc(msg){
+				this.$emit('openRedEnvelopeFunc',msg);
+			},
 			//收藏表情
 			collectFunc({msgContext}){
 				this.$socket.addEmoticon(this.userData.user.operId, msgContext, res => {
@@ -134,10 +141,6 @@
 					}
 				  });
 			},
-			// 打开红包
-			openRedEnvelopeFunc(msg){
-				this.$emit('openRedEnvelopeFunc',msg);
-			},
 			//处理红包数据
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
@@ -147,7 +150,7 @@
 						number:0,
 						userAvatar:'defalut.jpg'
 					}
-				if(packets===undefined)
+				if(packets==undefined)
 					return msg;
 				return packets[0];
 			},
@@ -212,9 +215,9 @@
 				        if(res.tapIndex==0){
 							let type = _this.chatObj.chatType;
 							let arr = ['deleteFriendMsg','deleteGroupMsg']
-							_this.$socket[arr[type]](this.userData.user.operId, id, _this.chatObj.chatId, res => {
+							_this.$socket[arr[type]](_this.userData.user.operId, id, _this.chatObj.chatId, res => {
 								if (res.success) {
-								  _this.sendMsg(6, id)
+								  _this.sendMsg(6, id);
 								}
 							})
 						}

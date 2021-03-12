@@ -43,6 +43,8 @@
 					if (res.success) {
 						// 缓存用户
 						this.$u.vuex("userData", res.response.data);
+						
+						
 						// 	缓存通讯录
 						this.$socket.listGuests(this.userData.user.operId, res => {
 							// #ifdef APP-PLUS
@@ -59,8 +61,6 @@
 						});
 						
 						// 缓存消息列表
-						
-						
 						this.$socket.queryOnlineMessage(this.userData.user.operId,q =>{
 							let data = q.response.data;
 							for(var i in data){
@@ -72,6 +72,8 @@
 						this.$socket.getLinks(this.userData.user.operId, res=>{
 							this.$u.vuex('linkItem',res.response.data)
 						});
+						
+						
 						// 跳转到消息列表
 						this.$u.route({
 							url: 'pages/home/home',

@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view v-for="(item,index) in chatList">
-			<chatItem @linkTo="linkToForward" :value="item" :index="index"></chatItem>
+		<view v-for="(item,index) in chatItem">
+			<chatItem @linkTo="linkForward" :value="item" :index="index"></chatItem>
 		</view>
 	</view>
 </template>
@@ -20,7 +20,7 @@
 		onShow(){
 			this.$socket.queryChats('', this.userData.user.operId,(res) => {
 				if (res.success) {
-					this.$u.vuex('chatList', res.chats)
+					this.$u.vuex('chatItem', res.chats)
 				}
 			});
 		},
@@ -29,7 +29,7 @@
 			this.msgType = msgType
 		},
 		methods:{
-			linkToForward({chatId,chatType}){
+			linkForward({chatId,chatType}){
 				let action = chatType ==1 ? 'send2Group' : 'send2Friend'
 				this.$socket[action](chatId, this.userData.user.operId, this.msgContext, this.msgType, res => {
 					if (res.success) {

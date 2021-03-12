@@ -2,7 +2,6 @@
 	<view class="item u-border-bottom" :class="value.isTop? 'bg_view' : ''" hover-class="message-hover-class" @tap="linkTo(value)">
 		<img-cache :src="`${$url}/${value.avatar || value.imgUrl}`"></img-cache>
 		<u-badge :count="value.unreadNumber"  type="error" class="badge" :offset="offset"></u-badge>
-		<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 		<view class="right title-wrap">
 			<view class="right_top">
 				<view class="right_top_name u-line-1">{{ value.chatName || value.nickName}}</view>
