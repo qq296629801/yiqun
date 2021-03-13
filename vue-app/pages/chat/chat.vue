@@ -637,8 +637,6 @@
 				//非自己的消息震动
 				if(msg.sendUid!==this.userData.user.operId){
 					uni.vibrateLong();
-				} else {
-					this.openConver();
 				}
 			},
 			//增加撤销
