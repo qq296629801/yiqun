@@ -584,9 +584,8 @@
 					if (res.response!==undefined) {
 						const data = res.response.data
 						
-						// 缓存最后一条消息
-						if(_this.chatObj.chatId===1){
-							upData(data, this.chatObj.chatId);
+						if(_this.chatObj.chatType===1){
+							upData(data, _this.chatObj.chatId);
 						}
                         
 						if(res.msgType===8){

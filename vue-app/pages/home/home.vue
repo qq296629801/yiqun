@@ -66,7 +66,8 @@ export default {
 		getChats(freshFlag){
 			this.$socket.queryChats('', this.userData.user.operId,(res) => {
 				if (res.success) {
-				  this.$u.vuex('chatItem', res.chats)
+				  res.chats.sort((a, b) => { return b.lastOpenTime - a.lastOpenTime });
+				  this.$u.vuex('chatItem', res.chats);
 				}
 				if(freshFlag){
 					uni.stopPullDownRefresh();
