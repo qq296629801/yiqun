@@ -51,17 +51,13 @@ const WEBIM = {
 			let command = packet.command;
 			eventDispatcher.dispatchEvent(command, toJSON(packet))
 			eventDispatcher.removeListener(command, toJSON(packet))
-			if(command===-5){
-				console.log(packet);
+			let name = 'pushRes'
+			if (command -10) {
+				store.commit('$uStore', {
+					name,
+					packet
+				})
 			}
-			// let name = 'message_flush'
-			// let value = packet
-			// if (command === 16 || command === 4) {
-			// 	store.commit('$uStore', {
-			// 		name,
-			// 		value
-			// 	})
-			// }
 		});
 		WEBIM.server.onNetworkChange(WEBIM.options);
 		WEBIM.server.onSocketClosed(WEBIM.options)

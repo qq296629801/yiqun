@@ -41,7 +41,7 @@ export default {
 		};
 	},
 	watch:{
-        message_flush: function(value){
+        pushRes: function(value){
 			this.getChats(false)
 		}
 	},
