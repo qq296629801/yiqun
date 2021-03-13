@@ -390,7 +390,7 @@
 				if(this.textMsg.indexOf('@')!=-1){
 				  if (this.chatObj.chatType==1){
 					  this.$u.route({
-					  	url:'pages/chat/call',
+					  	url:'pages/chat/remind',
 					  	params:{ msg :this.textMsg }
 					  });	
 				  }
@@ -569,13 +569,15 @@
 			 if (this.disabledSay == 1) {
 				 uni.showToast({
 				 	title:'你已经被管理员禁言'
-				 })
+				 });
 				 return;
 			 }
 			 
-			  let arr = ['send2Friend','send2Group']
-			  let _this = this
-			  this.scrollAnimation = false
+			 this.$socket.createChatList(this.userData.user.operId, this.chatObj.chatId, text, msgType, res => {});
+			 
+			  let arr = ['send2Friend','send2Group'];
+			  let _this = this;
+			  this.scrollAnimation = false;
 			  
 			  this.$socket[arr[this.chatObj.chatType]](this.chatObj.chatId, this.userData.user.operId, text, msgType, res => {
 				if (res.success) {
@@ -583,8 +585,10 @@
 						const data = res.response.data
 						
 						// 缓存最后一条消息
-                        upData(data, this.chatObj.chatId);
-
+						if(_this.chatObj.chatId===1){
+							upData(data, this.chatObj.chatId);
+						}
+                        
 						if(res.msgType===8){
 							_this.addRobEnvelope(res);
 						}else if(res.msgType===6){
@@ -603,9 +607,6 @@
 					}
 				}
 			  });
-			  if (text !== '') {
-			  	this.$socket.createChatList(this.userData.user.operId, this.chatObj.chatId, text, msgType, res => {})
-			  }
 			  this.textMsg = ''
 			},
 			// 接受消息(筛选处理)

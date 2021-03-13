@@ -3,7 +3,7 @@
 		<view class="userinfo">
 			<u-avatar :src="$url + userInfo.avatar" mode="square" size="110" @tap="previewImg(url)"></u-avatar>
 			<view class="userinfo-desc">
-				<view class="userinfo-desc-name">{{userInfo.nickName}}</view>
+				<view class="userinfo-desc-name">{{userInfo.nickName||userInfo.realname }}</view>
 				<view class="userinfo-desc-gray">积分：{{userInfo.money}}</view>
 			</view>
 		</view>
@@ -40,6 +40,7 @@
 		},
 		methods: {
 			linkToChat(){
+				console.log(this.userInfo);
 				let chat = {
 					chatId: this.userInfo.id,
 					chatType:0,

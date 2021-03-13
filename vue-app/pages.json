@@ -310,7 +310,7 @@
 				"navigationBarTitleText": "我的二维码"
 			}
 		}, {
-			"path": "pages/chat/call",
+			"path": "pages/chat/remind",
 			"style": {
 				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "选择要提醒的人"

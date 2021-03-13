@@ -44,7 +44,6 @@
 						// 缓存用户
 						this.$u.vuex("userData", res.response.data);
 						
-						
 						// 	缓存通讯录
 						this.$socket.listGuests(this.userData.user.operId, res => {
 							// #ifdef APP-PLUS
