@@ -40,7 +40,6 @@
 		},
 		methods: {
 			linkToChat(){
-				console.log(this.userInfo);
 				let chat = {
 					chatId: this.userInfo.id,
 					chatType:0,
