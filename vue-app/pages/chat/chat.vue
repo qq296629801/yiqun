@@ -573,7 +573,9 @@
 				 return;
 			 }
 			 
-			 this.$socket.createChatList(this.userData.user.operId, this.chatObj.chatId, text, msgType, res => {});
+			 if(text!=''){
+				 this.$socket.createChatList(this.userData.user.operId, this.chatObj.chatId, text, msgType, res => {});
+			 }
 			 
 			  let arr = ['send2Friend','send2Group'];
 			  let _this = this;
