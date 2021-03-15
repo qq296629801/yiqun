@@ -1111,6 +1111,7 @@ export default {
 							if (data.groupId === _this.chat.chatId) {
 								_this.screenMsg(data, res);
 							}
+                            upData(data, _this.chat.chatId);
 						}else if(this.chatType===0){
 					      _this.screenMsg(data, res);
 						}
