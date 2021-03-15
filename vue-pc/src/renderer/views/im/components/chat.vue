@@ -295,6 +295,7 @@ const {
 } = require("../../../utils/ChatUtils");
 const { ipcRenderer } = require('electron')
 moment.locale('zh-cn');
+import { queryData, upData, initData } from '../../../utils/dbUtil';
 export default {
     components: {
         Faces,
@@ -798,6 +799,23 @@ export default {
             this.$socket.queryMembers(this.chat.chatId, this.user.operId, (res) => {
                 this.members = res.members
             })
+        },
+        getMsgItem(){
+            queryData(this.chat.chatId).then(res=>{
+                this.msgList = res;
+                this.$nextTick(function() {
+                    this.scrollTop = 9999;
+                    this.scrollAnimation = true;
+                });
+            });
+            if(this.chatType==0){
+                this.scrollAnimation = false;
+                this.$socket.queryFriendMessages(this.chatObj.chatId, this.userData.user.operId,1, (res) => {
+                    this.msgList = res.response.data;
+                    this.scrollTop = 9999;
+                    this.scrollAnimation = true;
+                });
+            }
         },
         queryPageMessages() {
             let self = this

@@ -59,7 +59,7 @@
 
 <script>
     import Top from './im/components/top.vue';
-
+    import { initData } from '../utils/dbUtil'
     export default {
     name: 'login',
     data() {
@@ -171,6 +171,15 @@
                 if (res.success) {
                     this.$store.commit('setUserData', res.response.data);
                     this.$store.commit('setUser', res.response.data.user);
+
+                    // 缓存消息列表
+                    this.$socket.queryOnlineMessage(res.response.data.user.operId,q =>{
+                        let data = q.response.data;
+                        for(var i in data){
+                            initData(data[i].groupMsg.list, data[i].groupInfo.chatId);
+                        }
+                    })
+
                     self.$router.push({
                         path: '/index/chatBox',
                         params: {}

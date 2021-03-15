@@ -102,10 +102,7 @@ export default {
     },
     findChatList(){
         let self = this
-        console.log(this.user,'-----1----')
         this.$socket.chats('', this.user.operId, (res) => {
-            console.log(res)
-            console.log(this.user,'----2-----')
             if (res.success) {
                 let arr = res.chats
                 let total = 0
