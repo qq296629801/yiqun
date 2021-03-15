@@ -52,10 +52,14 @@ export default {
     search (val) {
       const list = this.$store.state.chatList
       this.items = val ? list.filter(item => item.chatName.includes(val)) : list
+    },
+    pushRes:function (val) {
+      console.log(val)
+      this.findChatList();
     }
   },
   computed: {
-      ...mapState(['message_flush']),
+      ...mapState(['pushRes']),
       chat: {
           get: function() {
               return this.$store.state.chat;

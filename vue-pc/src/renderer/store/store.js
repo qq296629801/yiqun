@@ -18,9 +18,13 @@ const store = new Vuex.Store({
         friends:[],
         modalMine:false,
         user:{},
-        userData:{}
+        userData:{},
+        pushRes:{},
     },
     mutations:{
+        setPushRes(state,pushRes){
+            state.pushRes = pushRes
+        },
         setUser(state,user){
             state.user=user
         },
@@ -68,6 +72,9 @@ const store = new Vuex.Store({
     actions:{
     },
     getters:{
+        getPushRes(state){
+          return state.pushRes;
+        },
         getUser(state){
             return state.user;
         },
