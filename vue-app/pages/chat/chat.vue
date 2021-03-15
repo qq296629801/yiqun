@@ -10,11 +10,11 @@
 					
 					<!-- 别人发出的消息 -->
 					<left-bubble :msgImgList="msgImgList" @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index"
-					 @openRedEnvelopeFunc="openRedEnvelopeFunc"></left-bubble>
+					 @openRedPacket="openRedPacket"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
 					<right-bubble :msgImgList="msgImgList" @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"
-					  :index="index" @openRedEnvelopeFunc="openRedEnvelopeFunc" :row="row" :playMsgid="playMsgid"></right-bubble>
+					  :index="index" @openRedPacket="openRedPacket" :row="row" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
 		</view>
@@ -249,7 +249,7 @@
 				},200)
 			},
 			// 打开红包
-			openRedEnvelopeFunc(msg){
+			openRedPacket(msg){
 				this.windowsState = 'show'
 				//获取最新的message
 				this.message = msg
@@ -585,11 +585,6 @@
 				if (res.success) {
 					if (res.response!==undefined) {
 						const data = res.response.data
-						
-						if(_this.chatObj.chatType===1){
-							upData(data, _this.chatObj.chatId);
-						}
-                        
 						if(res.msgType===8){
 							_this.addRobEnvelope(res);
 						}else if(res.msgType===6){
@@ -600,6 +595,7 @@
 									if (data.groupId === this.chatObj.chatId) {
 										_this.addMsg(data);
 									}
+									upData(data, _this.chatObj.chatId);
 								}
 							}else {
 								_this.addMsg(data);

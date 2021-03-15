@@ -34,7 +34,7 @@
 					<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 红包 -->
-				<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row,index)">
+				<view v-if="row.msgType==7" @tap="openRedPacket(row,index)">
 					<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 						<div class="text">
 						   <span class="packet">恭喜发财,大吉大利</span>
@@ -127,8 +127,8 @@
 				this.$emit('deleteF', id, index);
 			},
 			// 打开红包
-			openRedEnvelopeFunc(msg){
-				this.$emit('openRedEnvelopeFunc',msg);
+			openRedPacket(msg){
+				this.$emit('openRedPacket',msg);
 			},
 			//收藏表情
 			collectFunc({msgContext}){

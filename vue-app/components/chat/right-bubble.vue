@@ -27,7 +27,7 @@
 					<view class="icon my-voice"></view>
 				</view>
 				<!-- 红包 -->
-				<view v-if="row.msgType==7" @tap="openRedEnvelopeFunc(row)">
+				<view v-if="row.msgType==7" @tap="openRedPacket(row)">
 					<div class="message-red-packet-right" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 						<div class="text">
 						  <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
@@ -139,8 +139,8 @@
 				  });
 			},
 			// 打开红包
-			openRedEnvelopeFunc(msg){
-				this.$emit('openRedEnvelopeFunc',msg);
+			openRedPacket(msg){
+				this.$emit('openRedPacket',msg);
 			},
 			//处理红包数据
 			redenvelopeProcess(msgContext){
