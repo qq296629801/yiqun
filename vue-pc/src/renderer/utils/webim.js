@@ -708,7 +708,16 @@ const WEBIM = {
         }
         send(p)
         eventDispatcher.addListener('-4', func)
-    }
+    },
+    queryOnlineMessage(userId, func){
+        let p={
+            userId,
+            version: 1,
+            command: -7
+        }
+        send(p)
+        eventDispatcher.addListener('-6', func)
+    },
 }
 
 function toJSON(packet) {
