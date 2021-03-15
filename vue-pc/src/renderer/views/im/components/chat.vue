@@ -78,7 +78,6 @@
                                     <div class="message-red-packet-left" style="background:orange">
 									<div class="text">
 									  <i slot="icon" class="iconfont icon-hongbao" style="color:red"></i>
-									  <u-icon name="red-packet-fill" color="red" size="50"></u-icon>
 									  <span class="packet">恭喜发财</span>
 									</div>
 									<div class="footer">红包</div>
@@ -785,15 +784,15 @@ export default {
             });
         },
         showChatInfo() {
-            this.disabledSay = 0
-            this.queryPageMessages()
-            this.queryMembers()
+            this.disabledSay = 0;
+            this.queryMembers();
             if (this.chatType === 1) {
-                this.queryNotice()
+                this.queryNotice();
             }
-            this.openChat()
-            this.getGroupInfo()
-            this.send2(0, '')
+            this.openChat();
+            this.getGroupInfo();
+            this.send2(0, '');
+            this.getMsgItem();
         },
         queryMembers() {
             this.$socket.queryMembers(this.chat.chatId, this.user.operId, (res) => {
@@ -801,19 +800,19 @@ export default {
             })
         },
         getMsgItem(){
-            queryData(this.chat.chatId).then(res=>{
-                this.msgList = res;
-                this.$nextTick(function() {
-                    this.scrollTop = 9999;
-                    this.scrollAnimation = true;
+            let self = this;
+            queryData(self.chat.chatId).then(res=>{
+                self.msgList = res;
+                self.$nextTick(() => {
+                    imageLoad('his-chat-message');
                 });
             });
-            if(this.chatType==0){
-                this.scrollAnimation = false;
-                this.$socket.queryFriendMessages(this.chatObj.chatId, this.userData.user.operId,1, (res) => {
-                    this.msgList = res.response.data;
-                    this.scrollTop = 9999;
-                    this.scrollAnimation = true;
+            if(self.chatType==0){
+                self.$socket.queryFriendMessages(self.chat.chatId, this.user.operId, 1, (res) => {
+                    self.msgList = res.response.data;
+                    self.$nextTick(() => {
+                        imageLoad('his-chat-message');
+                    });
                 });
             }
         },

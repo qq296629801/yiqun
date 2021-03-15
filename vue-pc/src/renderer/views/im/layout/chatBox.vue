@@ -85,6 +85,7 @@ export default {
   methods: {
     showChat: function(item) {
         this.chat = item
+        console.log(item,'----chat------');
         this.chatType = item.chatType
         this.findChatList()
     },
@@ -122,12 +123,12 @@ export default {
       return moment(Number(val)).calendar();
     }
   },
-  created() {
-    this.findChatList()
-  },
+  created() {},
   activated: function() {
   },
-  mounted: function() {}
+  mounted: function() {
+      this.findChatList();
+  }
 };
 </script>
 <style lang="scss" scoped>
