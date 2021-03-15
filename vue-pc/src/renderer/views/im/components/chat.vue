@@ -801,15 +801,16 @@ export default {
         },
         getMsgItem(){
             let self = this;
-            queryData(self.chat.chatId).then(res=>{
-                self.msgList = res;
-                self.$nextTick(() => {
-                    imageLoad('his-chat-message');
-                });
-            });
             if(self.chatType==0){
                 self.$socket.queryFriendMessages(self.chat.chatId, this.user.operId, 1, (res) => {
                     self.msgList = res.response.data;
+                    self.$nextTick(() => {
+                        imageLoad('his-chat-message');
+                    });
+                });
+            }else {
+                queryData(self.chat.chatId).then(res=>{
+                    self.msgList = res;
                     self.$nextTick(() => {
                         imageLoad('his-chat-message');
                     });
