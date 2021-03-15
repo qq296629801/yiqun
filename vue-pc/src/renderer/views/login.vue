@@ -174,9 +174,9 @@
 
                     // 缓存消息列表
                     this.$socket.queryOnlineMessage(res.response.data.user.operId,q =>{
-                        let data = q.response.data;
-                        for(var i in data){
-                            initData(data[i].groupMsg.list, data[i].groupInfo.chatId);
+                        let d = q.response.data;
+                        for(var i in d){
+                            initData(d[i].groupMsg.list, d[i].groupInfo.chatId);
                         }
                     })
 
