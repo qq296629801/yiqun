@@ -425,14 +425,6 @@
 			},
 			// localStorage版本获取消息列表
 			getMsgItem(){
-				this.scrollAnimation = false;
-				queryData(this.chatObj.chatId).then(res=>{
-					this.msgList = res;
-					this.$nextTick(function() {
-						this.scrollTop = 9999;
-						this.scrollAnimation = true;
-					});
-				});
 				if(this.chatObj.chatType==0){
 					this.scrollAnimation = false;
 					 this.$socket.queryFriendMessages(this.chatObj.chatId, this.userData.user.operId,1, (res) => {
@@ -440,6 +432,15 @@
 						 this.scrollTop = 9999;
 						 this.scrollAnimation = true;
 					 });
+				}else {
+                    this.scrollAnimation = false;
+                    queryData(this.chatObj.chatId).then(res=>{
+                        this.msgList = res;
+                        this.$nextTick(function() {
+                            this.scrollTop = 9999;
+                            this.scrollAnimation = true;
+                        });
+                    });
 				}
 			},
 			// sqlite版本获取消息列表
