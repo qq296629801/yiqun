@@ -481,13 +481,13 @@
 					  })
 					this.msgList.sort((a, b) => { return a.id - b.id })
 					this.$nextTick(() => {
-						this.scrollToView = 'msg' + this.msgList[0].id
+						//this.scrollToView = 'msg' + this.msgList[0].id
 						this.scrollAnimation = true;
 						this.pageNum++
 					});
 				  }
 				  uni.hideLoading();
-				  this.scrollAnimation = true;
+				  //this.scrollAnimation = true;
 				});
 			},
 			//处理图片尺寸，如果不处理宽高，新进入页面加载图片时候会闪
