@@ -10,10 +10,10 @@
         <div class="im-chat-main-left">
             <div class="im-chat-main-box messages" id="message-box">
                 <ul>
-                    <li v-for="(item, index) in msgList" :class="{'im-chat-mine': item.userName == user.userName}" :key="index">
+                    <li v-for="(item, index) in msgList" :class="{'im-chat-mine': item.userName == user.username}" :key="index">
                         <div class="im-chat-user">
-                            <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.userName?user.avatar:item.avatar}`" alt="">
-                            <cite v-if="item.userName == user.userName">
+                            <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.username?user.avatar:item.avatar}`" alt="">
+                            <cite v-if="item.userName == user.username">
                                 <i>{{ item.operTime | dateFormat}}</i>
                                 <i v-if="isShowNickName">{{item.groupNickName || item.nickName || item.nickname || item.remarkName || item.groupNickName || item.userName}}</i>
                             </cite>
@@ -88,7 +88,7 @@
                                 <div v-if="item.msgType==84">[不支持请在手机端查看]</div>
                             </a>
                             <DropdownMenu slot="list" style="min-width: 0px;">
-                                <DropdownItem v-if="item.userName == user.userName" style="margin-bottom: 0px; padding-left: 10px; min-height: 0px;">
+                                <DropdownItem v-if="item.userName == user.username" style="margin-bottom: 0px; padding-left: 10px; min-height: 0px;">
                                     <span @click="handleRollback(item)">撤回</span>
                                 </DropdownItem>
                                 <DropdownItem style="margin-bottom: 0px; padding-left: 10px; min-height: 0px;">
@@ -157,11 +157,11 @@
         <Form v-if="groupModal==true" :label-width="100" style="margin-top: 50px;">
             <FormItem label="群名称">
                 <span>{{chat.chatName}}</span>
-                <Icon type="md-color-filter" @click="updateGroupNameModel = true; newGroupName = chat.chatName" v-if="groupInfo.group.operUser == user.userName" />
+                <Icon type="md-color-filter" @click="updateGroupNameModel = true; newGroupName = chat.chatName" v-if="groupInfo.group.operUser == user.username" />
             </FormItem>
             <FormItem label="群公告">
                 <span>{{groupNotice?groupNotice:'暂无公告'}}</span>
-                <Icon type="md-color-filter" @click="updateGroupNoticeModel = true; newGroupNotice = groupNotice" v-if="groupInfo.group.operUser == user.userName" />
+                <Icon type="md-color-filter" @click="updateGroupNoticeModel = true; newGroupNotice = groupNotice" v-if="groupInfo.group.operUser == user.username" />
             </FormItem>
             <FormItem label="群昵称">
                 <span>{{groupInfo.groupUser.groupNickName}}</span>
@@ -242,10 +242,10 @@
         <div class="im-chat-main">
             <div class="messages" id="his-chat-message">
                 <ul>
-                    <li v-for="(item,i) in hisMessageList" :key="i" :class="{'im-chat-mine': item.userName == user.userName}">
+                    <li v-for="(item,i) in hisMessageList" :key="i" :class="{'im-chat-mine': item.userName == user.username}">
                         <div class="im-chat-user" id="historyMessageBox">
-                            <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.userName?user.avatar:item.avatar}`" alt="">
-                            <cite v-if="item.userName == user.userName">
+                            <img class="message-img" @click.stop="handleToRemarks(item)" :src="`${$url}/${item.userName === user.username?user.avatar:item.avatar}`" alt="">
+                            <cite v-if="item.userName == user.username">
                                 <i>{{ item.operTime | dateFormat}}</i>
                                 {{item.remarkName || item.groupNickName || item.userName}}
                             </cite>
