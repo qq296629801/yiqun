@@ -93,7 +93,7 @@
 					return uni.showToast({title:"数量填写大于0的整数",icon:'none'});
 				}
 				this.redPacket.title = this.redPacket.title ||'恭喜发财';
-				this.$emit('redenvelopeFunc',this.redPacket)
+				this.$emit('sendRedPacket',this.redPacket)
 			}
 		}
 	}

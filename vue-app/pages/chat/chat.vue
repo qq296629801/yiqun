@@ -34,7 +34,7 @@
 		
 		<!-- 发红包弹窗 -->
 		<u-popup v-model="redFlag" mode="bottom" length="50%">
-			<red-envelope @redenvelopeFunc="redenvelopeFunc">
+			<red-envelope @sendRedPacket="sendRedPacket">
 			</red-envelope>
 		</u-popup>
 	</view>
@@ -328,17 +328,29 @@
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-						description:'好友暂不支持发红包',
-						money:0,
-						number:0,
-						userAvatar:'defalut.jpg'
-					}
-				if(packets===undefined)
+					description:'好友暂不支持发红包',
+					money:0,
+					number:0,
+					userAvatar:'defalut.jpg',
+					surplusMoney:0,
+					records:[]
+				}
+				if(packets==undefined){
 					return msg;
+				}
+				if(packets.length==0){
+					return msg;
+				}
 				return packets[0];
 			},
 			//发送红包
-			redenvelopeFunc(packet){
+			sendRedPacket(packet){
+				if(this.chatObj.chatType==0){
+					uni.showToast({
+						title:'暂不支持私发红包'
+					})
+					return;
+				}
 				this.sendMsg(7, packet)
 				this.redFlag = false;
 			},

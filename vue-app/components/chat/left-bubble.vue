@@ -145,13 +145,19 @@
 			redenvelopeProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-						description:'好友暂不支持发红包',
-						money:0,
-						number:0,
-						userAvatar:'defalut.jpg'
-					}
-				if(packets==undefined)
+					description:'好友暂不支持发红包',
+					money:0,
+					number:0,
+					userAvatar:'defalut.jpg',
+					surplusMoney:0,
+					records:[]
+				}
+				if(packets==undefined){
 					return msg;
+				}
+				if(packets.length==0){
+					return msg;
+				}
 				return packets[0];
 			},
 			// 预览图片

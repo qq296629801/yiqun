@@ -149,10 +149,16 @@
 					description:'好友暂不支持发红包',
 					money:0,
 					number:0,
-					userAvatar:'defalut.jpg'
+					userAvatar:'defalut.jpg',
+					surplusMoney:0,
+					records:[]
 				}
-				if(packets==undefined)
+				if(packets==undefined){
 					return msg;
+				}
+				if(packets.length==0){
+					return msg;
+				}
 				return packets[0];
 			},
 			// 预览图片

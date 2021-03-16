@@ -29,7 +29,6 @@ const WEBIM = {
 	options: null,
 	/*初始化*/
 	initWebIM: function(serverUrl, heartCheck, isReconnection) {
-		const _this = this
 		WEBIM.heartCheck = heartCheck;
 		WEBIM.isReconnection = isReconnection;
 		WEBIM.serverUrl = serverUrl;
