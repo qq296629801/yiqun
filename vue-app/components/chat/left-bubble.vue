@@ -66,8 +66,8 @@
 				default: 0
 			},
 			playMsgid: {
-				type: String,
-				default: ''
+				type: Number,
+				default: 0
 			},
 			index:{
 				type:Number,
@@ -80,8 +80,14 @@
 		},
 		data() {
 			return {
-				
+				//播放语音相关参数
+				AUDIO:uni.createInnerAudioContext(),
 			};
+		},
+		mounted() {
+			//语音自然播放结束
+			this.AUDIO.onEnded((res)=>{
+			});
 		},
 		filters: {
 			formatDate: function (e) {
