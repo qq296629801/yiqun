@@ -51,13 +51,13 @@ const WEBIM = {
 			let command = packet.command;
 			eventDispatcher.dispatchEvent(command, toJSON(packet))
 			eventDispatcher.removeListener(command, toJSON(packet))
-			let name = 'pushRes';
-			let value = packet;
+			let pushKey = 'pushRes';
+			let pushValue = packet;
 			if (command === -10) {
 				store.commit('$uStore', {
-					name,
-					value
-				})
+					pushKey,
+					pushValue
+				});
 			}
 		});
 		WEBIM.server.onNetworkChange(WEBIM.options);
