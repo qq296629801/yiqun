@@ -42,7 +42,19 @@
 		
 		<!-- 录音UI效果 -->
 		<view class="record" :class="recording?'':'hidden'">
-			<view class="ing" :class="willStop?'hidden':''"><view class="icon luyin2" ></view></view>
+			<view class="ing" :class="willStop?'hidden':''">
+				<view class="voice_an">
+					<view class="voice_an_icon">
+						<view id="one" class="wave"></view>
+						<view id="two" class="wave"></view>
+						<view id="three" class="wave"></view>
+						<view id="four" class="wave"></view>
+						<view id="five" class="wave"></view>
+						<view id="six" class="wave"></view>
+						<view id="seven" class="wave"></view>
+					</view>
+				</view>
+			</view>
 			<view class="cancel" :class="willStop?'':'hidden'"><view class="icon chehui" ></view></view>
 			<view class="tis" :class="willStop?'change':''">{{recordTis}}</view>
 		</view>
@@ -78,8 +90,6 @@
 			return {
 				placeholder: '',
 				initPoint:{identifier:0,Y:0},
-				//播放语音相关参数
-				AUDIO:uni.createInnerAudioContext(),
 				//录音相关参数
 				// #ifndef H5
 				//H5不能录音
@@ -100,7 +110,7 @@
 				if(this.textMsg.indexOf('@')!=-1){
 				  if (this.chatObj.chatType==1){
 					  this.$u.route({
-					  	url:'pages/chat/call',
+					  	url:'pages/chat/remind',
 					  	params:{ msg :this.textMsg }
 					  });	
 				  }
@@ -110,10 +120,7 @@
 				this.textMsg = v
 			}
 		},
-		onLoad(option) {
-			//语音自然播放结束
-			this.AUDIO.onEnded((res)=>{
-			});
+		mounted() {
 			// #ifndef H5
 			this.RECORDER.onStart((e)=>{
 				this.recordBegin(e);
@@ -148,6 +155,7 @@
 				if(e.touches.length>1){
 					return ;
 				}
+				this.recording = true;
 				this.initPoint.Y = e.touches[0].clientY;
 				this.initPoint.identifier = e.touches[0].identifier;
 				this.RECORDER.start({format:"mp3"});//录音开始,
@@ -196,6 +204,7 @@
 			},
 			//录音结束(回调文件)
 			recordEnd(e){
+				console.log('--------到此一游------1-')
 				clearInterval(this.recordTimer);
 				if(!this.willStop){
 			      let tempFilePaths =e.tempFilePath;
@@ -221,13 +230,15 @@
 							min = min<10?'0'+min:min;
 							sec = sec<10?'0'+sec:sec;
 							msg.length = min+':'+sec;
-							this.sendMsg(3,JSON.stringify(msg))
+							console.log('--------到此一游------2-')
+							this.$emit('sendMsg', 3,JSON.stringify(msg));
 						}
 					});
 				}else{
 					// console.log('取消发送录音');
 				}
 				this.willStop = false;
+				console.log('--------到此一游------3-')
 			},
 			//更多功能(点击+弹出)
 			showMore(){

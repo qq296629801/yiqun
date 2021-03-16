@@ -68,9 +68,6 @@ export default {
 				if (res.success) {
 				  res.chats.sort((a, b) => { return b.lastOpenTime - a.lastOpenTime });
 				  this.$u.vuex('chatItem', res.chats);
-				 for(var i in res.chats){
-					 console.log(res.chats[i],'-----------------');
-				 }
 				}
 				if(freshFlag){
 					uni.stopPullDownRefresh();
