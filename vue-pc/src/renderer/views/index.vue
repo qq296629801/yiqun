@@ -1,13 +1,13 @@
 <template>
 <div class="v-im">
     <div class="left-bar" style="-webkit-app-region: drag">
-        <Modal closable class="user-model" v-model="$store.state.modalMine" footer-hide :title="user.nickName" width="400">
+        <Modal closable class="user-model" v-model="$store.state.modalMine" footer-hide :title="user.realname" width="400">
             <p class="user-model-img">
                 <img :src="`${$url}/${ user.avatar || user.imgUrl }`" width="60" />
             </p>
             <p class="user-model-item">
                 <label>姓名</label>
-                <span>{{user.nickName}}</span>
+                <span>{{user.realname}}</span>
             </p>
             <p class="user-model-item">
                 <label>积分：</label>
@@ -109,7 +109,7 @@ export default {
                         this.$Message.error('密码不一致');
                         return
                     }
-                    this.$socket.updatePassword(this.user.operId, this.user.userName, this.updateFrom.newPassWord, res => {
+                    this.$socket.updatePassword(this.user.operId, this.user.username, this.updateFrom.newPassWord, res => {
                         if (res.success) {
                             this.$store.state.modalMine = true
                             this.$Message.success('修改成功');

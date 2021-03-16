@@ -22,7 +22,7 @@
 				<u-index-anchor :index="item.name" v-if="item.members&&item.members.length"/>
 				<view v-for="user in item.members" :key="user.id"  class="list-cell " @tap="linkToCard(user)" hover-class="message-hover-class">
 					<img-cache :src="`${$url}/${user.avatar}`"></img-cache>
-					<view  class="list-cell-name">{{user.nickName}}</view>
+					<view  class="list-cell-name">{{user.realname}}</view>
 				</view>
 			</view>
 		</u-index-list>

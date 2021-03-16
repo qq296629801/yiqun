@@ -2,7 +2,7 @@
 <div class="user-info">
     <div class="user-info-top">
         <span class="user-info-con">
-            <div class="user-name">{{user.nickName}}</div>
+            <div class="user-name">{{user.realname}}</div>
             <div>
                 <span class="count-title">积分：</span>
                 <span class="count-money">{{user.money}}</span>
