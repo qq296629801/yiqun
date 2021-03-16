@@ -194,8 +194,8 @@ export default {
 
             .userPhoto {
                 margin-bottom: 2rem;
-
                 img {
+                    border-radius: 1rem;
                     width: 3.6rem;
                     height: 3.6rem;
                 }
