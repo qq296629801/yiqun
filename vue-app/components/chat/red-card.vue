@@ -10,23 +10,27 @@
 						<image :src="this.$url + packet.userAvatar"></image>  
 						{{ packet.userName }}的红包
 					</view>
-					<template v-for="(r,index) in packet.Records">
-						<view class="money" v-if="r.robUid===userData.user.operId">
-							{{r.money}}
-						</view>
+					<template v-if="packet.Records">
+						<template v-for="(r,index) in packet.Records">
+							<view class="money" v-if="r.robUid===userData.user.operId">
+								{{r.money}}
+							</view>
+						</template>
 					</template>
 					<view class="blessing">恭喜发财，大吉大利</view>
 					<view class="top">
 						<view class="close-btn">
 							<view class="icon close" @tap="closeRedEnvelope"></view>
 						</view>
-						<template v-for="(r,index) in packet.Records">
-							<view v-if="r.robUid===userData.user.operId">
-							</view>
-							<view v-else class="img" @tap="robRed">开</view>
-						</template>
-						<template v-if="packet.Records.length===0">
-							<view class="img" @tap="robRed">开</view>
+						<template v-if="packet.Records">
+							<template v-for="(r,index) in packet.Records">
+								<view v-if="r.robUid===userData.user.operId">
+								</view>
+								<view v-else class="img" @tap="robRed">开</view>
+							</template>
+							<template v-if="packet.Records.length==0">
+								<view class="img" @tap="robRed">开</view>
+							</template>
 						</template>
 					</view>
 					<view class="showDetails" @tap="toDetails">

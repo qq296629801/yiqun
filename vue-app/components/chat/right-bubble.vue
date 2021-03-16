@@ -158,7 +158,7 @@
 					number:0,
 					userAvatar:'defalut.jpg',
 					surplusMoney:0,
-					records:[]
+					Records:[]
 				}
 				if(packets==undefined){
 					return msg;
