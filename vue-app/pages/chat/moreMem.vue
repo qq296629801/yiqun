@@ -5,11 +5,6 @@
 				<img-cache :src="$url + item.avatar"></img-cache>
 				<view class="grid-text">{{ item.groupNickName||item.nickName }}</view>
 			</u-grid-item>
-			<u-grid-item @tap="showAddGroupUser">
-				<view style="padding-bottom: 40rpx;">
-					<u-icon name="plus" size="40"></u-icon>
-				</view>
-			</u-grid-item>
 		</u-grid>
 	</view>
 </template>
@@ -64,5 +59,9 @@
 		width: 80rpx;
 		overflow: hidden;
 		height: 44rpx;
+	}
+	.img-cache{
+		width: 80rpx;
+		height: 80rpx;
 	}
 </style>

@@ -17,7 +17,7 @@
 						<u-checkbox @change="checkboxChange(user)" v-model="user.checked" :name="user.id">
 							<u-avatar class="my-avatar" :src="$url + user.avatar" mode="square" size="60"></u-avatar>
 						</u-checkbox>
-						{{ user.groupNickName }}
+						{{ user.nickName }}
 					</view>
 				</u-checkbox-group>
 			</view>
@@ -49,12 +49,11 @@
 			keyword: function(val) {
 				let arr = this.firendList;
 				if (val != '') {
-					console.log(val)
 					this.fList = arr.filter(v => {
 						let flag = false
 						if (v.members.length > 0) {
 							v.members.forEach(m => {
-								if (m.groupNickName.includes(val)) {
+								if (m.nickName.includes(val)) {
 									flag = true
 								}
 							})
@@ -99,8 +98,8 @@
 				}
 			},
 			queryGuests() {
-				this.$socket.listGuests(this._user_info.id, res => {
-					this.$u.vuex('firendList', res.response.data);
+				this.$socket.listGuests(this.userData.user.operId, res => {
+					this.$u.vuex('firendItem', res.response.data);
 					this.fList = res.response.data
 					let indexList = []
 					this.fList.forEach(item => {
