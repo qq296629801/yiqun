@@ -9,7 +9,7 @@
 		<!-- #endif -->
 		<selectInput :list="selectList" :list-key="'name'" :show.sync="selectShow" @on-select="checkSelect" @close="closeSelect" />
 		<searchInput :searchType="1"/>
-		<u-swipe-action style="margin-right: 1px;" :show="item.show" v-for="(item, index) in chatItem" :index="index" btn-width="160" :key="item.id" @click="click(index,item.id)" @open="open" :options="options">
+		<u-swipe-action style="margin-right: 1px;" :show="item.show" v-for="(item, index) in chatItem" :index="index" btn-width="160" :key="item.id" @click="click" @open="open" :options="options">
 			<chatItem @linkTo="linkTo" :value="item" :index="index" :voiceIcon="true"></chatItem>
 		</u-swipe-action>
 	</view>
@@ -25,6 +25,13 @@ export default {
 		return {
 			selectShow: false,
 			options: [
+				{
+					text: '置顶',
+					style: {
+						backgroundColor: '#b4b4b4',
+						fontSize: '24rpx'
+					}
+				},
 				{
 					text: '删除',
 					style: {
@@ -46,9 +53,9 @@ export default {
 		}
 	},
 	mounted() {
+		this.getChats(false)
 	},
 	onShow() {
-		this.getChats(false)
 	},
 	onLoad(){
 	},
@@ -79,9 +86,15 @@ export default {
 			this.selectShow = !this.selectShow;
 		},
 		//action 点击事件
-		click(index, id) {
-			this.chatItem.splice(index, 1);
-			this.$socket.delChat(this.userData.user.operId, id, (res) => {})
+		click(index,index1) {
+			if(index1==0){
+				this.chatItem[index].isTop = true;
+				// TODO 留空
+			}else {
+				this.chatItem.splice(index, 1);
+				let obj = this.chatItem[index==this.chatItem.length?index-1:index];
+				this.$socket.delChat(this.userData.user.operId, obj.id, (res) => {})
+			}
 		},
 		//action 打开事件
 		open(index) {
