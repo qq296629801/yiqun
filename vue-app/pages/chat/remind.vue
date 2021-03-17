@@ -1,14 +1,14 @@
 <template>
 	<view>
-		<addressBook :isSearch="true" :list="_members" @linkTo="memberFunc"></addressBook>
+		<addressBook :isSearch="true" :list="memberItem" @linkTo="memberLink"></addressBook>
 	</view>
 </template>
 
 <script>
 	import addressBook from '@/components/addressBook.vue'
 	export default {
-		name:'call',
-		components:{addressBook},
+		name:'remind',
+		components:{ addressBook },
 		data() {
 			return {
 				textMsg:'',
@@ -18,9 +18,9 @@
 			this.textMsg = msg
 		},
 		methods:{
-			memberFunc(e){
-				const msg = this.textMsg + e.groupNickName + ' '
-				this.$u.vuex('_textMsg', msg)
+			memberLink(e){
+				// const msg = this.textMsg + e.groupNickName + ' '
+				// this.$u.vuex('_textMsg', msg)
 				uni.navigateBack();
 			}
 		}
