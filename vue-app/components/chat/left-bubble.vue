@@ -31,7 +31,7 @@
 				</view>
 				<!-- 图片消息 -->
 				<view @longtap="openLeft(row)" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
-					<image :src="`${$url}/${row.msgContext}`" style="width:100px;height:100px"></image>
+					<image :src="`${$url}/scale_${row.msgContext}`" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 红包 -->
 				<view v-if="row.msgType==7" @tap="openRedPacket(row,index)">
@@ -171,7 +171,7 @@
 				uni.previewImage({
 					indicator:"none",
 					current: msg,
-					urls: this.msgImgList
+					urls: [msg]
 				});
 			},
 			// 播放语音
