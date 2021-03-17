@@ -9,7 +9,7 @@
 					<view class="grid-text">{{userInfo.nickName}}</view>
 				</u-grid-item>
 				<u-grid-item @click="showAddGroupUser">
-					<u-image width="92rpx" height="90rpx" src="/static/add-bd.png"></u-image>
+					<u-icon name="plus" size="40"></u-icon>
 				</u-grid-item>
 			</u-grid>
 		</view>
