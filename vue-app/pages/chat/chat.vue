@@ -9,11 +9,11 @@
 					<system-bubble :row="row"></system-bubble>
 					
 					<!-- 别人发出的消息 -->
-					<left-bubble :msgImgList="msgImgList" @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index"
+					<left-bubble @openLeft="openLeft" :lClickId="lClickId" :row="row" :playMsgId="playMsgid" :index="index"
 					 @openRedPacket="openRedPacket"></left-bubble>
 					
 					<!-- 自己发出的消息 -->
-					<right-bubble :msgImgList="msgImgList" @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"
+					<right-bubble @sendMsg="sendMsg" @openRight="openRight" :rClickId="rClickId"
 					  :index="index" @openRedPacket="openRedPacket" :row="row" :playMsgid="playMsgid"></right-bubble>
 				</view>
 			</scroll-view>
@@ -76,29 +76,20 @@
 				rClickId:0,
 				lClickId:0,
 				pageNum:1,
-				//禁止聊天 1
 				disabledSay:0,
 				rightClickFlag: false,
 				scrollAnimation:false,
 				scrollTop:0,
 				scrollToView:'',
-				//信息列表
 				msgList:[],
-				msgImgList:[],
-				//录音相关参数
 				isVoice:false,
                 groupInfo:{},
-				//播放语音相关参数
 				playMsgid:null,
-				// 抽屉参数
 				popupLayerClass:'',
-				// more参数
 				hideMore:true,
-				//表情定义
 				hideEmoji:true,
 				emojiList:[{}],
 				emojiPath:'',
-				//红包相关参数
 				windowsState:'',
 				packet: {
 					description:'红包异常',
@@ -109,8 +100,8 @@
 				},
 				message:{},
 				sel: '' ,
-				inputOffsetBottom: 0, //键盘的高度
-				viewOffsetBottom: 0, //视窗距离页面的距离
+				inputOffsetBottom: 0, 
+				viewOffsetBottom: 0, 
 			};
 		},
 		//头部按钮监听
@@ -484,11 +475,6 @@
 					  message.forEach(m=>{
 						  if (!this.msgList.map(v => v.id).includes(m.id)) {
 							this.msgList.push(m)
-							if(m.msgType==1){
-							   let url = this.$url+m.msgContext
-							   this.msgImgList.filter(msg=>{msg.msgContext == m.msgContext})
-							   this.msgImgList.push(url)
-							}
 						  }  
 					  })
 					this.msgList.sort((a, b) => { return a.id - b.id })
@@ -709,8 +695,6 @@
             },
             // 添加图片消息到列表
             addImgMsg(msg){
-                let url = this.$url+ msg.msgContext
-                this.msgImgList.push(url);
                 this.msgList.push(msg);
             },
             addRedEnvelopeMsg(msg){

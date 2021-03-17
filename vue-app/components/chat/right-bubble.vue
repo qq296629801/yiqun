@@ -75,10 +75,6 @@
 				type:Number,
 				defalut:0
 			},
-			msgImgList:{
-				type:Array,
-				default:[]
-			}
 		},
 		data() {
 			return {
