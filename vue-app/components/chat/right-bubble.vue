@@ -19,7 +19,7 @@
 				</view>
 				<!-- 图片消息 -->
 				<view @longtap="openRight(row)" v-if="row.msgType==1" class="bubble img" @tap="showPic(`${$url}/${row.msgContext}`)">
-					<image :src="`${$url}/scale_${row.msgContext}`" style="width:100px;height:100px"></image>
+					<image :src="$url+'/scale_'+ row.msgContext" style="width:100px;height:100px"></image>
 				</view>
 				<!-- 语言消息 -->
 				<view @longtap="openRight(row)" v-if="row.msgType==3" class="bubble voice" @tap="playVoice(row)" :class="playMsgId == row.id?'play':''">
