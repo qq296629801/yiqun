@@ -62,17 +62,8 @@
 				"enablePullDownRefresh": true ,
 				"navigationBarTitleText": "协议"
 			}
-		}, {
-			"path": "pages/my/my",
-			"style": {
-				"enablePullDownRefresh": true ,
-				"navigationBarTitleText": " ",
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleView": false
-				}
-			}
-		}, {
+		},
+		{
 			"path": "pages/search/search",
 			"style": {
 				"enablePullDownRefresh": true ,

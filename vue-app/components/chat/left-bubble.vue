@@ -35,13 +35,13 @@
 				</view>
 				<!-- 红包 -->
 				<view v-if="row.msgType==7" @tap="openRedPacket(row,index)">
-					<div class="message-red-packet-left" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
+					<div class="message-red-packet-left" :style="redProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'">
 						<div class="text">
 						   <span class="packet">恭喜发财,大吉大利</span>
-						   <image :src="redenvelopeProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
+						   <image :src="redProcess(row.msgContext).surplusMoney===0?'../../static/img/red-chai.png':'../../static/img/red.png'"></image>
 						</div>
-						<div :class="redenvelopeProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
-						<div class="arrow-org" :style="redenvelopeProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
+						<div :class="redProcess(row.msgContext).surplusMoney===0?'footer2':'footer'">红包</div>
+						<div class="arrow-org" :style="redProcess(row.msgContext).surplusMoney===0?'background:#F7DFC3':'background:#F09D47'"></div>
 					  </div>
 				</view>
 			</view>
@@ -148,7 +148,7 @@
 				  });
 			},
 			//处理红包数据
-			redenvelopeProcess(msgContext){
+			redProcess(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
 					description:'好友暂不支持发红包',

@@ -218,7 +218,7 @@ export default {
 		height: 40rpx;
 		overflow: hidden;
 		text-align: center;
-		color: #c7c7c7;
+		color: #000000;
 	}
 	.img-cache{
 		width: 80rpx;
