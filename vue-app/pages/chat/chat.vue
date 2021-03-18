@@ -50,7 +50,7 @@
 	import FooterInput from '@/components/chat/footer-input.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
-	import { queryData, upData, initData, upRedData } from '../../util/dbUtil.js'
+	import { queryData, upData, initData, upRedData, upCanceData } from '../../util/dbUtil.js'
 	export default {
 		components: {
 			ImDrawer,
@@ -631,16 +631,23 @@
 				if (res.msgId != undefined && res.message == undefined) {
 				  for(var index in this.msgList){
 					if(this.msgList[index].id==res.msgId){
-						this.msgList.splice(index,1)
+						this.msgList.splice(index,1);
+						upCanceData(res.msgId,this.chatObj.chatId,this.msgList[index]);
 					}
 				  }
+				  
 				}
 			},
 			// 增加红包
 			addRobEnvelope(res){
 				if (res.msgId != undefined && res.message != undefined) {
-				this.$u.vuex('packet',this.red_process(res.message));
-				upRedData(res.msgId,this.chatObj.chatId,res.message);
+					this.$u.vuex('packet',this.red_process(res.message));
+					for(var index in this.msgList){
+						if(this.msgList[index].id==res.msgId){
+							this.msgList[index].msgContext = res.message;
+						}
+					}
+					upRedData(res.msgId,this.chatObj.chatId,res.message);
 				}
 			},
 			//@功能处理

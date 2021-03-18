@@ -19,6 +19,23 @@ function initData(list, gid){
 	uni.setStorageSync('msgItem_' + gid, JSON.stringify(list));
 }
 
+function upCanceData(id,gid,obj){
+	let list = uni.getStorageSync('msgItem_'+ gid);
+	if(list==""){
+		let tempItem = [];
+		tempItem.push(JSON.parse(JSON.stringify(obj)));
+		uni.setStorageSync('msgItem_' + gid, JSON.stringify(tempItem));
+		return;
+	}
+	list = JSON.parse(list);
+	for(var i in list){
+		if(list[i].id===id){
+			list.splice(i,1);
+		}
+	}
+	uni.setStorageSync('msgItem_' + gid, JSON.stringify(list));
+}
+
 function upRedData(id,gid,msgContext){
 	let list = uni.getStorageSync('msgItem_'+ gid);
 	if(list==""){
