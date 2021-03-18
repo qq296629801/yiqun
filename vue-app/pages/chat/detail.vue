@@ -2,26 +2,26 @@
 	<view>
 		<view class="top">
 			<view class="blessing">
-				{{_redenvelope.description}}
+				{{packet.description}}
 			</view>
 			<view class="money">
-				{{_redenvelope.robMoney}}
+				{{packet.robMoney}}
 			</view>
 			<view class="face" :style="{'border-radius':radius}">
-				<image :src="$url + _redenvelope.userAvatar"></image>
+				<image :src="$url + packet.userAvatar"></image>
 			</view>
 			<view class="desc">
-				{{_redenvelope.userName}}的红包
+				{{packet.userName}}的红包
 			</view>
 			<view class="username">
 				恭喜发财，大吉大利
 			</view>
 		</view>
 		<view class="info">
-			已领{{_redenvelope.number-_redenvelope.surplusNumber}}个，共{{_redenvelope.number}}个
+			已领 {{packet.number-packet.surplusNumber}}个，共{{packet.number}} 个
 		</view>
 		<view class="list">
-			<view class="row" v-for="(row,index) in _redenvelope.Records" :key="index">
+			<view class="row" v-for="(row,index) in packet.Records" :key="index">
 				<view class="left">
 					<image :src="$url + row.userAvatar"></image>
 				</view>

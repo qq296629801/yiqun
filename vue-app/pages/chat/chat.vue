@@ -30,7 +30,7 @@
 					  :inputOffsetBottom="inputOffsetBottom" :isVoice="isVoice"></footer-input>
 		
 		<!-- 红包卡片弹窗 -->
-		<red-card @robRed="robRed" @closeRedEnvelope="closeRed" :windowsState="windowsState" :packet="packet"></red-card>
+		<red-card @robRed="robRed" @closeRed="closeRed" :winState="winState"></red-card>
 		
 		<!-- 发红包弹窗 -->
 		<u-popup v-model="redFlag" mode="bottom" length="50%">
@@ -90,14 +90,7 @@
 				hideEmoji:true,
 				emojiList:[{}],
 				emojiPath:'',
-				windowsState:'',
-				packet: {
-					description:'红包异常',
-					money:0,
-					number:0,
-					userAvatar:'defalut.jpg',
-					Records:[]
-				},
+				winState:'',
 				message:{},
 				sel: '' ,
 				inputOffsetBottom: 0, 
@@ -234,31 +227,29 @@
 			},
 			// 关闭红包弹窗
 			closeRed(){
-				this.windowsState = 'hide';
+				this.winState = 'hide';
 				setTimeout(()=>{
-					this.windowsState = '';
+					this.winState = '';
 				},200)
 			},
 			// 打开红包
 			openRedPacket(msg){
-				this.windowsState = 'show'
-				//获取最新的message
+				this.winState = 'show'
 				this.message = msg
-				// 解析红包数据
-				this.packet = this.redenvelopeProcess(msg.msgContext)
+				this.$u.vuex('packet',this.redPro(msg.msgContext));
 			},
+			// 开始抢红包
 			robRed(){
-				// 开始抢红包
 				this.sendMsg(8, this.message.id);
 			},
 			//处理红包数据
-			redenvelopeProcess(msgContext){
+			redPro(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-						description:'好友暂不支持发红包',
+						description:'红包异常',
 						money:0,
 						number:0,
-						userAvatar:'defalut.jpg'
+						userAvatar:'defalut.jpg',
 					}
 				if(packets===undefined)
 					return msg;
@@ -316,15 +307,15 @@
 				this.msgList.splice(index,1);
 			},
 			//处理红包数据
-			redenvelopeProcess(msgContext){
+			redPro(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
-					description:'好友暂不支持发红包',
+					description:'红包异常',
 					money:0,
 					number:0,
 					userAvatar:'defalut.jpg',
 					surplusMoney:0,
-					records:[]
+					Records:[]
 				}
 				if(packets==undefined){
 					return msg;
@@ -647,7 +638,7 @@
 			// 增加红包
 			addRobEnvelope(res){
 				if (res.msgId != undefined && res.message != undefined) {
-				 this.packet = this.redenvelopeProcess(res.message)
+				 this.packet = this.redPro(res.message)
 				}
 			},
 			//@功能处理

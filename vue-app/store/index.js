@@ -11,7 +11,7 @@ try {
 }
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-let saveStateKeys = ['firendItem','userData','pushRes'];
+let saveStateKeys = ['firendItem','userData','pushRes','packet','linkItem','memberItem','memberItemIndex','chatItem'];
 
 // 保存变量到本地存储中
 const saveLifeData = function(key, value) {
@@ -28,22 +28,21 @@ const saveLifeData = function(key, value) {
 }
 const store = new Vuex.Store({
 	state: {
-		// 刷新监听
+		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
 		pushRes:lifeData.pushRes?lifeData.pushRes: {},
 		// 链接
-		linkItem:[],
-		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
+		linkItem:lifeData.linkItem?lifeData.linkItem: [],
 		userData: lifeData.userData?lifeData.userData: {},
 		//群成员 有索引A~Z
-		memberItem:[],
+		memberItem:lifeData.memberItem?lifeData.memberItem:[],
 		//群成员 没有索引
-		memberItemIndex: [],
+		memberItemIndex: lifeData.memberItemIndex?lifeData.memberItemIndex:[],
 		// 消息列表
-		chatItem:[],
+		chatItem:lifeData.chatItem?lifeData.chatItem:[],
 		//我的朋友
 		firendItem: lifeData.firendItem?lifeData.firendItem: {},
 		// 红包
-		_redenvelope: {},
+		packet: lifeData.packet?lifeData.packet:{},
 		// 消息体
 		chatObj:{
 		  chatId:'',
