@@ -72,5 +72,6 @@ export {
 	initData,
     queryData,
     upData,
-	upRedData
+	upRedData,
+	upCanceData
 }
