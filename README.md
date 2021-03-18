@@ -11,11 +11,15 @@
 ![9](doc/img/8.png)
 
 
-## 教程
+#### 教程
+
+下载HBuilder工具导入 vue-app代码首先进入vue-app 根目录下载插件 npm i
+
+之后预览网页h5 也可以运行手机上测试
 
 
-
-
+vup-admin vue-pc 都是npm i
+ npm run dev
 
 #### 目录
 
