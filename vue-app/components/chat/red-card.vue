@@ -24,7 +24,7 @@
 						</view>
 						<template v-if="packet.Records">
 							<view v-if="!xxx()" class="img" @tap="robRed">开</view>
-							<view v-if="packet.Records.length===0" class="img" @tap="robRed">开</view>
+							<view v-else-if="packet.Records.length===0" class="img" @tap="robRed">开</view>
 						</template>
 					</view>
 					<view class="showDetails" @tap="toDetails">

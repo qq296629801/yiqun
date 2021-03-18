@@ -50,7 +50,7 @@
 	import FooterInput from '@/components/chat/footer-input.vue'
 	import SystemBubble from '@/components/chat/system-bubble.vue'
 	import { openMsgSqlite, createMsgSQL, selectMsgSQL, addMsgSQL } from '../../util/msg.js'
-	import { queryData, upData, initData } from '../../util/dbUtil.js'
+	import { queryData, upData, initData, upRedData } from '../../util/dbUtil.js'
 	export default {
 		components: {
 			ImDrawer,
@@ -236,14 +236,15 @@
 			openRedPacket(msg){
 				this.winState = 'show'
 				this.message = msg
-				this.$u.vuex('packet',this.redPro(msg.msgContext));
+				this.$u.vuex('packet',this.red_process(msg.msgContext));
 			},
 			// 开始抢红包
 			robRed(){
+				console.log(1);
 				this.sendMsg(8, this.message.id);
 			},
 			//处理红包数据
-			redPro(msgContext){
+			red_process(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
 						description:'红包异常',
@@ -307,7 +308,7 @@
 				this.msgList.splice(index,1);
 			},
 			//处理红包数据
-			redPro(msgContext){
+			red_process(msgContext){
 				let packets = JSON.parse(msgContext).Packets;
 				let msg = {
 					description:'红包异常',
@@ -638,7 +639,8 @@
 			// 增加红包
 			addRobEnvelope(res){
 				if (res.msgId != undefined && res.message != undefined) {
-				 this.packet = this.redPro(res.message)
+				this.$u.vuex('packet',this.red_process(res.message));
+				upRedData(res.msgId,this.chatObj.chatId,res.message);
 				}
 			},
 			//@功能处理
