@@ -7,7 +7,10 @@
 
   个人也能玩得转的IM
 
+#### 图片展示
 
+![2](doc/img/2.png)
+![9](doc/img/8.png)
 
 
 #### 目录
@@ -72,15 +75,7 @@ H5 Linux: 暂未发布
 
 
 
-#### 图片展示
 
-![1](doc/img/1.png) ![2](doc/img/2.png) ![3](doc/img/3.png)
-![4](doc/img/4.png) ![5](doc/img/5.png) ![6](doc/img/6.png)
-![7](doc/img/7.png)
-
-![9](doc/img/8.png) ![11](doc/img/9.png) ![12](doc/img/10.png)
-![14](doc/img/11.png) ![13](doc/img/12.png) ![15](doc/img/13.png)
-![16](doc/img/14.png) ![18](doc/img/15.png) ![17](doc/img/16.png)
 
 
 
