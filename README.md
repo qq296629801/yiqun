@@ -1,7 +1,7 @@
 # 易群1.0
 
 #### 官网
-[http://bzghost.com](http://bzghost.com/index.html) 
+[http://120.27.95.106](http://120.27.95.106/index.html) 
 
 你是个人开发者嘛 技术太多太复杂 是不是困扰着你 老板要做聊天软件没有思路 这些我们都替你想好了 我们致力于打造一款跨平台即时通信聊天软件，个人也能玩得转的IM 。 vue 编写所有端 安卓 ios mac window linux h5 web 全部都支持 是不是很强悍。
 
